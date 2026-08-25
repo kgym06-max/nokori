@@ -199,6 +199,18 @@
   #s-soon .p{font-size:13px;color:var(--paper-dim);margin-top:22px;line-height:2;}
   #s-soon .act{margin-top:44px;width:100%;max-width:300px;}
 
+  /* ============ SET FORMS (goal / streak) ============ */
+  .setwrap{flex:1;display:flex;flex-direction:column;padding-top:10px;}
+  .seth{font-family:"Shippori Mincho B1",serif;font-weight:700;font-size:clamp(27px,7.6vw,32px);text-align:center;color:var(--paper);letter-spacing:.05em;margin:46px 0 0;}
+  .setlead{font-family:"Shippori Mincho B1",serif;font-weight:500;text-align:center;color:var(--paper-dim);font-size:14px;line-height:2.1;margin:18px 0 0;}
+  .setform{margin:48px 0 30px;}
+  .setform .field{margin-bottom:22px;}
+  .setform label{display:block;font-family:"Roboto Mono",monospace;font-size:11px;letter-spacing:.16em;color:var(--faint);margin-bottom:9px;}
+  .setform input{width:100%;background:rgba(233,228,216,.03);border:1px solid var(--rule);color:var(--paper);font-family:"Noto Sans JP",sans-serif;font-size:16px;padding:14px 15px;border-radius:2px;transition:border-color .2s;}
+  .setform input[type=date]{font-family:"Roboto Mono",monospace;}
+  .setform input::placeholder{color:var(--faintest);}
+  .setform input:focus{outline:none;border-color:var(--paper-dim);}
+
   @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 
@@ -281,15 +293,15 @@
   <section id="s-home" class="screen"><div class="col">
     <div class="chrome"><button class="brand" data-goto="pick"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
     <div class="today"><div class="d" id="hm-date">—</div><div class="say">今日も、時間は刻まれています。</div></div>
-    <button class="sect life" data-goto="result"><div class="eye"><span class="lab">Future</span><span class="go">→</span></div><div class="jlab">人生の残り</div><div><span class="num" id="hm-life">—</span><span class="unit">秒</span></div><div class="side" id="hm-side">約 — 日</div></button>
+    <button class="sect life" data-goto="result"><div class="eye"><span class="lab">Future</span><span class="go">→</span></div><div class="jlab">人生の残り</div><div><span class="num" id="hm-life">—</span><span class="unit">日</span></div><div class="side" id="hm-side">約 — 秒</div></button>
     <button class="sect today-sec" data-goto="soon"><div class="eye"><span class="lab">Now</span><span class="go">→</span></div><div class="jlab">今日</div>
       <div class="b"><div class="pct">78<span class="p">%</span><span class="cap">今日の充実度</span></div><span id="hm-spark"></span></div>
       <div class="review">今日を振り返る<span class="a">→</span></div></button>
-    <button class="sect goal" data-goto="soon"><div class="eye"><span class="lab">Future</span><span class="go">→</span></div><div class="jlab">向かっている先</div>
-      <div class="l1"><div class="name">目標<small>2027.02.25</small></div><div class="rem"><b id="hm-goal">—</b><span>日</span></div></div>
+    <button class="sect goal" data-goto="goalset"><div class="eye"><span class="lab">Future</span><span class="go">→</span></div><div class="jlab">向かっている先</div>
+      <div class="l1"><div class="name" id="hm-gname">まだありません</div><div class="rem"><b id="hm-goal">0</b><span>日</span></div></div>
       <div class="track"><i id="hm-gfill" style="width:0%"></i><span class="mk" id="hm-gmk" style="left:0%"></span></div></button>
-    <button class="sect streak" data-goto="soon"><div class="eye"><span class="lab">Past → Now</span><span class="go">→</span></div><div class="jlab">積み重ね</div>
-      <div class="b"><div class="cnt"><span class="nm">継続</span><b>12</b><span>日</span><span class="st">継続中</span></div><svg id="hm-tally" width="150" height="54" aria-hidden="true"></svg></div></button>
+    <button class="sect streak" data-goto="streakset"><div class="eye"><span class="lab">Past → Now</span><span class="go">→</span></div><div class="jlab">積み重ね</div>
+      <div class="b"><div class="cnt"><span class="nm" id="hm-sname">まだありません</span><b id="hm-scnt">0</b><span>日</span><span class="st" id="hm-sst"></span></div><svg id="hm-tally" width="150" height="54" aria-hidden="true"></svg></div></button>
     <div class="foot">— 未来を見る　今を見る　過去を見る —</div>
   </div></section>
 
@@ -298,9 +310,9 @@
     <div class="chrome"><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
     <div id="rs-main">
       <div class="mode-head"><div class="m">死ぬまで</div><div class="s">あなたの残り時間</div></div>
-      <div class="hero"><div class="lab">残り</div><div class="num" id="rs-num">—</div><div class="unit">秒</div><div class="divider"></div></div>
+      <div class="hero"><div class="lab">残り</div><div class="num" id="rs-num">—</div><div class="unit">日</div><div class="divider"></div></div>
       <div class="below-live" id="rs-live">
-        <div class="subline">約 <span id="rs-days">—</span> 日　／　約 <span id="rs-years">—</span> 年</div>
+        <div class="subline">約 <span id="rs-secs">—</span> 秒　／　約 <span id="rs-years">—</span> 年</div>
         <div class="reflect"><div class="track"><i id="rs-bar" style="width:0%"></i></div><div class="pct">人生はすでに <b id="rs-pct">—</b> が過ぎた</div></div>
       </div>
       <div class="below-zero hidden" id="rs-zero">
@@ -323,8 +335,38 @@
   <!-- ===== SOON ===== -->
   <section id="s-soon" class="screen"><div class="col">
     <div class="chrome"><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
-    <div class="wrap2"><div class="t">この時計は、準備中です。</div><div class="p">目標カウントダウン・禁〇〇・今日の振り返りは、<br>これから一つずつ刻んでいきます。</div>
+    <div class="wrap2"><div class="t">この時計は、準備中です。</div><div class="p">今日の振り返りは、<br>これから刻んでいきます。</div>
       <div class="act"><button class="linebtn" data-goto="home">ホームへ戻る</button></div></div>
+  </div></section>
+
+  <!-- ===== GOAL SET ===== -->
+  <section id="s-goalset" class="screen"><div class="col">
+    <div class="chrome"><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
+    <div class="setwrap">
+      <h1 class="seth">何を目指す?</h1>
+      <p class="setlead">向かう先を、一つ決める。<br>その日まで、時間は静かに減っていく。</p>
+      <div class="setform">
+        <div class="field"><label>目標</label><input type="text" id="gs-name" placeholder="例：大学受験"></div>
+        <div class="field"><label>その日</label><input type="date" id="gs-date"></div>
+      </div>
+      <button class="paperbtn" id="gs-save">この目標を刻む</button>
+      <button class="ghostbtn" data-goto="home" style="display:block;margin:18px auto 0">← 戻る</button>
+    </div>
+  </div></section>
+
+  <!-- ===== STREAK SET ===== -->
+  <section id="s-streakset" class="screen"><div class="col">
+    <div class="chrome"><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
+    <div class="setwrap">
+      <h1 class="seth">何を続ける?</h1>
+      <p class="setlead">続けると決めたことを、一つ。<br>その日から、数字が積み上がっていく。</p>
+      <div class="setform">
+        <div class="field"><label>続けること</label><input type="text" id="ss-name" placeholder="例：毎日30分の勉強"></div>
+        <div class="field"><label>いつから</label><input type="date" id="ss-date"></div>
+      </div>
+      <button class="paperbtn" id="ss-save">この継続を刻む</button>
+      <button class="ghostbtn" data-goto="home" style="display:block;margin:18px auto 0">← 戻る</button>
+    </div>
   </div></section>
 
 </div>
@@ -337,6 +379,12 @@
   function eln(n,a){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);return e;}
   function pad(n){return String(n).padStart(2,"0");}
   function fmt(n){return n.toLocaleString("en-US");}
+  function readJSON(k){try{return JSON.parse(localStorage.getItem(k));}catch(e){return null;}}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(x){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[x];});}
+  function drawTally(s,total){s.innerHTML="";var per=5,gw=44,mg=7,ox=4,oy=8,cap=Math.min(total,15),groups=Math.ceil(cap/per);
+    for(var g=0;g<groups;g++){var count=Math.min(per,cap-g*per),gx=ox+g*gw;
+      for(var i=0;i<Math.min(count,4);i++)s.appendChild(eln("line",{x1:gx+i*mg,y1:oy,x2:gx+i*mg,y2:oy+30,stroke:"#e2dccc","stroke-width":"2","stroke-linecap":"round","stroke-opacity":"0.82"}));
+      if(count>=5)s.appendChild(eln("line",{x1:gx-4,y1:oy+30,x2:gx+3*mg+5,y2:oy,stroke:"#e2dccc","stroke-width":"2","stroke-linecap":"round","stroke-opacity":"0.82"}));}}
   var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches;
   var LIFESPAN=84;
 
@@ -438,26 +486,50 @@
   $("#cf-start").addEventListener("click",function(){try{localStorage.setItem("nokori.started","1");}catch(e){}go("home");});
 
   /* ---------- HOME ---------- */
-  var homeBuilt=false;
+  var homeSparkBuilt=false;
   function initHome(){
     var now=new Date(),wd=["日","月","火","水","木","金","土"][now.getDay()];
     $("#hm-date").innerHTML=now.getFullYear()+"."+pad(now.getMonth()+1)+"."+pad(now.getDate())+"<small>（"+wd+"）</small>";
-    // goal
-    var target=new Date(2027,1,25),start=new Date(2026,3,6);
-    $("#hm-goal").textContent=fmt(Math.max(0,Math.ceil((target-now)/86400000)));
-    var pg=Math.max(0,Math.min(100,(now-start)/(target-start)*100));$("#hm-gfill").style.width=pg.toFixed(1)+"%";$("#hm-gmk").style.left=pg.toFixed(1)+"%";
-    if(!homeBuilt){homeBuilt=true;
-      // sparkline
+    // goal (from storage, else empty 0)
+    var goal=readJSON("nokori.goal");
+    if(goal&&goal.date){
+      var tg=new Date(goal.date+"T23:59:59"),cr=goal.created?new Date(goal.created):now;
+      $("#hm-gname").innerHTML=esc(goal.name||"目標")+'<small>'+goal.date.replace(/-/g,".")+'</small>';
+      $("#hm-goal").textContent=fmt(Math.max(0,Math.ceil((tg-now)/86400000)));
+      var pg=Math.max(0,Math.min(100,(now-cr)/(tg-cr)*100));$("#hm-gfill").style.width=pg.toFixed(1)+"%";$("#hm-gmk").style.left=pg.toFixed(1)+"%";
+    }else{
+      $("#hm-gname").textContent="まだありません";$("#hm-goal").textContent="0";$("#hm-gfill").style.width="0%";$("#hm-gmk").style.left="0%";
+    }
+    // streak (from storage, else empty 0)
+    var streak=readJSON("nokori.streak"),st=$("#hm-tally");
+    if(streak&&streak.start){
+      var dd=Math.max(0,Math.floor((now-new Date(streak.start))/86400000));
+      $("#hm-sname").textContent=streak.name||"継続";$("#hm-scnt").textContent=fmt(dd);$("#hm-sst").textContent="継続中";
+      drawTally(st,dd);
+    }else{
+      $("#hm-sname").textContent="まだありません";$("#hm-scnt").textContent="0";$("#hm-sst").textContent="";st.innerHTML="";
+    }
+    // sparkline (once)
+    if(!homeSparkBuilt){homeSparkBuilt=true;
       var vals=[65,72,84,43,90,61,78],w=124,h=40,pd=4,pts=vals.map(function(v,i){return [pd+i*((w-pd*2)/(vals.length-1)),h-pd-(v/100)*(h-pd*2)];});
       var d=pts.map(function(pt,i){return (i?"L":"M")+pt[0].toFixed(1)+" "+pt[1].toFixed(1);}).join(" "),last=pts[pts.length-1];
       $("#hm-spark").innerHTML='<svg width="'+w+'" height="'+h+'" aria-hidden="true"><path d="'+d+'" fill="none" stroke="#9a9488" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="'+last[0].toFixed(1)+'" cy="'+last[1].toFixed(1)+'" r="2.3" fill="#e2dccc"/></svg>';
-      // tally
-      var s=$("#hm-tally"),total=12,per=5,gw=44,mg=7,ox=4,oy=8,groups=Math.ceil(total/per);
-      for(var g=0;g<groups;g++){var count=Math.min(per,total-g*per),gx=ox+g*gw;for(var i=0;i<Math.min(count,4);i++)s.appendChild(eln("line",{x1:gx+i*mg,y1:oy,x2:gx+i*mg,y2:oy+30,stroke:"#e2dccc","stroke-width":"2","stroke-linecap":"round","stroke-opacity":"0.82"}));if(count>=5)s.appendChild(eln("line",{x1:gx-4,y1:oy+30,x2:gx+3*mg+5,y2:oy,stroke:"#e2dccc","stroke-width":"2","stroke-linecap":"round","stroke-opacity":"0.82"}));}
     }
-    function tick(){var secs=Math.max(0,Math.floor((deathDate()-Date.now())/1000));$("#hm-life").textContent=fmt(secs);$("#hm-side").textContent="約 "+fmt(Math.floor(secs/86400))+" 日";}
+    // life — 残り日数を主役に、秒は脇へ
+    function tick(){var secs=Math.max(0,Math.floor((deathDate()-Date.now())/1000));$("#hm-life").textContent=fmt(Math.floor(secs/86400));$("#hm-side").textContent="約 "+fmt(secs)+" 秒";}
     tick();timers.push(setInterval(tick,1000));
   }
+
+  /* ---------- GOAL / STREAK set ---------- */
+  function initGoalset(){var t=new Date(),td=t.getFullYear()+"-"+pad(t.getMonth()+1)+"-"+pad(t.getDate());var el=$("#gs-date");el.min=td;el.style.borderColor="";var g=readJSON("nokori.goal");$("#gs-name").value=(g&&g.name)?g.name:"";if(g&&g.date)el.value=g.date;}
+  function initStreakset(){var t=new Date(),td=t.getFullYear()+"-"+pad(t.getMonth()+1)+"-"+pad(t.getDate());var el=$("#ss-date");el.max=td;el.style.borderColor="";var s=readJSON("nokori.streak");$("#ss-name").value=(s&&s.name)?s.name:"";el.value=(s&&s.start)?s.start.slice(0,10):td;}
+  $("#gs-save").addEventListener("click",function(){var name=($("#gs-name").value||"").trim(),date=$("#gs-date").value;
+    if(!date){$("#gs-date").focus();$("#gs-date").style.borderColor="var(--paper-dim)";return;}
+    try{localStorage.setItem("nokori.goal",JSON.stringify({name:name||"目標",date:date,created:new Date().toISOString()}));}catch(e){}go("home");});
+  $("#ss-save").addEventListener("click",function(){var name=($("#ss-name").value||"").trim(),date=$("#ss-date").value;
+    if(!name){$("#ss-name").focus();$("#ss-name").style.borderColor="var(--paper-dim)";return;}
+    var start=date?new Date(date+"T00:00:00").toISOString():new Date().toISOString();
+    try{localStorage.setItem("nokori.streak",JSON.stringify({name:name,start:start}));}catch(e){}go("home");});
 
   /* ---------- RESULT ---------- */
   function initResult(){ rsLive(); }
@@ -469,7 +541,7 @@
     if(deathDate()-Date.now()<=0){rsEnded();return;}
     function tick(){var now=Date.now(),bd=new Date(birthParts()[0],birthParts()[1]-1,birthParts()[2]),dd=deathDate(),secs=Math.floor((dd-now)/1000);
       if(secs<=0){rsEnded();return;}
-      $("#rs-num").textContent=fmt(secs);$("#rs-days").textContent=fmt(Math.floor(secs/86400));$("#rs-years").textContent=(secs/(365.25*86400)).toFixed(1);
+      $("#rs-num").textContent=fmt(Math.floor(secs/86400));$("#rs-secs").textContent=fmt(secs);$("#rs-years").textContent=(secs/(365.25*86400)).toFixed(1);
       $("#rs-pct").textContent=Math.max(0,Math.min(100,(now-bd)/(dd-bd)*100)).toFixed(1)+"%";}
     tick();timers.push(setInterval(tick,1000));
     timers.push(setTimeout(function(){var p=birthParts(),bd=new Date(p[0],p[1]-1,p[2]),dd=deathDate();$("#rs-bar").style.width=Math.max(0,Math.min(100,(Date.now()-bd)/(dd-bd)*100)).toFixed(2)+"%";},250));
@@ -489,7 +561,7 @@
   document.querySelectorAll("#s-result .demo button").forEach(function(b){b.addEventListener("click",function(){var d=b.getAttribute("data-rs");if(d==="zero")rsZero();else if(d==="ended")rsEnded();else rsLive();});});
 
   /* ---------- init map ---------- */
-  var init={pick:buildPickArt,input:initInput,confirm:initConfirm,home:initHome,result:initResult,soon:function(){}};
+  var init={pick:buildPickArt,input:initInput,confirm:initConfirm,home:initHome,result:initResult,goalset:initGoalset,streakset:initStreakset,soon:function(){}};
 
   buildPickArt();
 })();
