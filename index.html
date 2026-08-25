@@ -1,3 +1,8 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>残 · NOKORI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -229,8 +234,16 @@
   #s-reflect .rf-donememo{color:var(--paper-dim);font-size:14px;margin-top:24px;font-family:"Shippori Mincho B1",serif;line-height:2;max-width:32ch;margin-left:auto;margin-right:auto;word-break:auto-phrase;}
   #s-reflect .rf-again{font-family:"Shippori Mincho B1",serif;color:var(--faint);letter-spacing:.22em;margin-top:36px;font-size:14px;}
 
+  /* 日本語見出しを自然な位置で折り返す（スマホ幅対策） */
+  #s-input h1,#s-confirm h1,.seth,#s-pick .prompt h1{word-break:auto-phrase;text-wrap:balance;}
+  /* ごく狭い端末での詰め */
+  @media (max-width:360px){.col{padding-left:20px;padding-right:20px;}}
+
   @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
+</head>
+<body>
+
 
 <div id="app">
 
@@ -639,3 +652,6 @@
   buildPickArt();
 })();
 </script>
+
+</body>
+</html>
