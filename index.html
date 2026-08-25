@@ -211,6 +211,24 @@
   .setform input::placeholder{color:var(--faintest);}
   .setform input:focus{outline:none;border-color:var(--paper-dim);}
 
+  /* ============ REFLECT ============ */
+  #s-reflect .rf-pct{font-family:"Roboto Mono",monospace;font-weight:300;font-size:clamp(58px,20vw,96px);color:var(--num);text-align:center;font-variant-numeric:tabular-nums;line-height:1;margin-top:20px;}
+  #s-reflect .rf-pct .p{font-size:.38em;color:var(--paper-dim);font-family:"Shippori Mincho B1",serif;margin-left:2px;}
+  #s-reflect .rf-q{text-align:center;font-family:"Shippori Mincho B1",serif;color:var(--paper-dim);font-size:14px;letter-spacing:.1em;margin-top:8px;}
+  #s-reflect .rf-slider{-webkit-appearance:none;appearance:none;width:100%;height:2px;background:var(--faintest);outline:none;margin:44px 0 0;cursor:pointer;}
+  #s-reflect .rf-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:28px;height:28px;border-radius:50%;background:var(--num);border:none;box-shadow:0 0 0 4px var(--ink),0 4px 12px rgba(0,0,0,.5);cursor:pointer;}
+  #s-reflect .rf-slider::-moz-range-thumb{width:28px;height:28px;border-radius:50%;background:var(--num);border:none;box-shadow:0 0 0 4px var(--ink);cursor:pointer;}
+  #s-reflect .rf-scale{display:flex;justify-content:space-between;margin-top:14px;font-family:"Roboto Mono",monospace;font-size:10px;color:var(--faint);letter-spacing:.1em;}
+  #s-reflect textarea{width:100%;min-height:88px;background:rgba(233,228,216,.03);border:1px solid var(--rule);color:var(--paper);font-family:"Noto Sans JP",sans-serif;font-size:15px;line-height:1.9;padding:14px 15px;border-radius:2px;resize:vertical;transition:border-color .2s;}
+  #s-reflect textarea::placeholder{color:var(--faintest);}
+  #s-reflect textarea:focus{outline:none;border-color:var(--paper-dim);}
+  #s-reflect #rf-done{text-align:center;}
+  #s-reflect .rf-doneh{font-family:"Shippori Mincho B1",serif;font-weight:600;font-size:20px;color:var(--paper);margin-top:44px;letter-spacing:.05em;}
+  #s-reflect .rf-donepct{font-family:"Roboto Mono",monospace;font-weight:300;font-size:clamp(52px,17vw,84px);color:var(--num);margin-top:22px;font-variant-numeric:tabular-nums;line-height:1;}
+  #s-reflect .rf-donepct .p{font-size:.36em;color:var(--paper-dim);font-family:"Shippori Mincho B1",serif;}
+  #s-reflect .rf-donememo{color:var(--paper-dim);font-size:14px;margin-top:24px;font-family:"Shippori Mincho B1",serif;line-height:2;max-width:32ch;margin-left:auto;margin-right:auto;word-break:auto-phrase;}
+  #s-reflect .rf-again{font-family:"Shippori Mincho B1",serif;color:var(--faint);letter-spacing:.22em;margin-top:36px;font-size:14px;}
+
   @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 
@@ -294,9 +312,9 @@
     <div class="chrome"><button class="brand" data-goto="pick"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
     <div class="today"><div class="d" id="hm-date">—</div><div class="say">今日も、時間は刻まれています。</div></div>
     <button class="sect life" data-goto="result"><div class="eye"><span class="lab">Future</span><span class="go">→</span></div><div class="jlab">人生の残り</div><div><span class="num" id="hm-life">—</span><span class="unit">日</span></div><div class="side" id="hm-side">約 — 秒</div></button>
-    <button class="sect today-sec" data-goto="soon"><div class="eye"><span class="lab">Now</span><span class="go">→</span></div><div class="jlab">今日</div>
-      <div class="b"><div class="pct">78<span class="p">%</span><span class="cap">今日の充実度</span></div><span id="hm-spark"></span></div>
-      <div class="review">今日を振り返る<span class="a">→</span></div></button>
+    <button class="sect today-sec" data-goto="reflect"><div class="eye"><span class="lab">Now</span><span class="go">→</span></div><div class="jlab">今日</div>
+      <div class="b"><div class="pct"><span id="hm-min">—</span><span class="p">分</span><span class="cap">今日の残り</span></div><span id="hm-spark"></span></div>
+      <div class="review" id="hm-review">今日を振り返る<span class="a">→</span></div></button>
     <button class="sect goal" data-goto="goalset"><div class="eye"><span class="lab">Future</span><span class="go">→</span></div><div class="jlab">向かっている先</div>
       <div class="l1"><div class="name" id="hm-gname">まだありません</div><div class="rem"><b id="hm-goal">0</b><span>日</span></div></div>
       <div class="track"><i id="hm-gfill" style="width:0%"></i><span class="mk" id="hm-gmk" style="left:0%"></span></div></button>
@@ -369,6 +387,33 @@
     </div>
   </div></section>
 
+  <!-- ===== REFLECT (今日を振り返る) ===== -->
+  <section id="s-reflect" class="screen"><div class="col">
+    <div class="chrome"><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
+    <div class="setwrap">
+      <h1 class="seth">今日を振り返る</h1>
+      <p class="setlead" id="rf-lead">今日も、刻み終えました。<br>今日は、どうでしたか?</p>
+      <div id="rf-form">
+        <div class="rf-pct"><span id="rf-val">50</span><span class="p">%</span></div>
+        <div class="rf-q">今日の充実度</div>
+        <input type="range" class="rf-slider" id="rf-slider" min="0" max="100" step="1" value="50" aria-label="今日の充実度">
+        <div class="rf-scale"><span>0</span><span>50</span><span>100</span></div>
+        <div class="setform" style="margin-top:34px">
+          <div class="field"><label>ひとこと（任意）</label><textarea id="rf-memo" placeholder="今日、印象に残ったこと。書かなくてもいい。"></textarea></div>
+        </div>
+        <button class="paperbtn" id="rf-save">今日を刻む</button>
+        <button class="ghostbtn" data-goto="home" style="display:block;margin:18px auto 0">← 戻る</button>
+      </div>
+      <div id="rf-done" class="hidden">
+        <div class="rf-doneh">今日も、刻み終えました。</div>
+        <div class="rf-donepct"><span id="rf-donev">—</span><span class="p">%</span></div>
+        <div class="rf-donememo" id="rf-donememo"></div>
+        <div class="rf-again">また、明日。</div>
+        <button class="linebtn" data-goto="home" style="margin-top:34px">ホームへ戻る</button>
+      </div>
+    </div>
+  </div></section>
+
 </div>
 
 <script>
@@ -380,6 +425,7 @@
   function pad(n){return String(n).padStart(2,"0");}
   function fmt(n){return n.toLocaleString("en-US");}
   function readJSON(k){try{return JSON.parse(localStorage.getItem(k));}catch(e){return null;}}
+  function todayKey(){var d=new Date();return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());}
   function esc(s){return String(s).replace(/[&<>"]/g,function(x){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[x];});}
   function drawTally(s,total){s.innerHTML="";var per=5,gw=44,mg=7,ox=4,oy=8,cap=Math.min(total,15),groups=Math.ceil(cap/per);
     for(var g=0;g<groups;g++){var count=Math.min(per,cap-g*per),gx=ox+g*gw;
@@ -509,16 +555,43 @@
     }else{
       $("#hm-sname").textContent="まだありません";$("#hm-scnt").textContent="0";$("#hm-sst").textContent="";st.innerHTML="";
     }
-    // sparkline (once)
-    if(!homeSparkBuilt){homeSparkBuilt=true;
-      var vals=[65,72,84,43,90,61,78],w=124,h=40,pd=4,pts=vals.map(function(v,i){return [pd+i*((w-pd*2)/(vals.length-1)),h-pd-(v/100)*(h-pd*2)];});
-      var d=pts.map(function(pt,i){return (i?"L":"M")+pt[0].toFixed(1)+" "+pt[1].toFixed(1);}).join(" "),last=pts[pts.length-1];
-      $("#hm-spark").innerHTML='<svg width="'+w+'" height="'+h+'" aria-hidden="true"><path d="'+d+'" fill="none" stroke="#9a9488" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="'+last[0].toFixed(1)+'" cy="'+last[1].toFixed(1)+'" r="2.3" fill="#e2dccc"/></svg>';
+    // today: 振り返り状態＋充実度スパークライン（記録データから）
+    var refl=readJSON("nokori.reflect")||{},done=refl[todayKey()];
+    $("#hm-review").innerHTML=done?('今日は振り返り済み　<b style="color:var(--num);font-family:\'Roboto Mono\',monospace;font-weight:400">'+done.pct+'%</b>　見る<span class="a">→</span>'):'今日を振り返る<span class="a">→</span>';
+    homeSpark(refl);
+    // life（残り日数を主役に、秒は脇へ）＋ 今日の残り分
+    function tick(){
+      var secs=Math.max(0,Math.floor((deathDate()-Date.now())/1000));
+      $("#hm-life").textContent=fmt(Math.floor(secs/86400));$("#hm-side").textContent="約 "+fmt(secs)+" 秒";
+      var now=new Date(),end=new Date(now.getFullYear(),now.getMonth(),now.getDate()+1,0,0,0);
+      $("#hm-min").textContent=fmt(Math.max(0,Math.floor((end-now)/60000)));
     }
-    // life — 残り日数を主役に、秒は脇へ
-    function tick(){var secs=Math.max(0,Math.floor((deathDate()-Date.now())/1000));$("#hm-life").textContent=fmt(Math.floor(secs/86400));$("#hm-side").textContent="約 "+fmt(secs)+" 秒";}
     tick();timers.push(setInterval(tick,1000));
   }
+  function homeSpark(refl){
+    var host=$("#hm-spark");if(!host)return;
+    var vals=[],now=new Date();
+    for(var i=6;i>=0;i--){var dd=new Date(now.getFullYear(),now.getMonth(),now.getDate()-i);var k=dd.getFullYear()+"-"+pad(dd.getMonth()+1)+"-"+pad(dd.getDate());vals.push(refl[k]?refl[k].pct:null);}
+    var w=124,h=40,pd=4,pts=[];
+    for(var j=0;j<vals.length;j++){if(vals[j]!==null)pts.push([pd+j*((w-pd*2)/(vals.length-1)),h-pd-(vals[j]/100)*(h-pd*2)]);}
+    if(!pts.length){host.innerHTML="";return;}
+    var d=pts.map(function(pt,i){return (i?"L":"M")+pt[0].toFixed(1)+" "+pt[1].toFixed(1);}).join(" "),last=pts[pts.length-1];
+    host.innerHTML='<svg width="'+w+'" height="'+h+'" aria-hidden="true">'+(pts.length>1?'<path d="'+d+'" fill="none" stroke="#9a9488" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>':'')+'<circle cx="'+last[0].toFixed(1)+'" cy="'+last[1].toFixed(1)+'" r="2.3" fill="#e2dccc"/></svg>';
+  }
+
+  /* ---------- REFLECT (今日を振り返る) ---------- */
+  function initReflect(){
+    var refl=readJSON("nokori.reflect")||{},done=refl[todayKey()];
+    if(done){$("#rf-form").classList.add("hidden");$("#rf-done").classList.remove("hidden");$("#rf-lead").classList.add("hidden");$("#rf-donev").textContent=done.pct;$("#rf-donememo").textContent=done.memo||"";}
+    else{$("#rf-form").classList.remove("hidden");$("#rf-done").classList.add("hidden");$("#rf-lead").classList.remove("hidden");$("#rf-slider").value=50;$("#rf-val").textContent="50";$("#rf-memo").value="";}
+  }
+  $("#rf-slider").addEventListener("input",function(){$("#rf-val").textContent=this.value;});
+  $("#rf-save").addEventListener("click",function(){
+    var refl=readJSON("nokori.reflect")||{};
+    refl[todayKey()]={pct:parseInt($("#rf-slider").value,10),memo:($("#rf-memo").value||"").trim(),at:new Date().toISOString()};
+    try{localStorage.setItem("nokori.reflect",JSON.stringify(refl));}catch(e){}
+    initReflect();
+  });
 
   /* ---------- GOAL / STREAK set ---------- */
   function initGoalset(){var t=new Date(),td=t.getFullYear()+"-"+pad(t.getMonth()+1)+"-"+pad(t.getDate());var el=$("#gs-date");el.min=td;el.style.borderColor="";var g=readJSON("nokori.goal");$("#gs-name").value=(g&&g.name)?g.name:"";if(g&&g.date)el.value=g.date;}
@@ -561,7 +634,7 @@
   document.querySelectorAll("#s-result .demo button").forEach(function(b){b.addEventListener("click",function(){var d=b.getAttribute("data-rs");if(d==="zero")rsZero();else if(d==="ended")rsEnded();else rsLive();});});
 
   /* ---------- init map ---------- */
-  var init={pick:buildPickArt,input:initInput,confirm:initConfirm,home:initHome,result:initResult,goalset:initGoalset,streakset:initStreakset,soon:function(){}};
+  var init={pick:buildPickArt,input:initInput,confirm:initConfirm,home:initHome,result:initResult,goalset:initGoalset,streakset:initStreakset,reflect:initReflect,soon:function(){}};
 
   buildPickArt();
 })();
