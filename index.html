@@ -38,7 +38,10 @@
   .hidden{display:none!important}
 
   /* shared chrome */
-  .chrome{display:flex;align-items:center;justify-content:space-between;padding:26px 0 0;}
+  .chrome{display:flex;align-items:center;gap:14px;padding:26px 0 0;}
+  .chrome > *:last-child{margin-left:auto;}
+  .backbtn{background:none;border:none;color:var(--paper-dim);font-family:"Roboto Mono",monospace;font-size:19px;line-height:1;cursor:pointer;padding:4px 6px 4px 0;transition:color .2s;}
+  .backbtn:hover{color:var(--paper);}
   .brand{display:inline-flex;align-items:baseline;background:none;border:none;cursor:pointer;}
   .brand .k{font-family:"Shippori Mincho B1",serif;font-weight:800;font-size:18px;color:var(--paper);}
   .brand .rest{font-family:"Shippori Mincho B1",serif;font-weight:600;font-size:15px;color:var(--paper-dim);letter-spacing:.04em;}
@@ -415,7 +418,7 @@
 
   <!-- ===== RESULT ===== -->
   <section id="s-result" class="screen"><div class="col">
-    <div class="chrome"><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
+    <div class="chrome"><button class="backbtn" data-back aria-label="戻る">←</button><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
     <div id="rs-main">
       <div class="mode-head"><div class="m">死ぬまで</div><div class="s">体感の残り時間</div></div>
       <div class="hero"><div class="lab">残り</div><div class="num" id="rs-num">—</div><div class="unit">%</div><div class="divider"></div></div>
@@ -440,14 +443,14 @@
 
   <!-- ===== SOON ===== -->
   <section id="s-soon" class="screen"><div class="col">
-    <div class="chrome"><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
+    <div class="chrome"><button class="backbtn" data-back aria-label="戻る">←</button><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
     <div class="wrap2"><div class="t">この時計は、準備中です。</div><div class="p">今日の振り返りは、<br>これから刻んでいきます。</div>
       <div class="act"><button class="linebtn" data-goto="home">ホームへ戻る</button></div></div>
   </div></section>
 
   <!-- ===== GOAL SET ===== -->
   <section id="s-goalset" class="screen"><div class="col">
-    <div class="chrome"><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
+    <div class="chrome"><button class="backbtn" data-back aria-label="戻る">←</button><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
     <div class="setwrap">
       <h1 class="seth">目標を追加</h1>
       <p class="setlead">目標と期限を入力してください。</p>
@@ -462,7 +465,7 @@
 
   <!-- ===== STREAK SET ===== -->
   <section id="s-streakset" class="screen"><div class="col">
-    <div class="chrome"><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
+    <div class="chrome"><button class="backbtn" data-back aria-label="戻る">←</button><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
     <div class="setwrap">
       <h1 class="seth">継続を追加</h1>
       <p class="setlead">続けることと、開始日を入力してください。</p>
@@ -490,7 +493,7 @@
 
   <!-- ===== REFLECT (今日を振り返る) ===== -->
   <section id="s-reflect" class="screen"><div class="col">
-    <div class="chrome"><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
+    <div class="chrome"><button class="backbtn" data-back aria-label="戻る">←</button><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
     <div class="setwrap">
       <h1 class="seth">今日を振り返る</h1>
       <p class="setlead" id="rf-lead">今日の充実度を記録します。</p>
@@ -517,7 +520,7 @@
 
   <!-- ===== SETTINGS ===== -->
   <section id="s-settings" class="screen"><div class="col">
-    <div class="chrome"><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="ghostbtn" data-goto="home">閉じる</button></div>
+    <div class="chrome"><button class="backbtn" data-back aria-label="戻る">←</button><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="ghostbtn" data-goto="home">閉じる</button></div>
     <h1 class="set-h1">設定</h1>
 
     <div class="set-group">
@@ -585,13 +588,13 @@
 
   <!-- ===== 継続 monitor ===== -->
   <section id="s-streak" class="screen"><div class="col">
-    <div class="chrome"><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
+    <div class="chrome"><button class="backbtn" data-back aria-label="戻る">←</button><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
     <div id="st-body"></div>
   </div></section>
 
   <!-- ===== 目標 detail ===== -->
   <section id="s-goal" class="screen"><div class="col">
-    <div class="chrome"><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
+    <div class="chrome"><button class="backbtn" data-back aria-label="戻る">←</button><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
     <div id="goal-body"></div>
   </div></section>
 
@@ -626,15 +629,21 @@
   /* ---------- router ---------- */
   var timers=[];
   function clearTimers(){timers.forEach(function(t){clearInterval(t);clearTimeout(t);});timers=[];}
-  function go(id){
+  var navStack=[];
+  function go(id,isBack){
     clearTimers();
     if(typeof stopGeo==="function")stopGeo();
+    var cur=document.querySelector(".screen.on");var curId=cur?cur.id.replace(/^s-/,""):null;
+    if(!isBack&&curId&&curId!==id)navStack.push(curId);
     document.querySelectorAll(".screen").forEach(function(s){s.classList.remove("on");});
     var el=document.getElementById("s-"+id);el.classList.add("on");
     window.scrollTo(0,0);
+    document.querySelectorAll(".backbtn").forEach(function(b){b.style.display=(id==="home"||navStack.length===0)?"none":"";});
     if(init[id])init[id]();
   }
+  function back(){var prev=navStack.pop()||"home";go(prev,true);}
   document.addEventListener("click",function(e){
+    var bk=e.target.closest("[data-back]");if(bk){e.preventDefault();e.stopPropagation();back();return;}
     var b=e.target.closest("[data-goto]");if(!b)return;
     e.preventDefault();e.stopPropagation();go(b.getAttribute("data-goto"));
   });
