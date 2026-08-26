@@ -304,6 +304,21 @@
   #s-streak .dev .btns{display:flex;flex-wrap:wrap;gap:8px;}
   #s-streak .dev button{background:none;border:1px solid var(--rule);color:var(--paper-dim);font-family:"Roboto Mono",monospace;font-size:11px;padding:7px 10px;border-radius:2px;cursor:pointer;}
 
+  /* ============ 目標 detail ============ */
+  #s-goal .g-eyebrow{text-align:center;font-family:"Roboto Mono",monospace;font-size:10.5px;letter-spacing:.28em;color:var(--faint);text-transform:uppercase;margin-top:30px;}
+  #s-goal .g-name{text-align:center;font-family:"Shippori Mincho B1",serif;font-size:24px;color:var(--paper);letter-spacing:.05em;margin-top:8px;}
+  #s-goal .g-hero{text-align:center;margin-top:28px;color:var(--num);}
+  #s-goal .g-hero .lab{font-family:"Shippori Mincho B1",serif;font-size:16px;color:var(--paper-dim);margin-right:10px;}
+  #s-goal .g-hero b{font-family:"Roboto Mono",monospace;font-weight:300;font-size:clamp(56px,18vw,92px);line-height:1;font-variant-numeric:tabular-nums;}
+  #s-goal .g-hero .unit{font-family:"Shippori Mincho B1",serif;font-size:18px;color:var(--paper-dim);margin-left:8px;}
+  #s-goal .g-cal{display:block;width:100%;max-width:340px;margin:36px auto 0;}
+  #s-goal .g-track{width:min(320px,80vw);height:1px;background:var(--faintest);margin:30px auto 0;position:relative;}
+  #s-goal .g-track i{position:absolute;left:0;top:0;height:1px;background:var(--paper-dim);}
+  #s-goal .g-track .mk{position:absolute;top:-3px;width:1px;height:7px;background:var(--num);}
+  #s-goal .g-meta{text-align:center;font-family:"Roboto Mono",monospace;font-size:12px;color:var(--faint);margin-top:16px;letter-spacing:.05em;}
+  #s-goal .g-passed{text-align:center;font-family:"Shippori Mincho B1",serif;font-size:20px;color:var(--paper);margin-top:22px;letter-spacing:.05em;}
+  #s-goal .g-actions{margin-top:38px;text-align:center;}
+
   @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -391,7 +406,7 @@
     <button class="sect today-sec" data-goto="reflect"><div class="eye"><span class="lab">Now</span><span class="go">→</span></div><div class="jlab">今日</div>
       <div class="b"><div class="pct"><span id="hm-min">—</span><span class="p">分</span><span class="cap">今日の残り</span></div><span id="hm-spark"></span></div>
       <div class="review" id="hm-review">今日を振り返る<span class="a">→</span></div></button>
-    <button class="sect goal" data-goto="goalset"><div class="eye"><span class="lab">Future</span><span class="go">→</span></div><div class="jlab">目標</div>
+    <button class="sect goal" data-goto="goal"><div class="eye"><span class="lab">Future</span><span class="go">→</span></div><div class="jlab">目標</div>
       <div class="l1"><div class="name" id="hm-gname">まだありません</div><div class="rem"><b id="hm-goal">0</b><span>日</span></div></div>
       <div class="track"><i id="hm-gfill" style="width:0%"></i><span class="mk" id="hm-gmk" style="left:0%"></span></div></button>
     <button class="sect streak" data-goto="streak"><div class="eye"><span class="lab">Past → Now</span><span class="go">→</span></div><div class="jlab">継続</div>
@@ -540,6 +555,12 @@
     </div>
 
     <div class="set-group">
+      <div class="set-label">位置情報</div>
+      <div class="set-row"><span class="set-k">継続の自動判定に使用</span><span class="set-v" id="set-geo">—</span></div>
+      <div class="set-note">対象の場所への滞在の判定にのみ使います。移動の履歴は保存しません。</div>
+    </div>
+
+    <div class="set-group">
       <div class="set-label">データ</div>
       <div class="set-row tap" id="set-export"><span class="set-k">データをエクスポート</span><span class="set-v">JSON →</span></div>
       <div class="set-row tap" id="set-import"><span class="set-k">データを読み込む</span><span class="set-v">JSON ←</span></div>
@@ -566,6 +587,12 @@
   <section id="s-streak" class="screen"><div class="col">
     <div class="chrome"><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
     <div id="st-body"></div>
+  </div></section>
+
+  <!-- ===== 目標 detail ===== -->
+  <section id="s-goal" class="screen"><div class="col">
+    <div class="chrome"><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
+    <div id="goal-body"></div>
   </div></section>
 
 </div>
@@ -948,6 +975,9 @@
     document.querySelectorAll("#set-theme button").forEach(function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-v")===s.theme));});
     document.querySelectorAll("#set-font button").forEach(function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-v")===s.fontSize));});
     document.querySelectorAll("#set-anim button").forEach(function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-v")===s.anim));});
+    var ge=$("#set-geo");
+    if(ge){ge.textContent=navigator.geolocation?"未設定":"利用不可";
+      if(navigator.permissions&&navigator.permissions.query){try{navigator.permissions.query({name:"geolocation"}).then(function(p){var m={granted:"許可",denied:"拒否",prompt:"未設定"};ge.textContent=m[p.state]||"未設定";}).catch(function(){});}catch(e){}}}
   }
   function bindSet(id,key,kind){var el=$("#"+id);if(!el)return;el.addEventListener("change",function(){var s=getSettings();s[key]=kind==="check"?el.checked:(kind==="num"?parseInt(el.value,10):el.value);saveSettings(s);applySettings(s);});}
   bindSet("set-sound","sound","check");bindSet("set-vib","vibrate","check");bindSet("set-vol","volume","num");
@@ -979,8 +1009,43 @@
   });
   document.querySelectorAll(".menu").forEach(function(m){m.addEventListener("click",function(){go("settings");});});
 
+  /* ---------- 目標 detail ---------- */
+  function initGoal(){
+    var g=readJSON("nokori.goal"),host=$("#goal-body");
+    if(!g||!g.date){host.innerHTML='<div style="text-align:center;padding:70px 0"><div class="g-name">目標はまだありません</div><div style="margin-top:34px"><button class="linebtn" data-goto="goalset" style="max-width:300px;margin:0 auto">目標を追加</button></div></div>';return;}
+    var now=new Date(),target=new Date(g.date+"T23:59:59"),created=g.created?new Date(g.created):now;
+    var days=Math.ceil((target-now)/86400000);
+    var totalMs=target-created,elapsed=now-created,pg=Math.max(0,Math.min(100,totalMs>0?elapsed/totalMs*100:100));
+    var h='<div class="g-eyebrow">目標</div><div class="g-name">'+esc(g.name||"目標")+'</div>';
+    if(days>0)h+='<div class="g-hero"><span class="lab">あと</span><b>'+fmt(days)+'</b><span class="unit">日</span></div>';
+    else if(days===0)h+='<div class="g-passed">本番は今日</div>';
+    else h+='<div class="g-passed">本番は過ぎました</div>';
+    h+='<svg class="g-cal" id="g-cal" viewBox="0 0 332 176" aria-hidden="true"></svg>';
+    h+='<div class="g-track"><i style="width:'+pg.toFixed(1)+'%"></i><span class="mk" style="left:'+pg.toFixed(1)+'%"></span></div>';
+    h+='<div class="g-meta">'+g.date.replace(/-/g,".")+'</div>';
+    h+='<div class="g-actions"><button class="ghostbtn" data-goto="goalset">編集</button>　<button class="ghostbtn" id="g-del" style="color:var(--rust)">目標を削除</button></div>';
+    host.innerHTML=h;
+    drawGoalCal($("#g-cal"),pg);
+    $("#g-del").addEventListener("click",function(){if(confirm("この目標を削除しますか?")){localStorage.removeItem("nokori.goal");go("home");}});
+  }
+  function drawGoalCal(s,progress){
+    if(!s)return;s.innerHTML="";var mk=mark(),gl=cssVar("--glow")||"#e7d7b1",cols=7,rows=5,cw=40,ch=27,gx=6,gy=7,ox=8,oy=6,total=cols*rows;
+    var crossed=Math.max(0,Math.min(total,Math.round(progress/100*total))),idx=0;
+    function j(){return -2+Math.random()*4;}
+    for(var r=0;r<rows;r++)for(var c=0;c<cols;c++){
+      var x=ox+c*(cw+gx),y=oy+r*(ch+gy),isD=(idx===total-1);
+      s.appendChild(eln("rect",{x:x,y:y,width:cw,height:ch,rx:1,fill:"none",stroke:mk,"stroke-opacity":isD?"0.9":"0.16","stroke-width":isD?"1.6":"1"}));
+      if(idx<crossed){
+        s.appendChild(eln("line",{x1:x+4+j(),y1:y+4+j(),x2:x+cw-4+j(),y2:y+ch-4+j(),stroke:mk,"stroke-width":"1.6","stroke-linecap":"round","stroke-opacity":(0.5+Math.random()*0.25).toFixed(2)}));
+        s.appendChild(eln("line",{x1:x+cw-4+j(),y1:y+4+j(),x2:x+4+j(),y2:y+ch-4+j(),stroke:mk,"stroke-width":"1.6","stroke-linecap":"round","stroke-opacity":(0.5+Math.random()*0.25).toFixed(2)}));
+      }
+      if(isD)s.appendChild(eln("circle",{cx:x+cw/2,cy:y+ch/2,r:8.5,fill:"none",stroke:gl,"stroke-width":"1.6","stroke-opacity":"0.9"}));
+      idx++;
+    }
+  }
+
   /* ---------- init map ---------- */
-  var init={pick:buildPickArt,input:initInput,confirm:initConfirm,home:initHome,result:initResult,goalset:initGoalset,streakset:initStreakset,streak:initStreak,reflect:initReflect,settings:initSettings,soon:function(){}};
+  var init={pick:buildPickArt,input:initInput,confirm:initConfirm,home:initHome,result:initResult,goalset:initGoalset,goal:initGoal,streakset:initStreakset,streak:initStreak,reflect:initReflect,settings:initSettings,soon:function(){}};
 
   applySettings(getSettings());
   buildPickArt();
