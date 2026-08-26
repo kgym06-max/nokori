@@ -162,6 +162,7 @@
   #s-home .streak .cnt b{font-weight:400;font-size:34px;} #s-home .streak .cnt span{font-family:"Shippori Mincho B1",serif;font-size:13px;color:var(--paper-dim);margin-left:4px;}
   #s-home .streak .cnt .nm{display:block;font-family:"Shippori Mincho B1",serif;font-size:14px;color:var(--paper);margin-bottom:10px;}
   #s-home .streak .cnt .st{font-family:"Shippori Mincho B1",serif;font-size:11px;color:var(--faint);margin-left:8px;}
+  #s-home .streak .cnt .cum{font-family:"Roboto Mono",monospace;font-size:11px;color:var(--faint);margin-top:9px;letter-spacing:.06em;}
   #s-home .foot{margin-top:36px;text-align:center;font-family:"Roboto Mono",monospace;font-size:10px;color:var(--faintest);letter-spacing:.1em;}
 
   /* ============ RESULT ============ */
@@ -384,7 +385,7 @@
       <div class="l1"><div class="name" id="hm-gname">まだありません</div><div class="rem"><b id="hm-goal">0</b><span>日</span></div></div>
       <div class="track"><i id="hm-gfill" style="width:0%"></i><span class="mk" id="hm-gmk" style="left:0%"></span></div></button>
     <button class="sect streak" data-goto="streak"><div class="eye"><span class="lab">Past → Now</span><span class="go">→</span></div><div class="jlab">継続</div>
-      <div class="b"><div class="cnt"><span class="nm" id="hm-sname">まだありません</span><b id="hm-scnt">0</b><span>日</span><span class="st" id="hm-sst"></span></div><svg id="hm-tally" width="150" height="54" aria-hidden="true"></svg></div></button>
+      <div class="b"><div class="cnt"><span class="nm" id="hm-sname">まだありません</span><b id="hm-scnt">0</b><span>日</span><span class="st" id="hm-sst"></span><div class="cum" id="hm-scum"></div></div><svg id="hm-tally" width="150" height="54" aria-hidden="true"></svg></div></button>
   </div></section>
 
   <!-- ===== RESULT ===== -->
@@ -693,11 +694,14 @@
     // streak (from storage, else empty 0)
     var streak=readJSON("nokori.streak"),st=$("#hm-tally");
     if(streak&&streak.start){
-      var dd=Math.max(0,Math.floor((now-new Date(streak.start))/86400000));
-      $("#hm-sname").textContent=streak.name||"継続";$("#hm-scnt").textContent=fmt(dd);$("#hm-sst").textContent="継続中";
-      drawTally(st,dd);
+      var failedS=streak.status==="failed";
+      var cur=failedS?0:Math.max(0,Math.floor((now-new Date(streak.start))/86400000));
+      var cum=(streak.cumulative||0)+cur;
+      $("#hm-sname").textContent=streak.name||"継続";$("#hm-scnt").textContent=fmt(cur);$("#hm-sst").textContent=failedS?"継続終了":"継続中";
+      $("#hm-scum").textContent="累計 "+fmt(cum)+"日";
+      drawTally(st,cur);
     }else{
-      $("#hm-sname").textContent="まだありません";$("#hm-scnt").textContent="0";$("#hm-sst").textContent="";st.innerHTML="";
+      $("#hm-sname").textContent="まだありません";$("#hm-scnt").textContent="0";$("#hm-sst").textContent="";$("#hm-scum").textContent="";st.innerHTML="";
     }
     // today: 振り返り状態＋充実度スパークライン（記録データから）
     var refl=readJSON("nokori.reflect")||{},done=refl[todayKey()];
@@ -773,7 +777,8 @@
     if(!name){$("#ss-name").focus();$("#ss-name").style.borderColor="var(--paper-dim)";return;}
     if(ssState.auto&&ssState.locs.length===0){alert("自動判定には対象場所の登録が必要です。\n「現在地を登録」を押すか、自動判定をオフにしてください。");return;}
     var start=date?new Date(date+"T00:00:00").toISOString():new Date().toISOString();
-    saveStreak({name:name,start:start,auto:ssState.auto,radius:ssState.radius,dwell:ssState.dwell,locations:ssState.locs,status:"active"});
+    var prev=readJSON("nokori.streak");
+    saveStreak({name:name,start:start,auto:ssState.auto,radius:ssState.radius,dwell:ssState.dwell,locations:ssState.locs,status:"active",cumulative:(prev&&prev.cumulative)||0});
     go("streak");
   });
 
@@ -843,6 +848,8 @@
     function doFail(){
       stopGeo();
       var s2=readJSON("nokori.streak");if(!s2||s2.status==="failed")return; // 二重失敗しない
+      var failDays=Math.max(0,Math.floor((Date.now()-new Date(s2.start))/86400000));
+      s2.cumulative=(s2.cumulative||0)+failDays; // 累計に加算（リセットされても通算は残す）
       s2.status="failed";s2.failedAt=new Date().toISOString();s2.failReason="対象エリアに"+s.dwell+"分以上滞在";
       if(typeof playSound==="function")playSound("failure");
       var ev=readJSON("nokori.streak_events")||[];ev.push({ruleId:"streak",type:"failed",occurredAt:s2.failedAt,reason:s2.failReason});
