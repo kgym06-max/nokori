@@ -253,15 +253,14 @@
   <section id="s-pick" class="screen on"><div class="col">
     <div class="head">
       <div class="word"><span class="k">残</span><span class="r">Nokori</span></div>
-      <p class="creed">時間は、戻らない。<br>あなたに<b>残されているもの</b>を、<br>数字にして、目の前に置く。</p>
     </div>
-    <div class="prompt"><h1>何を刻む?</h1><p>刻みはじめたその瞬間から、時間は動き出す。</p></div>
+    <div class="prompt"><h1>何を刻む?</h1></div>
     <div class="mode"><svg class="art" id="art-life" viewBox="0 0 340 172" aria-hidden="true"></svg>
-      <h2 class="mname">死ぬまで</h2><p class="mdesc">生まれた日から、最期の日まで。残りの秒だけが、静かに減っていく。</p></div>
+      <h2 class="mname">死ぬまで</h2><p class="mdesc">寿命までの、残りの時間。</p></div>
     <div class="mode"><svg class="art" id="art-target" viewBox="0 0 340 176" aria-hidden="true"></svg>
-      <h2 class="mname">目標カウントダウン</h2><p class="mdesc">その日まで、あと何日。消していく日付が、そのまま覚悟になる。</p></div>
+      <h2 class="mname">目標カウントダウン</h2><p class="mdesc">目標の日までの、残り日数。</p></div>
     <div class="mode"><svg class="art" id="art-streak" viewBox="0 0 340 128" aria-hidden="true"></svg>
-      <h2 class="mname">継続</h2><p class="mdesc">続けている時間を、一本ずつ刻む。積み上げるほど、数字は増えていく。</p></div>
+      <h2 class="mname">継続</h2><p class="mdesc">続けている日数を、数える。</p></div>
     <button class="paperbtn" data-goto="input" style="margin-top:34px">刻みはじめる</button>
   </div></section>
 
@@ -278,7 +277,7 @@
       </div>
     </div>
     <h1>生年月日を入力してください</h1>
-    <p class="lead">あなたが、この世に生まれた日。<br>そこから、すべてのカウントが始まった。</p>
+    <p class="lead">残り時間の計算に使います。</p>
     <div class="plabel">生年月日</div>
     <div class="heads"><span>年</span><span class="gp"></span><span>月</span><span class="gp"></span><span>日</span></div>
     <div class="picker">
@@ -290,11 +289,11 @@
     <div class="info">
       <div class="h">
         <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="14.5" fill="none" stroke="#9a9488" stroke-width="1.2"/><g stroke="#9a9488" stroke-width="1.2"><line x1="17" y1="4.5" x2="17" y2="7"/><line x1="17" y1="27" x2="17" y2="29.5"/><line x1="4.5" y1="17" x2="7" y2="17"/><line x1="27" y1="17" x2="29.5" y2="17"/></g><line x1="17" y1="17" x2="17" y2="9.5" stroke="#e9e4d8" stroke-width="1.4" stroke-linecap="round"/><line x1="17" y1="17" x2="22.5" y2="19.5" stroke="#e9e4d8" stroke-width="1.4" stroke-linecap="round"/><circle cx="17" cy="17" r="1.4" fill="#e9e4d8"/></svg>
-        <b>なぜ生年月日が必要なの?</b>
+        <b>生年月日が必要な理由</b>
       </div>
-      <p>残り時間を正確に計算するためです。<br>あなたに残された秒数・日数・年数。そのすべては、生まれたその瞬間から、静かに減り続けています。</p>
+      <p>生年月日をもとに、経過した時間と残りの時間を計算します。</p>
     </div>
-    <p class="privacy">入力した生年月日は、この端末の中だけに保存されます。<br>他の人に公開されることはありません。</p>
+    <p class="privacy">生年月日はこの端末にのみ保存されます。外部には送信されません。</p>
     <div class="go"><button class="paperbtn" id="in-next"><span>確認へ進む</span></button><div class="sub">Step 1 / 3</div></div>
   </div></section>
 
@@ -311,42 +310,39 @@
         <div class="step"><div class="dot">3</div><div class="cap">刻む</div></div>
       </div>
     </div>
-    <h1>この時間を、<br>刻み始めますか。</h1>
-    <p class="lead">確認したら、あなたの時計が動き出します。<br>ここから先、数字は静かに減り続けます。</p>
+    <h1>入力内容を確認してください</h1>
     <div class="confirm">
       <div class="row"><span class="k">生年月日</span><span class="v"><span class="mono" id="cf-birth">—</span></span></div>
-      <div class="row"><span class="k">想定の終点</span><span class="v"><span class="mono" id="cf-end">—</span><span class="note">※ 死ぬ日ではありません。あなたが決めた区切りです</span></span></div>
+      <div class="row"><span class="k">終点</span><span class="v"><span class="mono" id="cf-end">—</span><span class="note">※ 死亡日ではなく、計算上の区切りです</span></span></div>
       <div class="row"><span class="k">現在</span><span class="v"><span class="mono" id="cf-now">—</span></span></div>
-      <div class="row key"><span class="k">刻まれる残り</span><span class="v"><span class="big" id="cf-days">—</span> 日</span></div>
+      <div class="row key"><span class="k">残り</span><span class="v"><span class="big" id="cf-days">—</span> 日</span></div>
     </div>
-    <div class="go"><button class="paperbtn" id="cf-start">この時間を刻む</button><br><button class="ghostbtn back" data-goto="input">← 生年月日を直す</button></div>
+    <div class="go"><button class="paperbtn" id="cf-start">刻みはじめる</button><br><button class="ghostbtn back" data-goto="input">← 戻る</button></div>
   </div></section>
 
   <!-- ===== HOME ===== -->
   <section id="s-home" class="screen"><div class="col">
     <div class="chrome"><button class="brand" data-goto="pick"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
-    <div class="today"><div class="d" id="hm-date">—</div><div class="say">今日も、時間は刻まれています。</div></div>
+    <div class="today"><div class="d" id="hm-date">—</div></div>
     <button class="sect life" data-goto="result"><div class="eye"><span class="lab">Future</span><span class="go">→</span></div><div class="jlab">人生の残り</div><div><span class="num" id="hm-life">—</span><span class="unit">日</span></div><div class="side" id="hm-side">約 — 秒</div></button>
     <button class="sect today-sec" data-goto="reflect"><div class="eye"><span class="lab">Now</span><span class="go">→</span></div><div class="jlab">今日</div>
       <div class="b"><div class="pct"><span id="hm-min">—</span><span class="p">分</span><span class="cap">今日の残り</span></div><span id="hm-spark"></span></div>
       <div class="review" id="hm-review">今日を振り返る<span class="a">→</span></div></button>
-    <button class="sect goal" data-goto="goalset"><div class="eye"><span class="lab">Future</span><span class="go">→</span></div><div class="jlab">向かっている先</div>
+    <button class="sect goal" data-goto="goalset"><div class="eye"><span class="lab">Future</span><span class="go">→</span></div><div class="jlab">目標</div>
       <div class="l1"><div class="name" id="hm-gname">まだありません</div><div class="rem"><b id="hm-goal">0</b><span>日</span></div></div>
       <div class="track"><i id="hm-gfill" style="width:0%"></i><span class="mk" id="hm-gmk" style="left:0%"></span></div></button>
-    <button class="sect streak" data-goto="streakset"><div class="eye"><span class="lab">Past → Now</span><span class="go">→</span></div><div class="jlab">積み重ね</div>
+    <button class="sect streak" data-goto="streakset"><div class="eye"><span class="lab">Past → Now</span><span class="go">→</span></div><div class="jlab">継続</div>
       <div class="b"><div class="cnt"><span class="nm" id="hm-sname">まだありません</span><b id="hm-scnt">0</b><span>日</span><span class="st" id="hm-sst"></span></div><svg id="hm-tally" width="150" height="54" aria-hidden="true"></svg></div></button>
-    <div class="foot">— 未来を見る　今を見る　過去を見る —</div>
   </div></section>
 
   <!-- ===== RESULT ===== -->
   <section id="s-result" class="screen"><div class="col">
     <div class="chrome"><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
     <div id="rs-main">
-      <div class="mode-head"><div class="m">死ぬまで</div><div class="s">体感の残り時間</div></div>
-      <div class="hero"><div class="lab">残り（体感で）</div><div class="num" id="rs-num">—</div><div class="unit">%</div><div class="divider"></div></div>
+      <div class="mode-head"><div class="m">死ぬまで</div></div>
+      <div class="hero"><div class="lab">残り</div><div class="num" id="rs-num">—</div><div class="unit">%</div><div class="divider"></div></div>
       <div class="below-live" id="rs-live">
-        <div class="subline">約 <span id="rs-years">—</span> 年（<span id="rs-days2">—</span> 日）</div>
-        <div class="rs-note">ジャネーの法則に基づいて算出しています。<br>1年の体感は、歳をとるほど短くなります。</div>
+        <div class="rs-note">ジャネーの法則にもとづく試算</div>
       </div>
       <div class="below-zero hidden" id="rs-zero">
         <div class="msg" id="rs-msg"><div class="done">刻み終えました。</div>
@@ -356,7 +352,7 @@
       </div>
     </div>
     <div id="rs-ended" class="hidden">
-      <div class="mode-head"><div class="m">死ぬまで</div><div class="s">あなたの残り時間</div></div>
+      <div class="mode-head"><div class="m">死ぬまで</div></div>
       <div class="ended"><div class="t">……もう終わっています。</div>
         <div class="exp">入力された日付では、NOKORIの時計はすでに0を過ぎています。<br>これは、あなたの現在や未来を予測するものではありません。</div>
         <div class="note">※ NOKORIは死亡時刻を予測するサービスではありません。</div>
@@ -375,13 +371,13 @@
   <section id="s-goalset" class="screen"><div class="col">
     <div class="chrome"><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
     <div class="setwrap">
-      <h1 class="seth">何を目指す?</h1>
-      <p class="setlead">向かう先を、一つ決める。<br>その日まで、時間は静かに減っていく。</p>
+      <h1 class="seth">目標を追加</h1>
+      <p class="setlead">目標と期限を入力してください。</p>
       <div class="setform">
         <div class="field"><label>目標</label><input type="text" id="gs-name" placeholder="例：大学受験"></div>
-        <div class="field"><label>その日</label><input type="date" id="gs-date"></div>
+        <div class="field"><label>期限</label><input type="date" id="gs-date"></div>
       </div>
-      <button class="paperbtn" id="gs-save">この目標を刻む</button>
+      <button class="paperbtn" id="gs-save">追加する</button>
       <button class="ghostbtn" data-goto="home" style="display:block;margin:18px auto 0">← 戻る</button>
     </div>
   </div></section>
@@ -390,13 +386,13 @@
   <section id="s-streakset" class="screen"><div class="col">
     <div class="chrome"><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
     <div class="setwrap">
-      <h1 class="seth">何を続ける?</h1>
-      <p class="setlead">続けると決めたことを、一つ。<br>その日から、数字が積み上がっていく。</p>
+      <h1 class="seth">継続を追加</h1>
+      <p class="setlead">続けることと、開始日を入力してください。</p>
       <div class="setform">
         <div class="field"><label>続けること</label><input type="text" id="ss-name" placeholder="例：毎日30分の勉強"></div>
-        <div class="field"><label>いつから</label><input type="date" id="ss-date"></div>
+        <div class="field"><label>開始日</label><input type="date" id="ss-date"></div>
       </div>
-      <button class="paperbtn" id="ss-save">この継続を刻む</button>
+      <button class="paperbtn" id="ss-save">追加する</button>
       <button class="ghostbtn" data-goto="home" style="display:block;margin:18px auto 0">← 戻る</button>
     </div>
   </div></section>
@@ -406,20 +402,20 @@
     <div class="chrome"><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
     <div class="setwrap">
       <h1 class="seth">今日を振り返る</h1>
-      <p class="setlead" id="rf-lead">今日も、刻み終えました。<br>今日は、どうでしたか?</p>
+      <p class="setlead" id="rf-lead">今日の充実度を記録します。</p>
       <div id="rf-form">
         <div class="rf-pct"><span id="rf-val">50</span><span class="p">%</span></div>
         <div class="rf-q">今日の充実度</div>
         <input type="range" class="rf-slider" id="rf-slider" min="0" max="100" step="1" value="50" aria-label="今日の充実度">
         <div class="rf-scale"><span>0</span><span>50</span><span>100</span></div>
         <div class="setform" style="margin-top:34px">
-          <div class="field"><label>ひとこと（任意）</label><textarea id="rf-memo" placeholder="今日、印象に残ったこと。書かなくてもいい。"></textarea></div>
+          <div class="field"><label>ひとこと（任意）</label><textarea id="rf-memo" placeholder="印象に残ったこと（任意）"></textarea></div>
         </div>
-        <button class="paperbtn" id="rf-save">今日を刻む</button>
+        <button class="paperbtn" id="rf-save">記録する</button>
         <button class="ghostbtn" data-goto="home" style="display:block;margin:18px auto 0">← 戻る</button>
       </div>
       <div id="rf-done" class="hidden">
-        <div class="rf-doneh">今日も、刻み終えました。</div>
+        <div class="rf-doneh">記録しました。</div>
         <div class="rf-donepct"><span id="rf-donev">—</span><span class="p">%</span></div>
         <div class="rf-donememo" id="rf-donememo"></div>
         <div class="rf-again">また、明日。</div>
@@ -630,8 +626,7 @@
       if(secs<=0){rsEnded();return;}
       // ジャネーの法則（厳しい版）：体感時間 = 生まれた瞬間(1歳)から積分（1年の体感∝1/年齢）
       var age=(now-bd)/(365.25*86400000),T0=1,el=age<=T0?0:Math.log(age/T0)/Math.log(LIFESPAN/T0);el=Math.max(0,Math.min(1,el));
-      $("#rs-num").textContent=((1-el)*100).toFixed(1);
-      $("#rs-years").textContent=(secs/(365.25*86400)).toFixed(1);$("#rs-days2").textContent=fmt(Math.floor(secs/86400));}
+      $("#rs-num").textContent=((1-el)*100).toFixed(1);}
     tick();timers.push(setInterval(tick,1000));
     timers.push(setTimeout(function(){var p=birthParts(),bd=new Date(p[0],p[1]-1,p[2]),dd=deathDate();$("#rs-bar").style.width=Math.max(0,Math.min(100,(Date.now()-bd)/(dd-bd)*100)).toFixed(2)+"%";},250));
   }
