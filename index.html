@@ -253,22 +253,45 @@
   #s-settings .set-v{font-family:"Roboto Mono",monospace;font-size:13px;color:var(--faint);white-space:nowrap;}
   #s-settings .set-row.tap{cursor:pointer;}
   #s-settings .set-row.tap:hover .set-v{color:var(--paper-dim);}
-  #s-settings .set-note,#s-settings .set-note2{font-size:12px;color:var(--faint);line-height:2;margin-top:12px;}
+  .set-note,.set-note2{font-size:12px;color:var(--faint);line-height:2;margin-top:12px;}
   #s-settings .set-acc-actions{margin-top:14px;display:flex;flex-direction:column;gap:10px;}
   #s-settings .set-disabled{opacity:.38;cursor:not-allowed;}
-  #s-settings .sw{position:relative;width:44px;height:26px;flex:0 0 auto;cursor:pointer;display:inline-block;}
-  #s-settings .sw input{position:absolute;opacity:0;width:0;height:0;}
-  #s-settings .sw .track{display:block;width:44px;height:26px;border-radius:20px;background:var(--faintest);transition:background .2s;position:relative;}
-  #s-settings .sw .track::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--paper-dim);transition:transform .2s,background .2s;}
-  #s-settings .sw input:checked ~ .track{background:rgba(233,228,216,.32);}
-  #s-settings .sw input:checked ~ .track::after{transform:translateX(18px);background:var(--paper);}
-  #s-settings .set-seg{display:flex;gap:6px;}
-  #s-settings .set-seg button{background:none;border:1px solid var(--rule);color:var(--paper-dim);font-family:"Noto Sans JP",sans-serif;font-size:12px;padding:8px 13px;border-radius:2px;cursor:pointer;transition:border-color .2s,color .2s;}
-  #s-settings .set-seg button[aria-pressed="true"]{border-color:var(--paper-dim);color:var(--paper);background:rgba(233,228,216,.05);}
+  .sw{position:relative;width:44px;height:26px;flex:0 0 auto;cursor:pointer;display:inline-block;}
+  .sw input{position:absolute;opacity:0;width:0;height:0;}
+  .sw .track{display:block;width:44px;height:26px;border-radius:20px;background:var(--faintest);transition:background .2s;position:relative;}
+  .sw .track::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--paper-dim);transition:transform .2s,background .2s;}
+  .sw input:checked ~ .track{background:rgba(233,228,216,.32);}
+  .sw input:checked ~ .track::after{transform:translateX(18px);background:var(--paper);}
+  .set-seg{display:flex;gap:6px;}
+  .set-seg button{background:none;border:1px solid var(--rule);color:var(--paper-dim);font-family:"Noto Sans JP",sans-serif;font-size:12px;padding:8px 13px;border-radius:2px;cursor:pointer;transition:border-color .2s,color .2s;}
+  .set-seg button[aria-pressed="true"]{border-color:var(--paper-dim);color:var(--paper);background:rgba(233,228,216,.05);}
   #s-settings .set-slider{-webkit-appearance:none;appearance:none;width:150px;height:2px;background:var(--faintest);outline:none;cursor:pointer;}
   #s-settings .set-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;border-radius:50%;background:var(--paper-dim);border:none;box-shadow:0 0 0 4px var(--ink);cursor:pointer;}
   #s-settings .set-slider::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--paper-dim);border:none;cursor:pointer;}
   #s-settings .set-time{background:rgba(233,228,216,.03);border:1px solid var(--rule);color:var(--paper);font-family:"Roboto Mono",monospace;font-size:14px;padding:6px 10px;border-radius:2px;}
+
+  /* ============ 継続（自動判定・監視） ============ */
+  #s-streak .st-name{font-family:"Shippori Mincho B1",serif;font-size:24px;color:var(--paper);letter-spacing:.04em;text-align:center;margin-top:26px;}
+  #s-streak .st-days{text-align:center;margin-top:10px;font-family:"Roboto Mono",monospace;color:var(--num);font-variant-numeric:tabular-nums;}
+  #s-streak .st-days b{font-weight:400;font-size:48px;} #s-streak .st-days span{font-family:"Shippori Mincho B1",serif;font-size:15px;color:var(--paper-dim);margin-left:6px;}
+  #s-streak .st-status{text-align:center;font-family:"Shippori Mincho B1",serif;font-size:13px;color:var(--paper-dim);letter-spacing:.1em;margin-top:8px;}
+  #s-streak .st-status.fail{color:var(--rust);}
+  #s-streak .st-mon{border:1px solid var(--rule);border-radius:2px;padding:22px;margin-top:30px;text-align:center;}
+  #s-streak .st-mon .timer{font-family:"Roboto Mono",monospace;font-weight:300;font-size:clamp(40px,14vw,64px);color:var(--num);font-variant-numeric:tabular-nums;line-height:1;}
+  #s-streak .st-mon .phase{font-family:"Shippori Mincho B1",serif;font-size:13px;color:var(--paper-dim);letter-spacing:.14em;margin-top:12px;}
+  #s-streak .st-info{margin-top:26px;}
+  #s-streak .st-info .row{display:flex;justify-content:space-between;padding:13px 2px;border-bottom:1px solid var(--rule-soft);font-size:14px;}
+  #s-streak .st-info .row .k{color:var(--faint);} #s-streak .st-info .row .v{color:var(--paper);font-family:"Roboto Mono",monospace;font-size:13px;}
+  .ss-locs{display:flex;flex-direction:column;gap:8px;}
+  .ss-loc{display:flex;justify-content:space-between;align-items:center;background:rgba(233,228,216,.03);border:1px solid var(--rule);border-radius:2px;padding:12px 14px;font-size:14px;color:var(--paper);}
+  .ss-loc .del{color:var(--faint);cursor:pointer;font-size:15px;background:none;border:none;}
+  #s-streak .st-fail{text-align:center;margin-top:40px;}
+  #s-streak .st-fail .t{font-family:"Shippori Mincho B1",serif;font-size:22px;color:var(--paper);letter-spacing:.05em;}
+  #s-streak .st-fail .r{color:var(--paper-dim);font-size:13px;margin-top:14px;line-height:2;}
+  #s-streak .dev{margin-top:30px;padding-top:16px;border-top:1px dashed var(--faintest);}
+  #s-streak .dev .lab{font-family:"Roboto Mono",monospace;font-size:10px;letter-spacing:.2em;color:var(--faintest);text-transform:uppercase;margin-bottom:10px;}
+  #s-streak .dev .btns{display:flex;flex-wrap:wrap;gap:8px;}
+  #s-streak .dev button{background:none;border:1px solid var(--rule);color:var(--paper-dim);font-family:"Roboto Mono",monospace;font-size:11px;padding:7px 10px;border-radius:2px;cursor:pointer;}
 
   @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
@@ -360,7 +383,7 @@
     <button class="sect goal" data-goto="goalset"><div class="eye"><span class="lab">Future</span><span class="go">→</span></div><div class="jlab">目標</div>
       <div class="l1"><div class="name" id="hm-gname">まだありません</div><div class="rem"><b id="hm-goal">0</b><span>日</span></div></div>
       <div class="track"><i id="hm-gfill" style="width:0%"></i><span class="mk" id="hm-gmk" style="left:0%"></span></div></button>
-    <button class="sect streak" data-goto="streakset"><div class="eye"><span class="lab">Past → Now</span><span class="go">→</span></div><div class="jlab">継続</div>
+    <button class="sect streak" data-goto="streak"><div class="eye"><span class="lab">Past → Now</span><span class="go">→</span></div><div class="jlab">継続</div>
       <div class="b"><div class="cnt"><span class="nm" id="hm-sname">まだありません</span><b id="hm-scnt">0</b><span>日</span><span class="st" id="hm-sst"></span></div><svg id="hm-tally" width="150" height="54" aria-hidden="true"></svg></div></button>
   </div></section>
 
@@ -418,8 +441,21 @@
       <h1 class="seth">継続を追加</h1>
       <p class="setlead">続けることと、開始日を入力してください。</p>
       <div class="setform">
-        <div class="field"><label>続けること</label><input type="text" id="ss-name" placeholder="例：毎日30分の勉強"></div>
+        <div class="field"><label>続けること</label><input type="text" id="ss-name" placeholder="例：禁パチンコ"></div>
         <div class="field"><label>開始日</label><input type="date" id="ss-date"></div>
+        <div class="field">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span class="set-k">自動判定（位置情報）</span>
+            <label class="sw"><input type="checkbox" id="ss-auto"><span class="track"></span></label>
+          </div>
+        </div>
+        <div id="ss-auto-opts" class="hidden">
+          <div class="field"><label>対象場所</label><div id="ss-locs" class="ss-locs"></div>
+            <button type="button" class="linebtn" id="ss-addloc" style="margin-top:8px">現在地を登録</button></div>
+          <div class="field"><label>対象範囲</label><div class="set-seg" id="ss-radius"><button type="button" data-v="50">50m</button><button type="button" data-v="100">100m</button><button type="button" data-v="150">150m</button><button type="button" data-v="200">200m</button></div></div>
+          <div class="field"><label>滞在時間</label><div class="set-seg" id="ss-dwell"><button type="button" data-v="1">1分</button><button type="button" data-v="3">3分</button><button type="button" data-v="5">5分</button><button type="button" data-v="10">10分</button><button type="button" data-v="30">30分</button></div></div>
+          <div class="set-note">設定した場所に、対象範囲内で滞在時間を超えて留まると、継続を終了します。近くを通っただけでは終了しません。<br>Web版では、判定は画面を開いている間だけ動作します。位置情報は判定にのみ使い、移動の履歴は保存しません。</div>
+        </div>
       </div>
       <button class="paperbtn" id="ss-save">追加する</button>
       <button class="ghostbtn" data-goto="home" style="display:block;margin:18px auto 0">← 戻る</button>
@@ -512,6 +548,12 @@
     </div>
   </div></section>
 
+  <!-- ===== 継続 monitor ===== -->
+  <section id="s-streak" class="screen"><div class="col">
+    <div class="chrome"><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
+    <div id="st-body"></div>
+  </div></section>
+
 </div>
 
 <script>
@@ -542,6 +584,7 @@
   function clearTimers(){timers.forEach(function(t){clearInterval(t);clearTimeout(t);});timers=[];}
   function go(id){
     clearTimers();
+    if(typeof stopGeo==="function")stopGeo();
     document.querySelectorAll(".screen").forEach(function(s){s.classList.remove("on");});
     var el=document.getElementById("s-"+id);el.classList.add("on");
     window.scrollTo(0,0);
@@ -693,14 +736,136 @@
 
   /* ---------- GOAL / STREAK set ---------- */
   function initGoalset(){var t=new Date(),td=t.getFullYear()+"-"+pad(t.getMonth()+1)+"-"+pad(t.getDate());var el=$("#gs-date");el.min=td;el.style.borderColor="";var g=readJSON("nokori.goal");$("#gs-name").value=(g&&g.name)?g.name:"";if(g&&g.date)el.value=g.date;}
-  function initStreakset(){var t=new Date(),td=t.getFullYear()+"-"+pad(t.getMonth()+1)+"-"+pad(t.getDate());var el=$("#ss-date");el.max=td;el.style.borderColor="";var s=readJSON("nokori.streak");$("#ss-name").value=(s&&s.name)?s.name:"";el.value=(s&&s.start)?s.start.slice(0,10):td;}
+  var ssState={locs:[],radius:100,dwell:3,auto:false};
+  function renderSsLocs(){
+    $("#ss-locs").innerHTML=ssState.locs.length?ssState.locs.map(function(l,i){return '<div class="ss-loc"><span>'+esc(l.name||"現在地")+' <span style="color:var(--faint);font-size:11px">±'+Math.round(l.accuracy||0)+'m</span></span><button class="del" data-i="'+i+'" aria-label="削除">✕</button></div>';}).join(''):'<div class="set-note" style="margin-top:0">まだ登録されていません。</div>';
+    $("#ss-locs").querySelectorAll("[data-i]").forEach(function(b){b.addEventListener("click",function(){ssState.locs.splice(+b.getAttribute("data-i"),1);renderSsLocs();});});
+  }
+  function renderSsSegs(){document.querySelectorAll("#ss-radius button").forEach(function(b){b.setAttribute("aria-pressed",String(+b.getAttribute("data-v")===ssState.radius));});document.querySelectorAll("#ss-dwell button").forEach(function(b){b.setAttribute("aria-pressed",String(+b.getAttribute("data-v")===ssState.dwell));});}
+  function initStreakset(){
+    var t=new Date(),td=t.getFullYear()+"-"+pad(t.getMonth()+1)+"-"+pad(t.getDate());var el=$("#ss-date");el.max=td;el.style.borderColor="";
+    var s=readJSON("nokori.streak");
+    $("#ss-name").value=(s&&s.name)?s.name:"";el.value=(s&&s.start)?s.start.slice(0,10):td;
+    ssState={locs:(s&&s.locations)?s.locations.slice():[],radius:(s&&s.radius)||100,dwell:(s&&s.dwell)||3,auto:!!(s&&s.auto)};
+    $("#ss-auto").checked=ssState.auto;$("#ss-auto-opts").classList.toggle("hidden",!ssState.auto);
+    renderSsLocs();renderSsSegs();
+  }
+  $("#ss-auto").addEventListener("change",function(){ssState.auto=this.checked;$("#ss-auto-opts").classList.toggle("hidden",!this.checked);});
+  document.querySelectorAll("#ss-radius button").forEach(function(b){b.addEventListener("click",function(){ssState.radius=+b.getAttribute("data-v");renderSsSegs();});});
+  document.querySelectorAll("#ss-dwell button").forEach(function(b){b.addEventListener("click",function(){ssState.dwell=+b.getAttribute("data-v");renderSsSegs();});});
+  $("#ss-addloc").addEventListener("click",function(){
+    var btn=this;if(!navigator.geolocation){alert("この端末では位置情報が使えません。");return;}
+    btn.textContent="取得中…";btn.disabled=true;
+    navigator.geolocation.getCurrentPosition(function(p){
+      ssState.locs.push({name:"現在地",lat:p.coords.latitude,lng:p.coords.longitude,accuracy:p.coords.accuracy});
+      renderSsLocs();btn.textContent="現在地を登録";btn.disabled=false;
+    },function(){btn.textContent="現在地を登録";btn.disabled=false;alert("位置情報を取得できませんでした。\n端末の設定で位置情報を許可してください。");},{enableHighAccuracy:true,timeout:10000,maximumAge:0});
+  });
   $("#gs-save").addEventListener("click",function(){var name=($("#gs-name").value||"").trim(),date=$("#gs-date").value;
     if(!date){$("#gs-date").focus();$("#gs-date").style.borderColor="var(--paper-dim)";return;}
     try{localStorage.setItem("nokori.goal",JSON.stringify({name:name||"目標",date:date,created:new Date().toISOString()}));}catch(e){}go("home");});
-  $("#ss-save").addEventListener("click",function(){var name=($("#ss-name").value||"").trim(),date=$("#ss-date").value;
+  function saveStreak(o){try{localStorage.setItem("nokori.streak",JSON.stringify(o));}catch(e){}}
+  $("#ss-save").addEventListener("click",function(){
+    var name=($("#ss-name").value||"").trim(),date=$("#ss-date").value;
     if(!name){$("#ss-name").focus();$("#ss-name").style.borderColor="var(--paper-dim)";return;}
+    if(ssState.auto&&ssState.locs.length===0){alert("自動判定には対象場所の登録が必要です。\n「現在地を登録」を押すか、自動判定をオフにしてください。");return;}
     var start=date?new Date(date+"T00:00:00").toISOString():new Date().toISOString();
-    try{localStorage.setItem("nokori.streak",JSON.stringify({name:name,start:start}));}catch(e){}go("home");});
+    saveStreak({name:name,start:start,auto:ssState.auto,radius:ssState.radius,dwell:ssState.dwell,locations:ssState.locs,status:"active"});
+    go("streak");
+  });
+
+  /* ---------- 継続 monitor（実GPS・状態機械・テストモード） ---------- */
+  function distM(a,b){var R=6371000,dLat=(b.lat-a.lat)*Math.PI/180,dLng=(b.lng-a.lng)*Math.PI/180,la1=a.lat*Math.PI/180,la2=b.lat*Math.PI/180,x=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(la1)*Math.cos(la2)*Math.sin(dLng/2)*Math.sin(dLng/2);return 2*R*Math.asin(Math.min(1,Math.sqrt(x)));}
+  function fmtDateTime(d){return d.getFullYear()+"."+pad(d.getMonth()+1)+"."+pad(d.getDate())+" "+pad(d.getHours())+":"+pad(d.getMinutes());}
+  function isDev(){return location.hostname==="localhost"||location.hostname==="127.0.0.1"||location.search.indexOf("dev")>=0;}
+  var geoWatchId=null,sm=null;
+  function stopGeo(){if(geoWatchId!=null&&navigator.geolocation){try{navigator.geolocation.clearWatch(geoWatchId);}catch(e){}geoWatchId=null;}if(sm&&sm.uiTimer){clearInterval(sm.uiTimer);sm.uiTimer=null;}}
+
+  function initStreak(){
+    stopGeo();sm=null;
+    var s=readJSON("nokori.streak"),host=$("#st-body");
+    if(!s){host.innerHTML='<div style="text-align:center;padding:70px 0"><div class="st-name">継続はまだありません</div><div style="margin-top:34px"><button class="linebtn" data-goto="streakset" style="max-width:300px;margin:0 auto">継続を追加</button></div></div>';return;}
+    var now=new Date(),failed=s.status==="failed";
+    var days=Math.max(0,Math.floor(((failed&&s.failedAt?new Date(s.failedAt):now)-new Date(s.start))/86400000));
+    var h='<div class="st-name">'+esc(s.name)+'</div><div class="st-days"><b>'+fmt(days)+'</b><span>日</span></div>';
+    h+='<div class="st-status'+(failed?' fail':'')+'">'+(failed?'継続終了':'継続中')+'</div>';
+    if(failed){
+      h+='<div class="st-fail"><div class="t">継続終了</div><div class="r">'+esc(s.name)+'<br>'+esc(s.failReason||'')+'<br>'+fmtDateTime(new Date(s.failedAt))+'</div></div>';
+      h+='<div style="margin-top:36px"><button class="linebtn" id="st-restart" style="max-width:300px;margin:0 auto">もう一度はじめる</button></div>';
+      host.innerHTML=h;
+      $("#st-restart").addEventListener("click",function(){s.start=new Date().toISOString();s.status="active";delete s.failedAt;delete s.failReason;saveStreak(s);initStreak();});
+      return;
+    }
+    h+='<div class="st-info"><div class="row"><span class="k">自動判定</span><span class="v">'+(s.auto?"ON":"OFF")+'</span></div>';
+    if(s.auto){h+='<div class="row"><span class="k">対象場所</span><span class="v">'+((s.locations||[]).length)+' 件</span></div><div class="row"><span class="k">対象範囲</span><span class="v">'+s.radius+' m</span></div><div class="row"><span class="k">滞在時間</span><span class="v">'+s.dwell+' 分</span></div>';}
+    h+='</div>';
+    if(s.auto){
+      h+='<div class="st-mon"><div class="timer" id="st-timer">--:--</div><div class="phase" id="st-phase">停止中</div></div>';
+      h+='<div style="margin-top:20px"><button class="paperbtn" id="st-toggle">自動判定を開始</button></div>';
+      h+='<div class="set-note">Web版では、この画面を開いている間だけ判定します。位置情報の許可が必要です。近くを通っただけでは終了しません。</div>';
+      if(isDev())h+='<div class="dev"><div class="lab">テストモード（開発用）</div><div class="btns"><button data-sim="in">エリア内</button><button data-sim="out">エリア外</button><button data-sim="lowacc">精度低下</button><button data-sim="nogps">取得失敗</button><button data-sim="expire">満了→失敗</button></div></div>';
+    }else{
+      h+='<div class="set-note" style="text-align:center">この継続は手動記録です。続けている日数を数えます。</div>';
+    }
+    h+='<div style="margin-top:30px;text-align:center"><button class="ghostbtn" id="st-edit">編集</button>　<button class="ghostbtn" id="st-give" style="color:var(--rust)">継続をやめる</button></div>';
+    host.innerHTML=h;
+    $("#st-edit").addEventListener("click",function(){go("streakset");});
+    $("#st-give").addEventListener("click",function(){if(confirm("この継続をやめますか?\n記録は削除されます。")){localStorage.removeItem("nokori.streak");go("home");}});
+    if(s.auto)setupMonitor(s);
+  }
+
+  function setupMonitor(s){
+    sm={inside:false,dwellAccum:0,lastInsideTs:null,phase:"STOP",running:false,uiTimer:null};
+    var dwellMs=s.dwell*60*1000;
+    function fmtT(ms){var t=Math.max(0,Math.floor(ms/1000));return pad(Math.floor(t/60))+":"+pad(t%60);}
+    function paint(){
+      var te=$("#st-timer"),pe=$("#st-phase");if(!te)return;
+      var acc=sm.dwellAccum+((sm.inside&&sm.lastInsideTs)?(Date.now()-sm.lastInsideTs):0);
+      te.textContent=(sm.phase==="OUTSIDE"||sm.phase==="STOP")?"--:--":fmtT(acc);
+      pe.textContent={OUTSIDE:"対象エリア外",DWELLING:"判定中",VERIFYING:"精度を確認中",UNKNOWN:"位置情報を確認できません",STOP:"停止中"}[sm.phase]||sm.phase;
+    }
+    function nearest(p){var best=Infinity;(s.locations||[]).forEach(function(l){var d=distM({lat:p.lat,lng:p.lng},l);if(d<best)best=d;});return best;}
+    function handle(pos){
+      if(!pos){sm.phase="UNKNOWN";sm.lastInsideTs=null;paint();return;}          // GPS取得失敗→滞在にしない
+      if(pos.accuracy>Math.max(s.radius,60)){sm.phase="VERIFYING";sm.lastInsideTs=null;paint();return;} // 低精度→保留
+      var d=nearest(pos),enterR=s.radius,exitR=s.radius+20,t=Date.now();
+      var nowInside=sm.inside?(d<=exitR):(d<=enterR); // ヒステリシス
+      if(nowInside){
+        if(sm.lastInsideTs!=null)sm.dwellAccum+=t-sm.lastInsideTs;
+        sm.lastInsideTs=t;sm.inside=true;sm.phase="DWELLING";
+        if(sm.dwellAccum>=dwellMs){doFail();return;}
+      }else{sm.inside=false;sm.lastInsideTs=null;sm.dwellAccum=0;sm.phase="OUTSIDE";} // 外に出たらリセット
+      paint();
+    }
+    function doFail(){
+      stopGeo();
+      var s2=readJSON("nokori.streak");if(!s2||s2.status==="failed")return; // 二重失敗しない
+      s2.status="failed";s2.failedAt=new Date().toISOString();s2.failReason="対象エリアに"+s.dwell+"分以上滞在";
+      var ev=readJSON("nokori.streak_events")||[];ev.push({ruleId:"streak",type:"failed",occurredAt:s2.failedAt,reason:s2.failReason});
+      try{localStorage.setItem("nokori.streak_events",JSON.stringify(ev.slice(-50)));}catch(e){}
+      saveStreak(s2);initStreak();
+    }
+    var toggle=$("#st-toggle");
+    toggle.addEventListener("click",function(){
+      if(sm.running){stopGeo();sm.running=false;sm.phase="STOP";toggle.textContent="自動判定を開始";paint();return;}
+      if(!navigator.geolocation){alert("この端末では位置情報が使えません。");return;}
+      sm.running=true;toggle.textContent="停止";sm.phase="OUTSIDE";paint();
+      sm.uiTimer=setInterval(paint,1000);
+      geoWatchId=navigator.geolocation.watchPosition(function(p){handle({lat:p.coords.latitude,lng:p.coords.longitude,accuracy:p.coords.accuracy});},function(){handle(null);},{enableHighAccuracy:true,timeout:15000,maximumAge:0});
+    });
+    if(isDev()){
+      document.querySelectorAll("#s-streak .dev button").forEach(function(b){b.addEventListener("click",function(){
+        var loc=(s.locations&&s.locations[0])||{lat:35,lng:139},k=b.getAttribute("data-sim");
+        if(!sm.running){sm.running=true;$("#st-toggle").textContent="停止";if(!sm.uiTimer)sm.uiTimer=setInterval(paint,1000);}
+        if(k==="in")handle({lat:loc.lat,lng:loc.lng,accuracy:10});
+        else if(k==="out")handle({lat:loc.lat+0.01,lng:loc.lng,accuracy:10});
+        else if(k==="lowacc")handle({lat:loc.lat,lng:loc.lng,accuracy:500});
+        else if(k==="nogps")handle(null);
+        else if(k==="expire"){sm.dwellAccum=dwellMs;sm.lastInsideTs=null;handle({lat:loc.lat,lng:loc.lng,accuracy:10});}
+      });});
+    }
+    paint();
+  }
 
   /* ---------- RESULT ---------- */
   function initResult(){ rsLive(); }
@@ -768,7 +933,7 @@
   document.querySelectorAll(".menu").forEach(function(m){m.addEventListener("click",function(){go("settings");});});
 
   /* ---------- init map ---------- */
-  var init={pick:buildPickArt,input:initInput,confirm:initConfirm,home:initHome,result:initResult,goalset:initGoalset,streakset:initStreakset,reflect:initReflect,settings:initSettings,soon:function(){}};
+  var init={pick:buildPickArt,input:initInput,confirm:initConfirm,home:initHome,result:initResult,goalset:initGoalset,streakset:initStreakset,streak:initStreak,reflect:initReflect,settings:initSettings,soon:function(){}};
 
   applySettings(getSettings());
   buildPickArt();
