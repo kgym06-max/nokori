@@ -498,9 +498,9 @@
       <div class="set-label">アカウント</div>
       <div class="set-row"><span class="set-k">アカウント連携</span><span class="set-v" id="set-acc">未連携</span></div>
       <div class="set-acc-actions">
-        <button class="linebtn set-disabled" disabled>Googleで連携</button>
-        <button class="linebtn set-disabled" disabled>Appleで連携</button>
-        <div class="set-note">アカウント連携とデータの同期は、アプリ版で対応予定です。<br>いまの記録はこの端末に保存されています。</div>
+        <button class="linebtn set-disabled" disabled>Googleで連携（準備中）</button>
+        <button class="linebtn set-disabled" disabled>Appleで連携（準備中）</button>
+        <div class="set-note">Google・Appleでの連携（クラウド同期）は準備中です。<br>いまは「データ」から、この端末の記録を書き出し、別の端末で読み込むと移せます。</div>
       </div>
     </div>
 
@@ -531,7 +531,10 @@
     <div class="set-group">
       <div class="set-label">データ</div>
       <div class="set-row tap" id="set-export"><span class="set-k">データをエクスポート</span><span class="set-v">JSON →</span></div>
+      <div class="set-row tap" id="set-import"><span class="set-k">データを読み込む</span><span class="set-v">JSON ←</span></div>
+      <input type="file" id="set-import-file" accept="application/json,.json" style="display:none">
       <div class="set-row tap" id="set-delete"><span class="set-k set-danger">データを削除</span><span class="set-v">→</span></div>
+      <div class="set-note">別の端末に移すには、この端末で「エクスポート」して、もう一方で「読み込む」。</div>
     </div>
 
     <div class="set-group">
@@ -841,6 +844,7 @@
       stopGeo();
       var s2=readJSON("nokori.streak");if(!s2||s2.status==="failed")return; // 二重失敗しない
       s2.status="failed";s2.failedAt=new Date().toISOString();s2.failReason="対象エリアに"+s.dwell+"分以上滞在";
+      if(typeof playSound==="function")playSound("failure");
       var ev=readJSON("nokori.streak_events")||[];ev.push({ruleId:"streak",type:"failed",occurredAt:s2.failedAt,reason:s2.failReason});
       try{localStorage.setItem("nokori.streak_events",JSON.stringify(ev.slice(-50)));}catch(e){}
       saveStreak(s2);initStreak();
@@ -903,10 +907,19 @@
   function saveSettings(s){try{localStorage.setItem("nokori.settings",JSON.stringify(s));}catch(e){}}
   var FONT_ZOOM={"小":0.92,"標準":1,"大":1.1,"特大":1.2};
   function applySettings(s){var app=document.getElementById("app");if(app)app.style.zoom=FONT_ZOOM[s.fontSize]||1;document.documentElement.classList.toggle("noanim",s.anim==="OFF");}
+  /* 音源＝WebAudioで合成（外部ファイル無し・著作権フリー・オフライン可・読み込み失敗なし） */
   var actx=null;
-  function playTick(){var s=getSettings();if(!s.sound)return;try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();if(actx.state==="suspended")actx.resume();var o=actx.createOscillator(),g=actx.createGain(),t=actx.currentTime;o.type="triangle";o.frequency.value=520;g.gain.setValueAtTime((s.volume/100)*0.12,t);g.gain.exponentialRampToValueAtTime(0.0001,t+0.08);o.connect(g);g.connect(actx.destination);o.start(t);o.stop(t+0.09);}catch(e){}}
-  function feedback(){var s=getSettings();if(s.vibrate&&navigator.vibrate){try{navigator.vibrate(8);}catch(e){}}playTick();}
-  document.addEventListener("click",function(e){if(e.target.closest&&e.target.closest(".paperbtn,.linebtn,.menu"))feedback();});
+  function ac(){if(!actx){try{actx=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}}if(actx&&actx.state==="suspended"){try{actx.resume();}catch(e){}}return actx;}
+  function tone(opt){var ctx=ac();if(!ctx)return;try{var o=ctx.createOscillator(),g=ctx.createGain(),t=ctx.currentTime,dur=opt.dur||0.08,vol=(getSettings().volume/100)*(opt.vol||0.12);o.type=opt.type||"triangle";o.frequency.setValueAtTime(opt.freq||440,t);if(opt.freq2)o.frequency.exponentialRampToValueAtTime(opt.freq2,t+dur);g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(Math.max(0.0002,vol),t+0.008);g.gain.exponentialRampToValueAtTime(0.0001,t+dur);o.connect(g);g.connect(ctx.destination);o.start(t);o.stop(t+dur+0.03);}catch(e){}}
+  var SOUNDS={
+    click:function(){tone({type:"triangle",freq:520,dur:0.05,vol:0.10});},
+    confirm:function(){tone({type:"sine",freq:440,freq2:640,dur:0.12,vol:0.13});},
+    tick:function(){tone({type:"square",freq:880,dur:0.03,vol:0.06});},
+    complete:function(){tone({type:"sine",freq:523,dur:0.14,vol:0.12});setTimeout(function(){tone({type:"sine",freq:784,dur:0.24,vol:0.12});},120);},
+    failure:function(){tone({type:"sine",freq:170,dur:0.55,vol:0.16});}
+  };
+  function playSound(name){var s=getSettings();if(s.vibrate&&navigator.vibrate){try{navigator.vibrate(name==="failure"?[18,40,18]:8);}catch(e){}}if(s.sound){var f=SOUNDS[name];if(f)f();}}
+  document.addEventListener("click",function(e){var el=e.target.closest&&e.target.closest("button,.sect,.crow,.mode,.ss-loc");if(!el)return;playSound(el.classList.contains("paperbtn")?"confirm":"click");});
 
   function initSettings(){
     var s=getSettings();
@@ -924,6 +937,18 @@
   $("#set-export").addEventListener("click",function(){
     var data={};for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf("nokori.")===0)data[k]=localStorage.getItem(k);}
     try{var blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="nokori-data.json";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url);},1000);}catch(e){alert("エクスポートできませんでした。");}
+  });
+  $("#set-import").addEventListener("click",function(){$("#set-import-file").click();});
+  $("#set-import-file").addEventListener("change",function(){
+    var f=this.files&&this.files[0];if(!f)return;var self=this;var r=new FileReader();
+    r.onload=function(){
+      try{var d=JSON.parse(r.result);var keys=Object.keys(d).filter(function(k){return k.indexOf("nokori.")===0;});
+        if(!keys.length){alert("NOKORIのデータが見つかりませんでした。");self.value="";return;}
+        if(!confirm("この端末の記録を、読み込むデータで置き換えます。\nよろしいですか?")){self.value="";return;}
+        keys.forEach(function(k){localStorage.setItem(k,d[k]);});location.reload();
+      }catch(e){alert("読み込めませんでした。ファイルを確認してください。");self.value="";}
+    };
+    r.readAsText(f);
   });
   $("#set-delete").addEventListener("click",function(){
     if(!confirm("保存されている記録が削除されます。\nこの操作は取り消せません。\n\n削除しますか?"))return;
