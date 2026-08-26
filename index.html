@@ -231,6 +231,10 @@
   .setform input[type=date]{font-family:"Roboto Mono",monospace;}
   .setform input::placeholder{color:var(--faintest);}
   .setform input:focus{outline:none;border-color:var(--paper-dim);}
+  .sugg{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;}
+  .sugg button{background:none;border:1px solid var(--rule);color:var(--paper-dim);font-family:"Noto Sans JP",sans-serif;font-size:12.5px;padding:8px 13px;border-radius:20px;cursor:pointer;transition:border-color .2s,color .2s;}
+  .sugg button:hover{border-color:var(--paper-dim);color:var(--paper);}
+  .sugg button[aria-pressed="true"]{border-color:var(--paper-dim);color:var(--paper);background:var(--fill-strong);}
 
   /* ============ REFLECT ============ */
   #s-reflect .rf-pct{font-family:"Roboto Mono",monospace;font-weight:300;font-size:clamp(58px,20vw,96px);color:var(--num);text-align:center;font-variant-numeric:tabular-nums;line-height:1;margin-top:20px;}
@@ -455,7 +459,7 @@
       <h1 class="seth">目標を追加</h1>
       <p class="setlead">目標と期限を入力してください。</p>
       <div class="setform">
-        <div class="field"><label>目標</label><input type="text" id="gs-name" placeholder="例：大学受験"></div>
+        <div class="field"><label>目標</label><input type="text" id="gs-name" placeholder="例：大学受験"><div class="sugg" id="gs-sugg"></div></div>
         <div class="field"><label>期限</label><input type="date" id="gs-date"></div>
       </div>
       <button class="paperbtn" id="gs-save">追加する</button>
@@ -470,7 +474,7 @@
       <h1 class="seth">継続を追加</h1>
       <p class="setlead">続けることと、開始日を入力してください。</p>
       <div class="setform">
-        <div class="field"><label>続けること</label><input type="text" id="ss-name" placeholder="例：禁パチンコ"></div>
+        <div class="field"><label>続けること</label><input type="text" id="ss-name" placeholder="例：禁パチンコ"><div class="sugg" id="ss-sugg"></div></div>
         <div class="field"><label>開始日</label><input type="date" id="ss-date"></div>
         <div class="field">
           <div style="display:flex;align-items:center;justify-content:space-between;">
@@ -791,7 +795,18 @@
   });
 
   /* ---------- GOAL / STREAK set ---------- */
-  function initGoalset(){var t=new Date(),td=t.getFullYear()+"-"+pad(t.getMonth()+1)+"-"+pad(t.getDate());var el=$("#gs-date");el.min=td;el.style.borderColor="";var g=readJSON("nokori.goal");$("#gs-name").value=(g&&g.name)?g.name:"";if(g&&g.date)el.value=g.date;}
+  var GOAL_SUGG=["大学受験","資格試験","就職","ダイエット","貯金","筋トレ","旅行","起業","恋愛"];
+  var STREAK_SUGG=["禁酒","禁タバコ","禁ギャンブル","禁SNS","禁ゲーム","禁課金"];
+  function renderSugg(hostId,inputId,arr){
+    var host=$("#"+hostId);if(!host)return;var cur=($("#"+inputId).value||"").trim();
+    host.innerHTML=arr.map(function(v){return '<button type="button" aria-pressed="'+(v===cur?"true":"false")+'" data-v="'+esc(v)+'">'+esc(v)+'</button>';}).join('');
+    host.querySelectorAll("button").forEach(function(b){b.addEventListener("click",function(){
+      var inp=$("#"+inputId);inp.value=b.getAttribute("data-v");inp.style.borderColor="";
+      host.querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed","false");});
+      b.setAttribute("aria-pressed","true");
+    });});
+  }
+  function initGoalset(){var t=new Date(),td=t.getFullYear()+"-"+pad(t.getMonth()+1)+"-"+pad(t.getDate());var el=$("#gs-date");el.min=td;el.style.borderColor="";var g=readJSON("nokori.goal");$("#gs-name").value=(g&&g.name)?g.name:"";if(g&&g.date)el.value=g.date;renderSugg("gs-sugg","gs-name",GOAL_SUGG);}
   var ssState={locs:[],radius:100,dwell:3,auto:false};
   function renderSsLocs(){
     $("#ss-locs").innerHTML=ssState.locs.length?ssState.locs.map(function(l,i){return '<div class="ss-loc"><span>'+esc(l.name||"現在地")+' <span style="color:var(--faint);font-size:11px">±'+Math.round(l.accuracy||0)+'m</span></span><button class="del" data-i="'+i+'" aria-label="削除">✕</button></div>';}).join(''):'<div class="set-note" style="margin-top:0">まだ登録されていません。</div>';
@@ -804,7 +819,7 @@
     $("#ss-name").value=(s&&s.name)?s.name:"";el.value=(s&&s.start)?s.start.slice(0,10):td;
     ssState={locs:(s&&s.locations)?s.locations.slice():[],radius:(s&&s.radius)||100,dwell:(s&&s.dwell)||3,auto:!!(s&&s.auto)};
     $("#ss-auto").checked=ssState.auto;$("#ss-auto-opts").classList.toggle("hidden",!ssState.auto);
-    renderSsLocs();renderSsSegs();
+    renderSsLocs();renderSsSegs();renderSugg("ss-sugg","ss-name",STREAK_SUGG);
   }
   $("#ss-auto").addEventListener("change",function(){ssState.auto=this.checked;$("#ss-auto-opts").classList.toggle("hidden",!this.checked);});
   document.querySelectorAll("#ss-radius button").forEach(function(b){b.addEventListener("click",function(){ssState.radius=+b.getAttribute("data-v");renderSsSegs();});});
