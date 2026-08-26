@@ -347,7 +347,7 @@
       <div class="below-live" id="rs-live">
         <div class="subline">実際の残り　約 <span id="rs-years">—</span> 年（<span id="rs-days2">—</span> 日）</div>
         <div class="reflect"><div class="track"><i id="rs-bar" style="width:0%"></i></div><div class="pct">体感では、人生の <b id="rs-pct">—</b> が過ぎた</div></div>
-        <div class="rs-note">ジャネーの法則 ── 1年の体感は、歳をとるほど短くなる。<br>人は20歳ごろ、人生の体感の半分を終えるという。</div>
+        <div class="rs-note">ジャネーの法則 ── 1年の体感は、年齢に反比例して短くなる。<br>人生の体感の半分は、10歳ごろに終わっている。</div>
       </div>
       <div class="below-zero hidden" id="rs-zero">
         <div class="msg" id="rs-msg"><div class="done">刻み終えました。</div>
@@ -629,8 +629,8 @@
     if(deathDate()-Date.now()<=0){rsEnded();return;}
     function tick(){var bp=birthParts(),now=Date.now(),bd=new Date(bp[0],bp[1]-1,bp[2]),dd=deathDate(),secs=Math.floor((dd-now)/1000);
       if(secs<=0){rsEnded();return;}
-      // ジャネーの法則：体感時間 = 記憶の始まる5歳から積分（1年の体感∝1/年齢）
-      var age=(now-bd)/(365.25*86400000),T0=5,el=age<=T0?0:Math.log(age/T0)/Math.log(LIFESPAN/T0);el=Math.max(0,Math.min(1,el));
+      // ジャネーの法則（厳しい版）：体感時間 = 生まれた瞬間(1歳)から積分（1年の体感∝1/年齢）
+      var age=(now-bd)/(365.25*86400000),T0=1,el=age<=T0?0:Math.log(age/T0)/Math.log(LIFESPAN/T0);el=Math.max(0,Math.min(1,el));
       $("#rs-num").textContent=((1-el)*100).toFixed(1);
       $("#rs-years").textContent=(secs/(365.25*86400)).toFixed(1);$("#rs-days2").textContent=fmt(Math.floor(secs/86400));
       $("#rs-bar").style.width=(el*100).toFixed(1)+"%";$("#rs-pct").textContent=(el*100).toFixed(1)+"%";}
