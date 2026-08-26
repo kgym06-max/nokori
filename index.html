@@ -204,6 +204,8 @@
   #s-soon .p{font-size:13px;color:var(--paper-dim);margin-top:22px;line-height:2;}
   #s-soon .act{margin-top:44px;width:100%;max-width:300px;}
 
+  #s-result .rs-note{font-family:"Shippori Mincho B1",serif;font-size:12.5px;line-height:2.1;color:var(--faint);text-align:center;margin-top:36px;letter-spacing:.04em;}
+
   /* ============ SET FORMS (goal / streak) ============ */
   .setwrap{flex:1;display:flex;flex-direction:column;padding-top:10px;}
   .seth{font-family:"Shippori Mincho B1",serif;font-weight:700;font-size:clamp(27px,7.6vw,32px);text-align:center;color:var(--paper);letter-spacing:.05em;margin:46px 0 0;}
@@ -340,11 +342,12 @@
   <section id="s-result" class="screen"><div class="col">
     <div class="chrome"><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
     <div id="rs-main">
-      <div class="mode-head"><div class="m">死ぬまで</div><div class="s">あなたの残り時間</div></div>
-      <div class="hero"><div class="lab">残り</div><div class="num" id="rs-num">—</div><div class="unit">日</div><div class="divider"></div></div>
+      <div class="mode-head"><div class="m">死ぬまで</div><div class="s">体感の残り時間</div></div>
+      <div class="hero"><div class="lab">残り（体感で）</div><div class="num" id="rs-num">—</div><div class="unit">%</div><div class="divider"></div></div>
       <div class="below-live" id="rs-live">
-        <div class="subline">約 <span id="rs-secs">—</span> 秒　／　約 <span id="rs-years">—</span> 年</div>
-        <div class="reflect"><div class="track"><i id="rs-bar" style="width:0%"></i></div><div class="pct">人生はすでに <b id="rs-pct">—</b> が過ぎた</div></div>
+        <div class="subline">実際の残り　約 <span id="rs-years">—</span> 年（<span id="rs-days2">—</span> 日）</div>
+        <div class="reflect"><div class="track"><i id="rs-bar" style="width:0%"></i></div><div class="pct">体感では、人生の <b id="rs-pct">—</b> が過ぎた</div></div>
+        <div class="rs-note">ジャネーの法則 ── 1年の体感は、歳をとるほど短くなる。<br>人は20歳ごろ、人生の体感の半分を終えるという。</div>
       </div>
       <div class="below-zero hidden" id="rs-zero">
         <div class="msg" id="rs-msg"><div class="done">刻み終えました。</div>
@@ -624,10 +627,13 @@
     $("#rs-zero").classList.add("hidden");$("#rs-live").classList.remove("hidden");
     $("#rs-num").classList.remove("zero");
     if(deathDate()-Date.now()<=0){rsEnded();return;}
-    function tick(){var now=Date.now(),bd=new Date(birthParts()[0],birthParts()[1]-1,birthParts()[2]),dd=deathDate(),secs=Math.floor((dd-now)/1000);
+    function tick(){var bp=birthParts(),now=Date.now(),bd=new Date(bp[0],bp[1]-1,bp[2]),dd=deathDate(),secs=Math.floor((dd-now)/1000);
       if(secs<=0){rsEnded();return;}
-      $("#rs-num").textContent=fmt(Math.floor(secs/86400));$("#rs-secs").textContent=fmt(secs);$("#rs-years").textContent=(secs/(365.25*86400)).toFixed(1);
-      $("#rs-pct").textContent=Math.max(0,Math.min(100,(now-bd)/(dd-bd)*100)).toFixed(1)+"%";}
+      // ジャネーの法則：体感時間 = 記憶の始まる5歳から積分（1年の体感∝1/年齢）
+      var age=(now-bd)/(365.25*86400000),T0=5,el=age<=T0?0:Math.log(age/T0)/Math.log(LIFESPAN/T0);el=Math.max(0,Math.min(1,el));
+      $("#rs-num").textContent=((1-el)*100).toFixed(1);
+      $("#rs-years").textContent=(secs/(365.25*86400)).toFixed(1);$("#rs-days2").textContent=fmt(Math.floor(secs/86400));
+      $("#rs-bar").style.width=(el*100).toFixed(1)+"%";$("#rs-pct").textContent=(el*100).toFixed(1)+"%";}
     tick();timers.push(setInterval(tick,1000));
     timers.push(setTimeout(function(){var p=birthParts(),bd=new Date(p[0],p[1]-1,p[2]),dd=deathDate();$("#rs-bar").style.width=Math.max(0,Math.min(100,(Date.now()-bd)/(dd-bd)*100)).toFixed(2)+"%";},250));
   }
