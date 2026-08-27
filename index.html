@@ -91,7 +91,8 @@
   #s-input .word{display:inline-flex;align-items:baseline;gap:9px;}
   #s-input .word .k{font-family:"Shippori Mincho B1",serif;font-weight:800;font-size:20px;color:var(--paper);}
   #s-input .word .r{font-family:"Roboto Mono",monospace;font-size:9px;letter-spacing:.46em;color:var(--faint);text-transform:uppercase;}
-  .steps{display:flex;align-items:flex-start;justify-content:center;margin:30px auto 0;max-width:340px;}
+  .steps{display:flex;align-items:flex-start;justify-content:center;margin:30px auto 0;max-width:340px;width:100%;box-sizing:border-box;}
+  .steps .step{flex:0 0 auto;}
   .steps .step{display:flex;flex-direction:column;align-items:center;gap:9px;width:66px;flex:0 0 auto;}
   .steps .dot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:"Roboto Mono",monospace;font-size:12px;border:1px solid var(--faintest);color:var(--faint);}
   .steps .step.done .dot{border-color:var(--faint);color:var(--paper-dim);}
