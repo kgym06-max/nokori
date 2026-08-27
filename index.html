@@ -227,6 +227,9 @@
   #s-result .rs-note{font-family:"Shippori Mincho B1",serif;font-size:12.5px;line-height:2.1;color:var(--paper-dim);text-align:center;margin:36px auto 0;letter-spacing:.04em;background:none;border:none;cursor:pointer;display:block;padding:6px;}
   #s-result .rs-note .rs-q{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border:1px solid var(--faint);border-radius:50%;font-size:10px;font-family:"Roboto Mono",monospace;color:var(--faint);vertical-align:middle;}
   #s-result .rs-explain{max-width:30ch;margin:14px auto 0;font-size:12px;line-height:2;color:var(--faint);text-align:center;word-break:auto-phrase;}
+  #s-result .rs-share{margin:30px auto 0;display:inline-flex;align-items:center;gap:8px;background:none;border:1px solid var(--rule);color:var(--paper-dim);font-family:"Noto Sans JP",sans-serif;font-size:13px;letter-spacing:.06em;padding:12px 24px;border-radius:24px;cursor:pointer;transition:border-color .2s,color .2s;}
+  #s-result .rs-share:hover{border-color:var(--paper-dim);color:var(--paper);}
+  #s-result .rs-share .rs-x{font-size:15px;line-height:1;}
 
   /* ============ SET FORMS (goal / streak) ============ */
   .setwrap{flex:1;display:flex;flex-direction:column;padding-top:10px;}
@@ -451,6 +454,7 @@
       <div class="below-live" id="rs-live">
         <button class="rs-note" id="rs-note-btn" aria-expanded="false"><span data-i18n="janet.note">ジャネーの法則にもとづく試算</span>　<span class="rs-q">?</span></button>
         <div class="rs-explain hidden" id="rs-explain" data-i18n="janet.explain">生涯の体感時間は、20歳までに約半分を消費するといわれます（ジャネーの法則）。<br>この数値は、年齢に応じた体感上の残り時間を示しています。</div>
+        <button class="rs-share" id="rs-share"><span class="rs-x">𝕏</span><span data-i18n="rs.share">でシェア</span></button>
       </div>
       <div class="below-zero hidden" id="rs-zero">
         <div class="msg" id="rs-msg"><div class="done">刻み終えました。</div>
@@ -660,7 +664,7 @@
   var I18N={en:{
     "pick.tagline":"See your time, as numbers.","pick.lead":"Track what's left of your life, goals and habits.","pick.prompt":"What will you track?",
     "mode.death":"Until death","mode.death.d":"The time left until your lifespan.","mode.goal":"Goal countdown","mode.goal.d":"Days left until your goal.","mode.streak":"Streak","mode.streak.d":"Count the days you keep going.","pick.begin":"Begin",
-    "death.title":"Until death","death.sub":"Perceived time left","death.left":"Left","janet.note":"Estimated with Janet's law","janet.explain":"By age 20, we are said to have already felt about half of our lifetime (Janet's law).<br>This shows the perceived time left for your age.",
+    "death.title":"Until death","death.sub":"Perceived time left","death.left":"Left","janet.note":"Estimated with Janet's law","rs.share":" Share on X","janet.explain":"By age 20, we are said to have already felt about half of our lifetime (Janet's law).<br>This shows the perceived time left for your age.",
     "in.title":"Enter your date of birth","in.lead":"Used to calculate your remaining time.","in.why":"Why we need your date of birth","in.whyBody":"We use it to calculate the time that has passed and the time you have left.","in.privacy":"Your date of birth is <b>stored only on this device</b> and <b>never sent anywhere</b>.","in.next":"Continue",
     "cf.title":"Please review","cf.birth":"Date of birth","cf.end":"End point","cf.endNote":"※ Not a date of death — a point you set.","cf.now":"Now","cf.left":"Days left","cf.begin":"Begin","cf.back":"← Back",
     "home.review":"Reflect on today","today.left":"Left today",
@@ -1079,6 +1083,11 @@
   }
   function rsEnded(){clearTimers();$("#rs-main").classList.add("hidden");$("#rs-ended").classList.remove("hidden");}
   document.querySelectorAll("#s-result .demo button").forEach(function(b){b.addEventListener("click",function(){var d=b.getAttribute("data-rs");if(d==="zero")rsZero();else if(d==="ended")rsEnded();else rsLive();});});
+  if($("#rs-share"))$("#rs-share").addEventListener("click",function(){
+    var pct=($("#rs-num").textContent||"").trim();
+    var text="私の体感の残り時間は、あと"+pct+"%でした。\n\n何を刻む？ | 残 - Nokori\n\nhttps://kgym06-max.github.io/nokori/\n\n#Nokori #人生の残り時間";
+    window.open("https://twitter.com/intent/tweet?text="+encodeURIComponent(text),"_blank","noopener");
+  });
 
   /* ---------- SETTINGS（普通に動かす） ---------- */
   var SET_DEF={theme:"dark",lang:"ja",lifespan:84,sound:true,vibrate:true,volume:60,notifyAllow:false,notifyReview:true,notifyTime:"21:00",notifyGoal:true,notifyStreak:true,fontSize:"標準",anim:"標準"};
