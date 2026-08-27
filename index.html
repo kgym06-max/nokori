@@ -182,6 +182,11 @@
   #s-home .hint{display:block;font-family:"Roboto Mono",monospace;font-size:10.5px;color:var(--faint);margin-top:7px;letter-spacing:.02em;font-weight:400;}
   #s-home .goal .rem.near b{color:var(--paper);font-weight:500;}
   #s-home .goal .rem.near span{color:var(--paper-dim);}
+  #s-home .goal .name .gn-t{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  #s-home .goal .rem .g-flag{font-family:"Shippori Mincho B1",serif;font-size:16px;color:var(--num);white-space:nowrap;}
+  #s-home .streak .cnt .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:58vw;}
+  #s-goal .g-name,#s-streak .st-name{word-break:break-word;max-width:92%;margin-left:auto;margin-right:auto;line-height:1.4;}
+  #s-input .in-err{color:var(--rust);font-size:12.5px;text-align:center;margin-top:12px;min-height:1.2em;letter-spacing:.02em;}
   #s-home .foot{margin-top:36px;text-align:center;font-family:"Roboto Mono",monospace;font-size:10px;color:var(--faintest);letter-spacing:.1em;}
 
   /* ============ RESULT ============ */
@@ -404,7 +409,7 @@
       <p>生年月日をもとに、経過した時間と残りの時間を計算します。</p>
     </div>
     <p class="privacy">生年月日は<b>この端末にのみ保存</b>され、<b>外部には送信されません</b>。</p>
-    <div class="go"><button class="paperbtn" id="in-next"><span>確認へ進む</span></button><div class="sub">Step 1 / 3</div></div>
+    <div class="go"><button class="paperbtn" id="in-next"><span>確認へ進む</span></button><div class="in-err" id="in-err" role="alert"></div><div class="sub">Step 1 / 3</div></div>
   </div></section>
 
   <!-- ===== CONFIRM ===== -->
@@ -655,6 +660,8 @@
   function eln(n,a){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);return e;}
   function pad(n){return String(n).padStart(2,"0");}
   function fmt(n){return n.toLocaleString("en-US");}
+  function dateOnly(d){return new Date(d.getFullYear(),d.getMonth(),d.getDate());}
+  function daysBetween(a,b){return Math.round((dateOnly(b)-dateOnly(a))/86400000);}
   function readJSON(k){try{return JSON.parse(localStorage.getItem(k));}catch(e){return null;}}
   function todayKey(){var d=new Date();return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());}
   function cssVar(n){try{return (getComputedStyle(document.documentElement).getPropertyValue(n)||"").trim();}catch(e){return "";}}
@@ -817,6 +824,10 @@
   function attach(w,getV,onSet){var t=null;w.addEventListener("scroll",function(){paintWheel(w);clearTimeout(t);t=setTimeout(function(){onSet(selVal(w,getV()));},90);},{passive:true});
     w.addEventListener("click",function(e){var o=e.target.closest(".opt");if(!o)return;w.scrollTo({top:o.offsetTop-w.clientHeight/2+o.offsetHeight/2,behavior:"smooth"});});}
   $("#in-next").addEventListener("click",function(){
+    var chosen=new Date(sel.year,sel.month-1,sel.day),t=new Date();t.setHours(0,0,0,0);
+    var err=$("#in-err");
+    if(chosen>t){if(err)err.textContent="未来の日付は選べません。";return;}
+    if(err)err.textContent="";
     try{localStorage.setItem("nokori.birth",sel.year+"-"+pad(sel.month)+"-"+pad(sel.day));}catch(e){}
     go("confirm");
   });
@@ -838,23 +849,24 @@
     $("#hm-date").innerHTML=now.getFullYear()+"."+pad(now.getMonth()+1)+"."+pad(now.getDate())+"<small>（"+wd+"）</small>";
     $("#hm-msg").textContent=dailyMessage();
     // goal (from storage, else empty 0)
-    var goal=readJSON("nokori.goal");
+    var goal=readJSON("nokori.goal"),gRem=document.querySelector("#s-home .goal .rem");
     if(goal&&goal.date){
-      var tg=new Date(goal.date+"T23:59:59"),cr=goal.created?new Date(goal.created):now;
-      $("#hm-gname").innerHTML=esc(goal.name||"目標")+'<small>期限 '+goal.date.replace(/-/g,".")+'</small>';
-      var gdays=Math.max(0,Math.ceil((tg-now)/86400000));
-      $("#hm-goal").textContent=fmt(gdays);$("#hm-goal").closest(".rem").style.display="";
-      $("#hm-goal").closest(".rem").classList.toggle("near",gdays<=30);
-      var pg=Math.max(0,Math.min(100,(now-cr)/(tg-cr)*100));$("#hm-gfill").style.width=pg.toFixed(1)+"%";$("#hm-gmk").style.left=pg.toFixed(1)+"%";
+      var gp=goal.date.split("-").map(Number),gd0=new Date(gp[0],gp[1]-1,gp[2]),tEnd=new Date(gp[0],gp[1]-1,gp[2],23,59,59),cr=goal.created?new Date(goal.created):now;
+      var gdays=daysBetween(now,gd0);
+      $("#hm-gname").innerHTML='<span class="gn-t">'+esc(goal.name||"目標")+'</span><small>期限 '+goal.date.replace(/-/g,".")+'</small>';
+      gRem.style.display="";
+      if(gdays>0){gRem.innerHTML='<b>'+fmt(gdays)+'</b><span>日</span>';gRem.classList.toggle("near",gdays<=30);}
+      else{gRem.innerHTML='<span class="g-flag">'+(gdays===0?"本番は今日":"本番は過ぎました")+'</span>';gRem.classList.add("near");}
+      var pg=Math.max(0,Math.min(100,(tEnd-cr)>0?(now-cr)/(tEnd-cr)*100:100));$("#hm-gfill").style.width=pg.toFixed(1)+"%";$("#hm-gmk").style.left=pg.toFixed(1)+"%";
     }else{
       $("#hm-gname").innerHTML='目標を追加<span class="hint">期限を決めて、残り時間を刻む</span>';
-      $("#hm-goal").closest(".rem").style.display="none";$("#hm-gfill").style.width="0%";$("#hm-gmk").style.left="0%";
+      if(gRem)gRem.style.display="none";$("#hm-gfill").style.width="0%";$("#hm-gmk").style.left="0%";
     }
     // streak (from storage, else empty 0)
     var streak=readJSON("nokori.streak"),st=$("#hm-tally");
     if(streak&&streak.start){
       var failedS=streak.status==="failed";
-      var cur=failedS?0:Math.max(0,Math.floor((now-new Date(streak.start))/86400000));
+      var cur=failedS?0:Math.max(0,daysBetween(new Date(streak.start),now));
       var cum=(streak.cumulative||0)+cur;
       $("#hm-sname").textContent=streak.name||"継続";$("#hm-snum").style.display="";$("#hm-scnt").textContent=fmt(cur);$("#hm-sst").textContent=failedS?"継続終了":"継続中";
       $("#hm-scum").textContent="累計 "+fmt(cum)+"日";
@@ -877,13 +889,14 @@
   }
   function homeSpark(refl){
     var host=$("#hm-spark");if(!host)return;
-    var vals=[],now=new Date();
-    for(var i=6;i>=0;i--){var dd=new Date(now.getFullYear(),now.getMonth(),now.getDate()-i);var k=dd.getFullYear()+"-"+pad(dd.getMonth()+1)+"-"+pad(dd.getDate());vals.push(refl[k]?refl[k].pct:null);}
-    var w=124,h=40,pd=4,pts=[];
-    for(var j=0;j<vals.length;j++){if(vals[j]!==null)pts.push([pd+j*((w-pd*2)/(vals.length-1)),h-pd-(vals[j]/100)*(h-pd*2)]);}
-    if(!pts.length){host.innerHTML="";return;}
-    var d=pts.map(function(pt,i){return (i?"L":"M")+pt[0].toFixed(1)+" "+pt[1].toFixed(1);}).join(" "),last=pts[pts.length-1];
-    host.innerHTML='<svg width="'+w+'" height="'+h+'" aria-hidden="true">'+(pts.length>1?'<path d="'+d+'" fill="none" stroke="'+dim()+'" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>':'')+'<circle cx="'+last[0].toFixed(1)+'" cy="'+last[1].toFixed(1)+'" r="2.3" fill="'+mark()+'"/></svg>';
+    var now=new Date(),w=124,h=40,pd=4,step=(w-pd*2)/6,mk=mark(),dm=dim(),xy=[];
+    for(var i=0;i<7;i++){var dd=new Date(now.getFullYear(),now.getMonth(),now.getDate()-(6-i));var k=dd.getFullYear()+"-"+pad(dd.getMonth()+1)+"-"+pad(dd.getDate());var v=(refl[k]&&typeof refl[k].pct==="number")?refl[k].pct:null;xy.push(v===null?null:[pd+i*step,h-pd-(v/100)*(h-pd*2)]);}
+    var lastIdx=-1;for(var a=0;a<7;a++){if(xy[a])lastIdx=a;}
+    if(lastIdx<0){host.innerHTML="";return;} // 記録なし＝何も描かない（0%扱いしない）
+    var segs="",dots="";
+    for(var b=0;b<6;b++){if(xy[b]&&xy[b+1])segs+='<line x1="'+xy[b][0].toFixed(1)+'" y1="'+xy[b][1].toFixed(1)+'" x2="'+xy[b+1][0].toFixed(1)+'" y2="'+xy[b+1][1].toFixed(1)+'" stroke="'+dm+'" stroke-width="1.2" stroke-linecap="round"/>';} // 隣接する記録日だけ結ぶ
+    for(var c=0;c<7;c++){if(xy[c]){var big=(c===lastIdx);dots+='<circle cx="'+xy[c][0].toFixed(1)+'" cy="'+xy[c][1].toFixed(1)+'" r="'+(big?"2.3":"1.6")+'" fill="'+(big?mk:dm)+'"/>';}}
+    host.innerHTML='<svg width="'+w+'" height="'+h+'" aria-hidden="true">'+segs+dots+'</svg>';
   }
 
   /* ---------- REFLECT (今日を振り返る) ---------- */
@@ -902,7 +915,7 @@
   $("#rf-save").addEventListener("click",function(){
     var refl=readJSON("nokori.reflect")||{};
     refl[todayKey()]={pct:parseInt($("#rf-slider").value,10),memo:($("#rf-memo").value||"").trim(),at:new Date().toISOString()};
-    try{localStorage.setItem("nokori.reflect",JSON.stringify(refl));}catch(e){}
+    try{localStorage.setItem("nokori.reflect",JSON.stringify(refl));}catch(e){alert("記録を保存できませんでした。ブラウザの設定（プライベートモード等）をご確認ください。");return;}
     initReflect();
   });
 
@@ -940,14 +953,16 @@
     var btn=this;if(!navigator.geolocation){alert("この端末では位置情報が使えません。");return;}
     btn.textContent="取得中…";btn.disabled=true;
     navigator.geolocation.getCurrentPosition(function(p){
-      ssState.locs.push({name:"現在地",lat:p.coords.latitude,lng:p.coords.longitude,accuracy:p.coords.accuracy});
-      renderSsLocs();btn.textContent="現在地を登録";btn.disabled=false;
-    },function(){btn.textContent="現在地を登録";btn.disabled=false;alert("位置情報を取得できませんでした。\n端末の設定で位置情報を許可してください。");},{enableHighAccuracy:true,timeout:10000,maximumAge:0});
+      var acc=p.coords.accuracy||0;btn.textContent="現在地を登録";btn.disabled=false;
+      if(acc>Math.max(ssState.radius*1.5,100)){alert("位置情報の精度が低いため（±"+Math.round(acc)+"m）、登録を見送りました。\nもう一度取得してください。屋外や窓際だと精度が上がります。");return;}
+      ssState.locs.push({name:"現在地",lat:p.coords.latitude,lng:p.coords.longitude,accuracy:acc});
+      renderSsLocs();
+    },function(){btn.textContent="現在地を登録";btn.disabled=false;alert("位置情報を取得できませんでした。\n端末とブラウザの位置情報を許可してください。");},{enableHighAccuracy:true,timeout:10000,maximumAge:0});
   });
   $("#gs-save").addEventListener("click",function(){var name=($("#gs-name").value||"").trim(),date=$("#gs-date").value;
     if(!date){$("#gs-date").focus();$("#gs-date").style.borderColor="var(--paper-dim)";return;}
-    try{localStorage.setItem("nokori.goal",JSON.stringify({name:name||"目標",date:date,created:new Date().toISOString()}));}catch(e){}go("home");});
-  function saveStreak(o){try{localStorage.setItem("nokori.streak",JSON.stringify(o));}catch(e){}}
+    try{localStorage.setItem("nokori.goal",JSON.stringify({name:name||"目標",date:date,created:new Date().toISOString()}));}catch(e){alert("目標を保存できませんでした。ブラウザの設定をご確認ください。");return;}go("home");});
+  function saveStreak(o){try{localStorage.setItem("nokori.streak",JSON.stringify(o));return true;}catch(e){alert("継続を保存できませんでした。ブラウザの設定をご確認ください。");return false;}}
   $("#ss-save").addEventListener("click",function(){
     var name=($("#ss-name").value||"").trim(),date=$("#ss-date").value;
     if(!name){$("#ss-name").focus();$("#ss-name").style.borderColor="var(--paper-dim)";return;}
@@ -970,7 +985,7 @@
     var s=readJSON("nokori.streak"),host=$("#st-body");
     if(!s){host.innerHTML='<div style="text-align:center;padding:70px 0"><div class="st-name">継続はまだありません</div><div style="margin-top:34px"><button class="linebtn" data-goto="streakset" style="max-width:300px;margin:0 auto">継続を追加</button></div></div>';return;}
     var now=new Date(),failed=s.status==="failed";
-    var days=Math.max(0,Math.floor(((failed&&s.failedAt?new Date(s.failedAt):now)-new Date(s.start))/86400000));
+    var days=Math.max(0,daysBetween(new Date(s.start),(failed&&s.failedAt?new Date(s.failedAt):now)));
     var h='<div class="st-name">'+esc(s.name)+'</div><div class="st-days"><b>'+fmt(days)+'</b><span>日</span></div>';
     h+='<div class="st-status'+(failed?' fail':'')+'">'+(failed?'継続終了':'継続中')+'</div>';
     if(failed){
@@ -1024,7 +1039,7 @@
     function doFail(){
       stopGeo();
       var s2=readJSON("nokori.streak");if(!s2||s2.status==="failed")return; // 二重失敗しない
-      var failDays=Math.max(0,Math.floor((Date.now()-new Date(s2.start))/86400000));
+      var failDays=Math.max(0,daysBetween(new Date(s2.start),new Date()));
       s2.cumulative=(s2.cumulative||0)+failDays; // 累計に加算（リセットされても通算は残す）
       s2.status="failed";s2.failedAt=new Date().toISOString();s2.failReason="対象エリアに"+s.dwell+"分以上滞在";
       if(typeof playSound==="function")playSound("failure");
@@ -1098,7 +1113,7 @@
   /* 音源＝WebAudioで合成（外部ファイル無し・著作権フリー・オフライン可・読み込み失敗なし） */
   var actx=null;
   function ac(){if(!actx){try{actx=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}}if(actx&&actx.state==="suspended"){try{actx.resume();}catch(e){}}return actx;}
-  function tone(opt){var ctx=ac();if(!ctx)return;try{var o=ctx.createOscillator(),g=ctx.createGain(),t=ctx.currentTime,dur=opt.dur||0.08,vol=(getSettings().volume/100)*(opt.vol||0.12);o.type=opt.type||"triangle";o.frequency.setValueAtTime(opt.freq||440,t);if(opt.freq2)o.frequency.exponentialRampToValueAtTime(opt.freq2,t+dur);g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(Math.max(0.0002,vol),t+0.008);g.gain.exponentialRampToValueAtTime(0.0001,t+dur);o.connect(g);g.connect(ctx.destination);o.start(t);o.stop(t+dur+0.03);}catch(e){}}
+  function tone(opt){var ctx=ac();if(!ctx)return;try{var s0=getSettings();if(!s0.sound||(s0.volume||0)<=0)return;var o=ctx.createOscillator(),g=ctx.createGain(),t=ctx.currentTime,dur=opt.dur||0.08,vol=(s0.volume/100)*(opt.vol||0.12);if(vol<=0)return;o.type=opt.type||"triangle";o.frequency.setValueAtTime(opt.freq||440,t);if(opt.freq2)o.frequency.exponentialRampToValueAtTime(opt.freq2,t+dur);g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(Math.max(0.0002,vol),t+0.008);g.gain.exponentialRampToValueAtTime(0.0001,t+dur);o.connect(g);g.connect(ctx.destination);o.start(t);o.stop(t+dur+0.03);}catch(e){}}
   var SOUNDS={
     click:function(){tone({type:"triangle",freq:520,dur:0.05,vol:0.10});},
     confirm:function(){tone({type:"sine",freq:440,freq2:640,dur:0.12,vol:0.13});},
@@ -1157,8 +1172,8 @@
   function initGoal(){
     var g=readJSON("nokori.goal"),host=$("#goal-body");
     if(!g||!g.date){host.innerHTML='<div style="text-align:center;padding:70px 0"><div class="g-name">目標はまだありません</div><div style="margin-top:34px"><button class="linebtn" data-goto="goalset" style="max-width:300px;margin:0 auto">目標を追加</button></div></div>';return;}
-    var now=new Date(),target=new Date(g.date+"T23:59:59"),created=g.created?new Date(g.created):now;
-    var days=Math.ceil((target-now)/86400000);
+    var now=new Date(),gp=g.date.split("-").map(Number),gd0=new Date(gp[0],gp[1]-1,gp[2]),target=new Date(gp[0],gp[1]-1,gp[2],23,59,59),created=g.created?new Date(g.created):now;
+    var days=daysBetween(now,gd0);
     var totalMs=target-created,elapsed=now-created,pg=Math.max(0,Math.min(100,totalMs>0?elapsed/totalMs*100:100));
     var h='<div class="g-eyebrow">目標</div><div class="g-name">'+esc(g.name||"目標")+'</div>';
     if(days>0)h+='<div class="g-hero"><span class="lab">あと</span><b>'+fmt(days)+'</b><span class="unit">日</span></div>';
