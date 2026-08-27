@@ -145,6 +145,7 @@
   #s-home .today .d{font-family:"Shippori Mincho B1",serif;font-weight:600;font-size:26px;color:var(--paper);letter-spacing:.06em;font-variant-numeric:tabular-nums;}
   #s-home .today .d small{font-size:15px;color:var(--paper-dim);margin-left:6px;}
   #s-home .today .say{font-size:12.5px;color:var(--faint);letter-spacing:.06em;margin-top:6px;}
+  #s-home .today .hm-msg{font-family:"Noto Sans JP",sans-serif;font-size:13px;color:var(--paper-dim);margin-top:9px;line-height:1.8;letter-spacing:.02em;}
   #s-home .sect{display:block;width:100%;text-align:left;background:none;border:none;color:inherit;font-family:inherit;cursor:pointer;padding:30px 0;border-top:1px solid var(--rule);transition:opacity .25s;}
   #s-home .sect:first-of-type{margin-top:30px;}
   #s-home .eye{display:flex;align-items:center;justify-content:space-between;}
@@ -411,7 +412,7 @@
   <!-- ===== HOME ===== -->
   <section id="s-home" class="screen"><div class="col">
     <div class="chrome"><button class="brand" data-goto="pick"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
-    <div class="today"><div class="d" id="hm-date">—</div></div>
+    <div class="today"><div class="d" id="hm-date">—</div><div class="hm-msg" id="hm-msg"></div></div>
     <button class="sect life" data-goto="result"><div class="eye"><span class="lab">Future</span><span class="go">→</span></div><div class="jlab">人生の残り</div><div><span class="num" id="hm-life">—</span><span class="unit">日</span></div><div class="side" id="hm-side">約 — 秒</div></button>
     <button class="sect today-sec" data-goto="reflect"><div class="eye"><span class="lab">Now</span><span class="go">→</span></div><div class="jlab">今日</div>
       <div class="b"><div class="pct"><span id="hm-min">—</span><span class="p">分</span><span class="cap">今日の残り</span></div><span id="hm-spark"></span></div>
@@ -627,6 +628,15 @@
     for(var g=0;g<groups;g++){var count=Math.min(per,cap-g*per),gx=ox+g*gw;
       for(var i=0;i<Math.min(count,4);i++)s.appendChild(eln("line",{x1:gx+i*mg,y1:oy,x2:gx+i*mg,y2:oy+30,stroke:mk,"stroke-width":"2","stroke-linecap":"round","stroke-opacity":"0.82"}));
       if(count>=5)s.appendChild(eln("line",{x1:gx-4,y1:oy+30,x2:gx+3*mg+5,y2:oy,stroke:mk,"stroke-width":"2","stroke-linecap":"round","stroke-opacity":"0.82"}));}}
+  var MSG_POOL=["あなたの時間は、あなたのもの。","今日という日は、今日しかない。","少しずつでいい。続けた分だけ、前に進んでる。","残りの時間で、何をしたい？","今日できたこと、ひとつ思い出してみて。","焦らなくていい。でも、忘れないで。","あなたのペースで、時間を使おう。","疲れたら休んでいい。時間は、あなたの味方。","小さな一歩も、立派な前進。","今日を大切にできたら、それで十分。","また会えたね。今日も一緒に。","未来のあなたが、今日のあなたに感謝する。"];
+  function dailyMessage(){
+    var now=new Date(),h=now.getHours(),refl=readJSON("nokori.reflect")||{},doneToday=!!refl[todayKey()];
+    if(h<10)return "おはよう。今日も、いい1日にしよう。";
+    if(doneToday&&h>=18)return "今日を刻めたね。また明日。";
+    if(!doneToday&&h>=21)return "今日もおつかれさま。振り返ってみる？";
+    var seed=Math.floor((now-new Date(now.getFullYear(),0,0))/86400000);
+    return MSG_POOL[seed%MSG_POOL.length];
+  }
   function drawPlant(s,points){
     if(!s)return;s.innerHTML="";var mk=mark(),p=Math.max(0,points);
     s.appendChild(eln("line",{x1:62,y1:150,x2:138,y2:150,stroke:mk,"stroke-width":"1","stroke-opacity":"0.35","stroke-linecap":"round"}));
@@ -751,6 +761,7 @@
   function initHome(){
     var now=new Date(),wd=["日","月","火","水","木","金","土"][now.getDay()];
     $("#hm-date").innerHTML=now.getFullYear()+"."+pad(now.getMonth()+1)+"."+pad(now.getDate())+"<small>（"+wd+"）</small>";
+    $("#hm-msg").textContent=dailyMessage();
     // goal (from storage, else empty 0)
     var goal=readJSON("nokori.goal");
     if(goal&&goal.date){
