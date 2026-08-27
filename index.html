@@ -184,7 +184,10 @@
   #s-home .goal .rem.near span{color:var(--paper-dim);}
   #s-home .goal .name .gn-t{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   #s-home .goal .rem .g-flag{font-family:"Shippori Mincho B1",serif;font-size:16px;color:var(--num);white-space:nowrap;}
-  #s-home .streak .cnt .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:58vw;}
+  #s-home .streak .cnt .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;}
+  #s-home .streak .cnt{min-width:0;flex:1;}
+  #s-home .goal .l1 .name{flex:1;min-width:0;overflow:hidden;}
+  #s-home .goal .l1 .rem{flex:0 0 auto;}
   #s-goal .g-name,#s-streak .st-name{word-break:break-word;max-width:92%;margin-left:auto;margin-right:auto;line-height:1.4;}
   #s-input .in-err{color:var(--rust);font-size:12.5px;text-align:center;margin-top:12px;min-height:1.2em;letter-spacing:.02em;}
   #s-home .foot{margin-top:36px;text-align:center;font-family:"Roboto Mono",monospace;font-size:10px;color:var(--faintest);letter-spacing:.1em;}
