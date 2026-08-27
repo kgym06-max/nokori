@@ -388,17 +388,17 @@
     <div class="top">
       <button class="brand" data-goto="pick"><span class="k">残</span><span class="rest" style="font-family:'Roboto Mono',monospace;font-size:9px;letter-spacing:.46em;color:var(--faint)"> NOKORI</span></button>
       <div class="steps">
-        <div class="step on"><div class="dot">1</div><div class="cap">生年月日</div></div>
+        <div class="step on"><div class="dot">1</div><div class="cap" data-i18n="step.dob">生年月日</div></div>
         <div class="lnk"></div>
-        <div class="step"><div class="dot">2</div><div class="cap">確認</div></div>
+        <div class="step"><div class="dot">2</div><div class="cap" data-i18n="step.confirm">確認</div></div>
         <div class="lnk"></div>
-        <div class="step"><div class="dot">3</div><div class="cap">刻む</div></div>
+        <div class="step"><div class="dot">3</div><div class="cap" data-i18n="step.carve">刻む</div></div>
       </div>
     </div>
-    <h1>生年月日を入力してください</h1>
-    <p class="lead">残り時間の計算に使います。</p>
-    <div class="plabel">生年月日</div>
-    <div class="heads"><span>年</span><span class="gp"></span><span>月</span><span class="gp"></span><span>日</span></div>
+    <h1 data-i18n="in.title">生年月日を入力してください</h1>
+    <p class="lead" data-i18n="in.lead">残り時間の計算に使います。</p>
+    <div class="plabel" data-i18n="in.dob">生年月日</div>
+    <div class="heads"><span data-i18n="in.y">年</span><span class="gp"></span><span data-i18n="in.m">月</span><span class="gp"></span><span data-i18n="in.d">日</span></div>
     <div class="picker">
       <div class="wheel" id="w-year"></div><div class="sep">/</div>
       <div class="wheel" id="w-month"></div><div class="sep">/</div>
@@ -408,12 +408,12 @@
     <div class="info">
       <div class="h">
         <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="14.5" fill="none" stroke="#9a9488" stroke-width="1.2"/><g stroke="#9a9488" stroke-width="1.2"><line x1="17" y1="4.5" x2="17" y2="7"/><line x1="17" y1="27" x2="17" y2="29.5"/><line x1="4.5" y1="17" x2="7" y2="17"/><line x1="27" y1="17" x2="29.5" y2="17"/></g><line x1="17" y1="17" x2="17" y2="9.5" stroke="#e9e4d8" stroke-width="1.4" stroke-linecap="round"/><line x1="17" y1="17" x2="22.5" y2="19.5" stroke="#e9e4d8" stroke-width="1.4" stroke-linecap="round"/><circle cx="17" cy="17" r="1.4" fill="#e9e4d8"/></svg>
-        <b>生年月日が必要な理由</b>
+        <b data-i18n="in.why">生年月日が必要な理由</b>
       </div>
-      <p>生年月日をもとに、経過した時間と残りの時間を計算します。</p>
+      <p data-i18n="in.whyBody">生年月日をもとに、経過した時間と残りの時間を計算します。</p>
     </div>
-    <p class="privacy">生年月日は<b>この端末にのみ保存</b>され、<b>外部には送信されません</b>。</p>
-    <div class="go"><button class="paperbtn" id="in-next"><span>確認へ進む</span></button><div class="in-err" id="in-err" role="alert"></div><div class="sub">Step 1 / 3</div></div>
+    <p class="privacy" data-i18n="in.privacy">生年月日は<b>この端末にのみ保存</b>され、<b>外部には送信されません</b>。</p>
+    <div class="go"><button class="paperbtn" id="in-next"><span data-i18n="in.next">確認へ進む</span></button><div class="in-err" id="in-err" role="alert"></div><div class="sub">Step 1 / 3</div></div>
   </div></section>
 
   <!-- ===== CONFIRM ===== -->
@@ -422,36 +422,36 @@
     <div class="top">
       <div class="word"><span class="k">残</span><span class="r">Nokori</span></div>
       <div class="steps">
-        <div class="step done"><div class="dot">1</div><div class="cap">生年月日</div></div>
+        <div class="step done"><div class="dot">1</div><div class="cap" data-i18n="step.dob">生年月日</div></div>
         <div class="lnk lit"></div>
-        <div class="step on"><div class="dot">2</div><div class="cap">確認</div></div>
+        <div class="step on"><div class="dot">2</div><div class="cap" data-i18n="step.confirm">確認</div></div>
         <div class="lnk"></div>
-        <div class="step"><div class="dot">3</div><div class="cap">刻む</div></div>
+        <div class="step"><div class="dot">3</div><div class="cap" data-i18n="step.carve">刻む</div></div>
       </div>
     </div>
-    <h1>入力内容を確認してください</h1>
+    <h1 data-i18n="cf.title">入力内容を確認してください</h1>
     <div class="confirm">
-      <div class="row"><span class="k">生年月日</span><span class="v"><span class="mono" id="cf-birth">—</span></span></div>
-      <div class="row"><span class="k">終点</span><span class="v"><span class="mono" id="cf-end">—</span><span class="note">※ 死亡日ではなく、計算上の区切りです</span></span></div>
-      <div class="row"><span class="k">現在</span><span class="v"><span class="mono" id="cf-now">—</span></span></div>
-      <div class="row key"><span class="k">残り</span><span class="v"><span class="big" id="cf-days">—</span> 日</span></div>
+      <div class="row"><span class="k" data-i18n="cf.birth">生年月日</span><span class="v"><span class="mono" id="cf-birth">—</span></span></div>
+      <div class="row"><span class="k" data-i18n="cf.end">終点</span><span class="v"><span class="mono" id="cf-end">—</span><span class="note" data-i18n="cf.endNote">※ 死亡日ではなく、計算上の区切りです</span></span></div>
+      <div class="row"><span class="k" data-i18n="cf.now">現在</span><span class="v"><span class="mono" id="cf-now">—</span></span></div>
+      <div class="row key"><span class="k" data-i18n="cf.left">残り</span><span class="v"><span class="big" id="cf-days">—</span> <span data-i18n="unit.days">日</span></span></div>
     </div>
-    <div class="go"><button class="paperbtn" id="cf-start">刻みはじめる</button><br><button class="ghostbtn back" data-goto="input">← 戻る</button></div>
+    <div class="go"><button class="paperbtn" id="cf-start" data-i18n="cf.begin">刻みはじめる</button><br><button class="ghostbtn back" data-goto="input" data-i18n="back">← 戻る</button></div>
   </div></section>
 
   <!-- ===== HOME ===== -->
   <section id="s-home" class="screen"><div class="col">
     <div class="chrome"><button class="brand" data-goto="pick"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
     <div class="today"><div class="d" id="hm-date">—</div><div class="hm-msg" id="hm-msg"></div></div>
-    <button class="sect life" data-goto="result"><div class="eye"><span class="lab">Future</span><span class="go">→</span></div><div class="jlab">人生の残り</div><div><span class="num" id="hm-life">—</span><span class="unit">日</span></div><div class="side" id="hm-side">約 — 秒</div></button>
-    <button class="sect today-sec" data-goto="reflect"><div class="eye"><span class="lab">Now</span><span class="go">→</span></div><div class="jlab">今日</div>
-      <div class="b"><div class="pct"><span id="hm-hm">—</span><span class="cap">今日の残り</span></div><span id="hm-spark"></span></div>
+    <button class="sect life" data-goto="result"><div class="eye"><span class="lab">Future</span><span class="go">→</span></div><div class="jlab" data-i18n="home.life">人生の残り</div><div><span class="num" id="hm-life">—</span><span class="unit" data-i18n="unit.days">日</span></div><div class="side" id="hm-side">約 — 秒</div></button>
+    <button class="sect today-sec" data-goto="reflect"><div class="eye"><span class="lab">Now</span><span class="go">→</span></div><div class="jlab" data-i18n="home.today">今日</div>
+      <div class="b"><div class="pct"><span id="hm-hm">—</span><span class="cap" data-i18n="home.leftToday">今日の残り</span></div><span id="hm-spark"></span></div>
       <div class="review" id="hm-review">今日を振り返る<span class="a">→</span></div></button>
-    <button class="sect goal" data-goto="goal"><div class="eye"><span class="lab">Future</span><span class="go">→</span></div><div class="jlab">目標</div>
+    <button class="sect goal" data-goto="goal"><div class="eye"><span class="lab">Future</span><span class="go">→</span></div><div class="jlab" data-i18n="home.goal">目標</div>
       <div class="l1"><div class="name" id="hm-gname">まだありません</div><div class="rem"><b id="hm-goal">0</b><span>日</span></div></div>
       <div class="track"><i id="hm-gfill" style="width:0%"></i><span class="mk" id="hm-gmk" style="left:0%"></span></div></button>
-    <button class="sect streak" data-goto="streak"><div class="eye"><span class="lab">Past → Now</span><span class="go">→</span></div><div class="jlab">継続</div>
-      <div class="b"><div class="cnt"><span class="nm" id="hm-sname">まだありません</span><span id="hm-snum"><b id="hm-scnt">0</b><span>日</span><span class="st" id="hm-sst"></span></span><div class="cum" id="hm-scum"></div></div><svg id="hm-tally" width="150" height="54" aria-hidden="true"></svg></div></button>
+    <button class="sect streak" data-goto="streak"><div class="eye"><span class="lab">Past → Now</span><span class="go">→</span></div><div class="jlab" data-i18n="home.streak">継続</div>
+      <div class="b"><div class="cnt"><span class="nm" id="hm-sname">まだありません</span><span id="hm-snum"><b id="hm-scnt">0</b><span data-i18n="unit.days">日</span><span class="st" id="hm-sst"></span></span><div class="cum" id="hm-scum"></div></div><svg id="hm-tally" width="150" height="54" aria-hidden="true"></svg></div></button>
   </div></section>
 
   <!-- ===== RESULT ===== -->
@@ -466,40 +466,40 @@
         <button class="rs-share" id="rs-share"><span class="rs-x">𝕏</span><span data-i18n="rs.share">でシェア</span></button>
       </div>
       <div class="below-zero hidden" id="rs-zero">
-        <div class="msg" id="rs-msg"><div class="done">刻み終えました。</div>
-          <div class="exp">これは、あなたの死を予測したものではありません。<br>あなたが設定した終点に、あなたの時間が到達しただけです。</div>
-          <div class="ask">それでも、0になったとき。<br>あなたは何を思いましたか?</div></div>
-        <div class="actions" id="rs-act"><button class="linebtn" data-goto="pick">モード一覧に戻る</button></div>
+        <div class="msg" id="rs-msg"><div class="done" data-i18n="rz.done">刻み終えました。</div>
+          <div class="exp" data-i18n="rz.exp">これは、あなたの死を予測したものではありません。<br>あなたが設定した終点に、あなたの時間が到達しただけです。</div>
+          <div class="ask" data-i18n="rz.ask">それでも、0になったとき。<br>あなたは何を思いましたか?</div></div>
+        <div class="actions" id="rs-act"><button class="linebtn" data-goto="pick" data-i18n="rz.back">モード一覧に戻る</button></div>
       </div>
     </div>
     <div id="rs-ended" class="hidden">
-      <div class="mode-head"><div class="m">死ぬまで</div></div>
-      <div class="ended"><div class="t">……もう終わっています。</div>
-        <div class="exp">入力された日付では、NOKORIの時計はすでに0を過ぎています。<br>これは、あなたの現在や未来を予測するものではありません。</div>
-        <div class="note">※ NOKORIは死亡時刻を予測するサービスではありません。</div>
-        <div class="act"><button class="linebtn" data-goto="input">日付を入力し直す</button></div></div>
+      <div class="mode-head"><div class="m" data-i18n="death.title">死ぬまで</div></div>
+      <div class="ended"><div class="t" data-i18n="re.t">……もう終わっています。</div>
+        <div class="exp" data-i18n="re.exp">入力された日付では、NOKORIの時計はすでに0を過ぎています。<br>これは、あなたの現在や未来を予測するものではありません。</div>
+        <div class="note" data-i18n="re.note">※ NOKORIは死亡時刻を予測するサービスではありません。</div>
+        <div class="act"><button class="linebtn" data-goto="input" data-i18n="re.redo">日付を入力し直す</button></div></div>
     </div>
   </div></section>
 
   <!-- ===== SOON ===== -->
   <section id="s-soon" class="screen"><div class="col">
     <div class="chrome"><button class="backbtn" data-back aria-label="戻る">←</button><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
-    <div class="wrap2"><div class="t">この時計は、準備中です。</div><div class="p">今日の振り返りは、<br>これから刻んでいきます。</div>
-      <div class="act"><button class="linebtn" data-goto="home">ホームへ戻る</button></div></div>
+    <div class="wrap2"><div class="t" data-i18n="soon.t">この時計は、準備中です。</div><div class="p" data-i18n="soon.p">今日の振り返りは、<br>これから刻んでいきます。</div>
+      <div class="act"><button class="linebtn" data-goto="home" data-i18n="toHome">ホームへ戻る</button></div></div>
   </div></section>
 
   <!-- ===== GOAL SET ===== -->
   <section id="s-goalset" class="screen"><div class="col">
     <div class="chrome"><button class="backbtn" data-back aria-label="戻る">←</button><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
     <div class="setwrap">
-      <h1 class="seth">目標を追加</h1>
-      <p class="setlead">目標と期限を入力してください。</p>
+      <h1 class="seth" data-i18n="gs.title">目標を追加</h1>
+      <p class="setlead" data-i18n="gs.lead">目標と期限を入力してください。</p>
       <div class="setform">
-        <div class="field"><label>目標</label><input type="text" id="gs-name" placeholder="例：大学受験"><div class="sugg" id="gs-sugg"></div></div>
-        <div class="field"><label>期限</label><input type="date" id="gs-date"></div>
+        <div class="field"><label data-i18n="gs.name">目標</label><input type="text" id="gs-name" placeholder="例：大学受験"><div class="sugg" id="gs-sugg"></div></div>
+        <div class="field"><label data-i18n="gs.deadline">期限</label><input type="date" id="gs-date"></div>
       </div>
-      <button class="paperbtn" id="gs-save">追加する</button>
-      <button class="ghostbtn" data-goto="home" style="display:block;margin:18px auto 0">← 戻る</button>
+      <button class="paperbtn" id="gs-save" data-i18n="add">追加する</button>
+      <button class="ghostbtn" data-goto="home" style="display:block;margin:18px auto 0" data-i18n="back">← 戻る</button>
     </div>
   </div></section>
 
@@ -507,34 +507,34 @@
   <section id="s-streakset" class="screen"><div class="col">
     <div class="chrome"><button class="backbtn" data-back aria-label="戻る">←</button><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
     <div class="setwrap">
-      <h1 class="seth">継続を追加</h1>
-      <p class="setlead">続けることと、開始日を入力してください。</p>
+      <h1 class="seth" data-i18n="ss.title">継続を追加</h1>
+      <p class="setlead" data-i18n="ss.lead">続けることと、開始日を入力してください。</p>
       <div class="setform">
-        <div class="field"><label>続けること</label><input type="text" id="ss-name" placeholder="例：禁パチンコ"><div class="sugg" id="ss-sugg"></div></div>
-        <div class="field"><label>開始日</label><input type="date" id="ss-date"></div>
+        <div class="field"><label data-i18n="ss.name">続けること</label><input type="text" id="ss-name" placeholder="例：禁パチンコ"><div class="sugg" id="ss-sugg"></div></div>
+        <div class="field"><label data-i18n="ss.start">開始日</label><input type="date" id="ss-date"></div>
         <div class="field">
           <div style="display:flex;align-items:center;justify-content:space-between;">
-            <span class="set-k">自動判定（位置情報）</span>
+            <span class="set-k" data-i18n="ss.auto">自動判定（位置情報）</span>
             <label class="sw"><input type="checkbox" id="ss-auto"><span class="track"></span></label>
           </div>
         </div>
         <div id="ss-auto-opts" class="hidden">
-          <div class="field"><label>対象場所</label><div id="ss-locs" class="ss-locs"></div>
-            <button type="button" class="linebtn" id="ss-addloc" style="margin-top:8px">現在地を登録</button></div>
-          <div class="field"><label>対象範囲</label><div class="set-seg" id="ss-radius"><button type="button" data-v="50">50m</button><button type="button" data-v="100">100m</button><button type="button" data-v="150">150m</button><button type="button" data-v="200">200m</button></div></div>
-          <div class="field"><label>滞在時間</label><div class="set-seg" id="ss-dwell"><button type="button" data-v="1">1分</button><button type="button" data-v="3">3分</button><button type="button" data-v="5">5分</button><button type="button" data-v="10">10分</button><button type="button" data-v="30">30分</button></div></div>
+          <div class="field"><label data-i18n="ss.place">対象場所</label><div id="ss-locs" class="ss-locs"></div>
+            <button type="button" class="linebtn" id="ss-addloc" style="margin-top:8px" data-i18n="ss.addloc">現在地を登録</button></div>
+          <div class="field"><label data-i18n="ss.radius">対象範囲</label><div class="set-seg" id="ss-radius"><button type="button" data-v="50">50m</button><button type="button" data-v="100">100m</button><button type="button" data-v="150">150m</button><button type="button" data-v="200">200m</button></div></div>
+          <div class="field"><label data-i18n="ss.dwell">滞在時間</label><div class="set-seg" id="ss-dwell"><button type="button" data-v="1">1分</button><button type="button" data-v="3">3分</button><button type="button" data-v="5">5分</button><button type="button" data-v="10">10分</button><button type="button" data-v="30">30分</button></div></div>
           <div class="set-explain">
             <ul>
-              <li>決めた場所に入り、その範囲に<b>一定時間いる</b>と、継続を終了します。</li>
-              <li><b>近くを通るだけ・少し立ち寄るだけでは、終了しません。</b></li>
-              <li>位置情報は判定だけに使い、<b>いた場所の履歴は残しません。</b></li>
+              <li data-i18n="ss.ex1">決めた場所に入り、その範囲に<b>一定時間いる</b>と、継続を終了します。</li>
+              <li data-i18n="ss.ex2"><b>近くを通るだけ・少し立ち寄るだけでは、終了しません。</b></li>
+              <li data-i18n="ss.ex3">位置情報は判定だけに使い、<b>いた場所の履歴は残しません。</b></li>
             </ul>
-            <div class="se-note">※ Web版では、この画面を開いている間だけ判定します。</div>
+            <div class="se-note" data-i18n="ss.exNote">※ Web版では、この画面を開いている間だけ判定します。</div>
           </div>
         </div>
       </div>
-      <button class="paperbtn" id="ss-save">追加する</button>
-      <button class="ghostbtn" data-goto="home" style="display:block;margin:18px auto 0">← 戻る</button>
+      <button class="paperbtn" id="ss-save" data-i18n="add">追加する</button>
+      <button class="ghostbtn" data-goto="home" style="display:block;margin:18px auto 0" data-i18n="back">← 戻る</button>
     </div>
   </div></section>
 
@@ -542,103 +542,103 @@
   <section id="s-reflect" class="screen"><div class="col">
     <div class="chrome"><button class="backbtn" data-back aria-label="戻る">←</button><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
     <div class="setwrap">
-      <h1 class="seth">今日を振り返る</h1>
-      <p class="setlead" id="rf-lead">今日の充実度を記録します。</p>
+      <h1 class="seth" data-i18n="rf.title">今日を振り返る</h1>
+      <p class="setlead" id="rf-lead" data-i18n="rf.lead">今日の充実度を記録します。</p>
       <div id="rf-form">
         <div class="rf-pct"><span id="rf-val">50</span><span class="p">%</span></div>
-        <div class="rf-q">今日の充実度</div>
+        <div class="rf-q" data-i18n="rf.q">今日の充実度</div>
         <input type="range" class="rf-slider" id="rf-slider" min="0" max="100" step="1" value="50" aria-label="今日の充実度">
         <div class="rf-scale"><span>0</span><span>50</span><span>100</span></div>
         <div class="setform" style="margin-top:34px">
-          <div class="field"><label>ひとこと（任意）</label><textarea id="rf-memo" placeholder="印象に残ったこと（任意）"></textarea></div>
+          <div class="field"><label data-i18n="rf.memo">ひとこと（任意）</label><textarea id="rf-memo" placeholder="印象に残ったこと（任意）"></textarea></div>
         </div>
-        <button class="paperbtn" id="rf-save">記録する</button>
-        <button class="ghostbtn" data-goto="home" style="display:block;margin:18px auto 0">← 戻る</button>
+        <button class="paperbtn" id="rf-save" data-i18n="rf.save">記録する</button>
+        <button class="ghostbtn" data-goto="home" style="display:block;margin:18px auto 0" data-i18n="back">← 戻る</button>
       </div>
       <div id="rf-done" class="hidden">
-        <div class="rf-doneh">記録しました。</div>
+        <div class="rf-doneh" data-i18n="rf.done">記録しました。</div>
         <div class="rf-donepct"><span id="rf-donev">—</span><span class="p">%</span></div>
         <div class="rf-donememo" id="rf-donememo"></div>
         <div class="rf-tree" id="rf-tree"><svg class="rf-layer" id="rf-plant-a" viewBox="0 0 200 176" aria-hidden="true"></svg><svg class="rf-layer" id="rf-plant-b" viewBox="0 0 200 176" aria-hidden="true"></svg></div>
         <div class="rf-grow" id="rf-grow"></div>
-        <div class="rf-again">また、明日。</div>
-        <button class="linebtn" data-goto="home" style="margin-top:34px">ホームへ戻る</button>
+        <div class="rf-again" data-i18n="rf.again">また、明日。</div>
+        <button class="linebtn" data-goto="home" style="margin-top:34px" data-i18n="toHome">ホームへ戻る</button>
       </div>
     </div>
   </div></section>
 
   <!-- ===== SETTINGS ===== -->
   <section id="s-settings" class="screen"><div class="col">
-    <div class="chrome"><button class="backbtn" data-back aria-label="戻る">←</button><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="ghostbtn" data-goto="home">閉じる</button></div>
-    <h1 class="set-h1">設定</h1>
+    <div class="chrome"><button class="backbtn" data-back aria-label="戻る">←</button><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="ghostbtn" data-goto="home" data-i18n="close">閉じる</button></div>
+    <h1 class="set-h1" data-i18n="set.title">設定</h1>
 
     <div class="set-group">
-      <div class="set-label">残り時間</div>
-      <div class="set-row"><span class="set-k">想定寿命（終点の年齢）</span><span class="set-v"><input type="number" class="set-num" id="set-lifespan" min="20" max="120" inputmode="numeric"> 歳</span></div>
-      <div class="set-note">「死ぬまで」の終点に使います。※死亡日を予測するものではありません。</div>
+      <div class="set-label" data-i18n="set.g.time">残り時間</div>
+      <div class="set-row"><span class="set-k" data-i18n="set.lifespan">想定寿命（終点の年齢）</span><span class="set-v"><input type="number" class="set-num" id="set-lifespan" min="20" max="120" inputmode="numeric"> <span data-i18n="set.age">歳</span></span></div>
+      <div class="set-note" data-i18n="set.lifespanNote">「死ぬまで」の終点に使います。※死亡日を予測するものではありません。</div>
     </div>
 
     <div class="set-group">
-      <div class="set-label">アカウント</div>
-      <div class="set-row"><span class="set-k">アカウント連携</span><span class="set-v" id="set-acc">未連携</span></div>
+      <div class="set-label" data-i18n="set.g.account">アカウント</div>
+      <div class="set-row"><span class="set-k" data-i18n="set.acc">アカウント連携</span><span class="set-v" id="set-acc" data-i18n="set.acc.none">未連携</span></div>
       <div class="set-acc-actions">
-        <button class="linebtn set-disabled" disabled>Googleで連携<span class="set-soon">近日公開</span></button>
-        <button class="linebtn set-disabled" disabled>Appleで連携<span class="set-soon">近日公開</span></button>
-        <div class="set-note">クラウド同期は今後追加予定です。<br>いまは「データ」から書き出して、別の端末で読み込むと記録を移せます。</div>
+        <button class="linebtn set-disabled" disabled data-i18n="set.linkGoogle">Googleで連携<span class="set-soon">近日公開</span></button>
+        <button class="linebtn set-disabled" disabled data-i18n="set.linkApple">Appleで連携<span class="set-soon">近日公開</span></button>
+        <div class="set-note" data-i18n="set.accNote">クラウド同期は今後追加予定です。<br>いまは「データ」から書き出して、別の端末で読み込むと記録を移せます。</div>
       </div>
     </div>
 
     <div class="set-group">
-      <div class="set-label">サウンド</div>
-      <div class="set-row"><span class="set-k">効果音</span><label class="sw"><input type="checkbox" id="set-sound"><span class="track"></span></label></div>
-      <div class="set-row"><span class="set-k">振動</span><label class="sw"><input type="checkbox" id="set-vib"><span class="track"></span></label></div>
-      <div class="set-row"><span class="set-k">音量</span><input type="range" class="set-slider" id="set-vol" min="0" max="100"></div>
+      <div class="set-label" data-i18n="set.g.sound">サウンド</div>
+      <div class="set-row"><span class="set-k" data-i18n="set.sound">効果音</span><label class="sw"><input type="checkbox" id="set-sound"><span class="track"></span></label></div>
+      <div class="set-row"><span class="set-k" data-i18n="set.vib">振動</span><label class="sw"><input type="checkbox" id="set-vib"><span class="track"></span></label></div>
+      <div class="set-row"><span class="set-k" data-i18n="set.vol">音量</span><input type="range" class="set-slider" id="set-vol" min="0" max="100"></div>
     </div>
 
     <div class="set-group">
-      <div class="set-label">通知</div>
-      <div class="set-row"><span class="set-k">通知を許可</span><label class="sw"><input type="checkbox" id="set-nallow"><span class="track"></span></label></div>
-      <div class="set-row"><span class="set-k">毎日の振り返り</span><label class="sw"><input type="checkbox" id="set-nreview"><span class="track"></span></label></div>
-      <div class="set-row"><span class="set-k">通知時刻</span><input type="time" class="set-time" id="set-ntime"></div>
-      <div class="set-row"><span class="set-k">目標</span><label class="sw"><input type="checkbox" id="set-ngoal"><span class="track"></span></label></div>
-      <div class="set-row"><span class="set-k">継続記録</span><label class="sw"><input type="checkbox" id="set-nstreak"><span class="track"></span></label></div>
-      <div class="set-note">通知の配信はアプリ版で有効になります。ここでは設定だけを保存します。</div>
+      <div class="set-label" data-i18n="set.g.notif">通知</div>
+      <div class="set-row"><span class="set-k" data-i18n="set.nallow">通知を許可</span><label class="sw"><input type="checkbox" id="set-nallow"><span class="track"></span></label></div>
+      <div class="set-row"><span class="set-k" data-i18n="set.nreview">毎日の振り返り</span><label class="sw"><input type="checkbox" id="set-nreview"><span class="track"></span></label></div>
+      <div class="set-row"><span class="set-k" data-i18n="set.ntime">通知時刻</span><input type="time" class="set-time" id="set-ntime"></div>
+      <div class="set-row"><span class="set-k" data-i18n="set.ngoal">目標</span><label class="sw"><input type="checkbox" id="set-ngoal"><span class="track"></span></label></div>
+      <div class="set-row"><span class="set-k" data-i18n="set.nstreak">継続記録</span><label class="sw"><input type="checkbox" id="set-nstreak"><span class="track"></span></label></div>
+      <div class="set-note" data-i18n="set.notifNote">通知の配信はアプリ版で有効になります。ここでは設定だけを保存します。</div>
     </div>
 
     <div class="set-group">
-      <div class="set-label">表示</div>
-      <div class="set-row col2"><span class="set-k">テーマ</span><div class="set-seg" id="set-theme"><button type="button" data-v="dark">ダーク</button><button type="button" data-v="light">ライト</button></div></div>
-      <div class="set-row col2"><span class="set-k">文字サイズ</span><div class="set-seg" id="set-font"><button data-v="小">小</button><button data-v="標準">標準</button><button data-v="大">大</button><button data-v="特大">特大</button></div></div>
-      <div class="set-row col2"><span class="set-k">アニメーション</span><div class="set-seg" id="set-anim"><button data-v="標準">標準</button><button data-v="OFF">OFF</button></div></div>
-      <div class="set-row col2 hidden"><span class="set-k">言語 / Language</span><div class="set-seg" id="set-lang"><button data-v="ja">日本語</button><button data-v="en">English</button></div></div>
+      <div class="set-label" data-i18n="set.g.display">表示</div>
+      <div class="set-row col2"><span class="set-k" data-i18n="set.theme">テーマ</span><div class="set-seg" id="set-theme"><button type="button" data-v="dark" data-i18n="set.dark">ダーク</button><button type="button" data-v="light" data-i18n="set.light">ライト</button></div></div>
+      <div class="set-row col2"><span class="set-k" data-i18n="set.font">文字サイズ</span><div class="set-seg" id="set-font"><button data-v="小" data-i18n="set.fs.s">小</button><button data-v="標準" data-i18n="set.fs.m">標準</button><button data-v="大" data-i18n="set.fs.l">大</button><button data-v="特大" data-i18n="set.fs.xl">特大</button></div></div>
+      <div class="set-row col2"><span class="set-k" data-i18n="set.anim">アニメーション</span><div class="set-seg" id="set-anim"><button data-v="標準" data-i18n="set.anim.on">標準</button><button data-v="OFF" data-i18n="set.anim.off">OFF</button></div></div>
+      <div class="set-row col2"><span class="set-k" data-i18n="set.lang">言語 / Language</span><div class="set-seg" id="set-lang"><button data-v="ja">日本語</button><button data-v="en">English</button></div></div>
     </div>
 
     <div class="set-group">
-      <div class="set-label">位置情報</div>
-      <div class="set-row"><span class="set-k">継続の自動判定に使用</span><span class="set-v" id="set-geo">—</span></div>
-      <div class="set-note">対象の場所への滞在の判定にのみ使います。移動の履歴は保存しません。</div>
+      <div class="set-label" data-i18n="set.g.location">位置情報</div>
+      <div class="set-row"><span class="set-k" data-i18n="set.geo">継続の自動判定に使用</span><span class="set-v" id="set-geo">—</span></div>
+      <div class="set-note" data-i18n="set.geoNote">対象の場所への滞在の判定にのみ使います。移動の履歴は保存しません。</div>
     </div>
 
     <div class="set-group">
-      <div class="set-label">データ</div>
-      <div class="set-row tap" id="set-export"><span class="set-k">データをエクスポート</span><span class="set-v">JSON →</span></div>
-      <div class="set-row tap" id="set-import"><span class="set-k">データを読み込む</span><span class="set-v">JSON ←</span></div>
+      <div class="set-label" data-i18n="set.g.data">データ</div>
+      <div class="set-row tap" id="set-export"><span class="set-k" data-i18n="set.export">データをエクスポート</span><span class="set-v">JSON →</span></div>
+      <div class="set-row tap" id="set-import"><span class="set-k" data-i18n="set.import">データを読み込む</span><span class="set-v">JSON ←</span></div>
       <input type="file" id="set-import-file" accept="application/json,.json" style="display:none">
-      <div class="set-row tap" id="set-delete"><span class="set-k set-danger">データを削除</span><span class="set-v">→</span></div>
-      <div class="set-note">別の端末に移すには、この端末で「エクスポート」して、もう一方で「読み込む」。</div>
+      <div class="set-row tap" id="set-delete"><span class="set-k set-danger" data-i18n="set.delete">データを削除</span><span class="set-v">→</span></div>
+      <div class="set-note" data-i18n="set.dataNote">別の端末に移すには、この端末で「エクスポート」して、もう一方で「読み込む」。</div>
     </div>
 
     <div class="set-group">
-      <div class="set-label">プライバシー</div>
-      <div class="set-note2">この端末に保存している情報：<br>生年月日／目標／継続／今日の記録／各種設定<br>これらは端末内にのみ保存され、外部には送信されません。</div>
+      <div class="set-label" data-i18n="set.g.privacy">プライバシー</div>
+      <div class="set-note2" data-i18n="set.privNote">この端末に保存している情報：<br>生年月日／目標／継続／今日の記録／各種設定<br>これらは端末内にのみ保存され、外部には送信されません。</div>
     </div>
 
     <div class="set-group">
-      <div class="set-label">その他</div>
-      <div class="set-row"><span class="set-k">利用規約</span><span class="set-v set-soon">近日公開</span></div>
-      <div class="set-row"><span class="set-k">プライバシーポリシー</span><span class="set-v set-soon">近日公開</span></div>
-      <div class="set-row"><span class="set-k">お問い合わせ</span><span class="set-v set-soon">近日公開</span></div>
-      <div class="set-row"><span class="set-k">このアプリについて</span><span class="set-v">残 · NOKORI　v1.0.0</span></div>
+      <div class="set-label" data-i18n="set.g.other">その他</div>
+      <div class="set-row"><span class="set-k" data-i18n="set.terms">利用規約</span><span class="set-v set-soon" data-i18n="soon">近日公開</span></div>
+      <div class="set-row"><span class="set-k" data-i18n="set.policy">プライバシーポリシー</span><span class="set-v set-soon" data-i18n="soon">近日公開</span></div>
+      <div class="set-row"><span class="set-k" data-i18n="set.contact">お問い合わせ</span><span class="set-v set-soon" data-i18n="soon">近日公開</span></div>
+      <div class="set-row"><span class="set-k" data-i18n="set.about">このアプリについて</span><span class="set-v">残 · NOKORI　v1.0.0</span></div>
     </div>
   </div></section>
 
@@ -677,13 +677,29 @@
     "pick.tagline":"See your time, as numbers.","pick.lead":"Track what's left of your life, goals and habits.","pick.prompt":"What will you track?",
     "mode.death":"Until death","mode.death.d":"The time left until your lifespan.","mode.goal":"Goal countdown","mode.goal.d":"Days left until your goal.","mode.streak":"Streak","mode.streak.d":"Count the days you keep going.","pick.begin":"Begin",
     "death.title":"Until death","death.sub":"Perceived time left","death.left":"Left","janet.note":"Estimated with Janet's law","rs.share":" Share on X","janet.explain":"By age 20, we are said to have already felt about half of our lifetime (Janet's law).<br>This shows the perceived time left for your age.",
-    "in.title":"Enter your date of birth","in.lead":"Used to calculate your remaining time.","in.why":"Why we need your date of birth","in.whyBody":"We use it to calculate the time that has passed and the time you have left.","in.privacy":"Your date of birth is <b>stored only on this device</b> and <b>never sent anywhere</b>.","in.next":"Continue",
-    "cf.title":"Please review","cf.birth":"Date of birth","cf.end":"End point","cf.endNote":"※ Not a date of death — a point you set.","cf.now":"Now","cf.left":"Days left","cf.begin":"Begin","cf.back":"← Back",
-    "home.review":"Reflect on today","today.left":"Left today",
-    "rf.title":"Reflect on today","rf.lead":"Record how fulfilling today was.","rf.q":"Today's fulfillment","rf.memo":"A note (optional)","rf.save":"Save","rf.done":"Saved.","rf.again":"See you tomorrow.","rf.back":"← Back",
+    "in.title":"Enter your date of birth","in.lead":"Used to calculate your remaining time.","in.dob":"Date of birth","in.y":"Year","in.m":"Month","in.d":"Day","in.why":"Why we need your date of birth","in.whyBody":"We use it to calculate the time that has passed and the time you have left.","in.privacy":"Your date of birth is <b>stored only on this device</b> and <b>never sent anywhere</b>.","in.next":"Continue",
+    "step.dob":"Birth","step.confirm":"Confirm","step.carve":"Start",
+    "cf.title":"Please review","cf.birth":"Date of birth","cf.end":"End point","cf.endNote":"※ Not a date of death — a calculated milestone.","cf.now":"Now","cf.left":"Remaining","cf.begin":"Begin",
+    "back":"← Back","close":"Close","add":"Add","toHome":"Back to home","unit.days":"days",
+    "home.life":"Life remaining","home.today":"Today","home.goal":"Goal","home.streak":"Streak","home.leftToday":"Left today",
+    "rz.done":"The carving is complete.","rz.exp":"This is not a prediction of your death.<br>Your time has simply reached the end point you set.","rz.ask":"Even so — now that it has reached zero.<br>What did you feel?","rz.back":"Back to modes",
+    "re.t":"……it has already ended.","re.exp":"For the date entered, NOKORI's clock has already passed zero.<br>This does not predict your present or future.","re.note":"※ NOKORI does not predict the time of death.","re.redo":"Re-enter the date",
+    "soon.t":"This clock is being prepared.","soon.p":"Today's reflection<br>will be carved from here on.",
+    "gs.title":"Add a goal","gs.lead":"Enter your goal and its deadline.","gs.name":"Goal","gs.deadline":"Deadline",
+    "ss.title":"Add a streak","ss.lead":"Enter what you'll keep up and the start date.","ss.name":"What to keep up","ss.start":"Start date","ss.auto":"Auto-detect (location)","ss.place":"Target place","ss.addloc":"Register current location","ss.radius":"Range","ss.dwell":"Dwell time","ss.ex1":"Entering the chosen place and <b>staying a set time</b> ends the streak.","ss.ex2":"<b>Just passing by or briefly stopping will not end it.</b>","ss.ex3":"Location is used only for detection; <b>no history of where you were is kept.</b>","ss.exNote":"※ On the web version, detection runs only while this screen is open.",
+    "rf.title":"Reflect on today","rf.lead":"Record how fulfilling today was.","rf.q":"Today's fulfillment","rf.memo":"A note (optional)","rf.save":"Save","rf.done":"Saved.","rf.again":"See you tomorrow.",
     "set.title":"Settings","set.g.time":"Remaining time","set.g.account":"Account","set.g.sound":"Sound","set.g.notif":"Notifications","set.g.display":"Display","set.g.location":"Location","set.g.data":"Data","set.g.privacy":"Privacy","set.g.other":"Other",
-    "set.acc":"Account link","set.acc.none":"Not linked","set.lifespan":"Life expectancy (end age)","set.theme":"Theme","set.font":"Text size","set.anim":"Animation","set.sound":"Sound effects","set.vib":"Vibration","set.vol":"Volume","set.nallow":"Allow notifications","set.nreview":"Daily reflection","set.ntime":"Time","set.ngoal":"Goal","set.nstreak":"Streak","set.geo":"Used for streak auto-detection","set.export":"Export data","set.import":"Import data","set.delete":"Delete data","set.terms":"Terms","set.policy":"Privacy Policy","set.contact":"Contact","set.about":"About"
+    "set.acc":"Account link","set.acc.none":"Not linked","set.linkGoogle":"Link with Google<span class=\"set-soon\">Coming soon</span>","set.linkApple":"Link with Apple<span class=\"set-soon\">Coming soon</span>","set.accNote":"Cloud sync is planned. For now, export from “Data” and import on another device to move your records.",
+    "set.lifespan":"Life expectancy (end age)","set.age":"yrs","set.lifespanNote":"Used as the end point for “Until death.” ※ Not a prediction of the date of death.",
+    "set.theme":"Theme","set.dark":"Dark","set.light":"Light","set.font":"Text size","set.fs.s":"S","set.fs.m":"M","set.fs.l":"L","set.fs.xl":"XL","set.anim":"Animation","set.anim.on":"On","set.anim.off":"Off","set.lang":"Language",
+    "set.sound":"Sound effects","set.vib":"Vibration","set.vol":"Volume","set.nallow":"Allow notifications","set.nreview":"Daily reflection","set.ntime":"Time","set.ngoal":"Goal","set.nstreak":"Streak","set.notifNote":"Notification delivery is enabled in the app version. Here, only the settings are saved.",
+    "set.geo":"Used for streak auto-detection","set.geoNote":"Used only to detect staying at a target place. Movement history is not stored.",
+    "set.export":"Export data","set.import":"Import data","set.delete":"Delete data","set.dataNote":"To move to another device, “Export” here and “Import” on the other.",
+    "set.privNote":"Stored on this device:<br>date of birth / goals / streaks / today's records / settings<br>These are stored only on this device and never sent anywhere.",
+    "set.terms":"Terms","set.policy":"Privacy Policy","set.contact":"Contact","set.about":"About","soon":"Coming soon"
   }};
+  function curLang(){try{var s=JSON.parse(localStorage.getItem("nokori.settings"));return (s&&s.lang==="en")?"en":"ja";}catch(e){return "ja";}}
+  function T(ja,en){return curLang()==="en"?en:ja;}
   function applyI18n(lang){
     document.querySelectorAll("[data-i18n]").forEach(function(el){
       if(el.getAttribute("data-i18n-orig")===null)el.setAttribute("data-i18n-orig",el.innerHTML);
@@ -697,13 +713,14 @@
       for(var i=0;i<Math.min(count,4);i++)s.appendChild(eln("line",{x1:gx+i*mg,y1:oy,x2:gx+i*mg,y2:oy+30,stroke:mk,"stroke-width":"2","stroke-linecap":"round","stroke-opacity":"0.82"}));
       if(count>=5)s.appendChild(eln("line",{x1:gx-4,y1:oy+30,x2:gx+3*mg+5,y2:oy,stroke:mk,"stroke-width":"2","stroke-linecap":"round","stroke-opacity":"0.82"}));}}
   var MSG_POOL=["あなたの時間は、あなたのもの。","今日という日は、今日しかない。","少しずつでいい。続けた分だけ、前に進んでる。","残りの時間で、何をしたい？","今日できたこと、ひとつ思い出してみて。","焦らなくていい。でも、忘れないで。","あなたのペースで、時間を使おう。","疲れたら休んでいい。時間は、あなたの味方。","小さな一歩も、立派な前進。","今日を大切にできたら、それで十分。","また会えたね。今日も一緒に。","未来のあなたが、今日のあなたに感謝する。"];
+  var MSG_POOL_EN=["Your time is your own.","Today only happens today.","Little by little is fine — every day you keep going moves you forward.","What do you want to do with the time you have left?","Try to recall one thing you managed today.","No need to rush. But don't forget.","Use your time at your own pace.","Rest when you're tired. Time is on your side.","A small step is still real progress.","If you valued today, that's enough.","Good to see you again. Together again today.","The future you will thank the you of today."];
   function dailyMessage(){
-    var now=new Date(),h=now.getHours(),refl=readJSON("nokori.reflect")||{},doneToday=!!refl[todayKey()];
-    if(h<10)return "おはよう。今日も、いい1日にしよう。";
-    if(doneToday&&h>=18)return "今日を刻めたね。また明日。";
-    if(!doneToday&&h>=21)return "今日もおつかれさま。振り返ってみる？";
-    var seed=Math.floor((now-new Date(now.getFullYear(),0,0))/86400000);
-    return MSG_POOL[seed%MSG_POOL.length];
+    var now=new Date(),h=now.getHours(),refl=readJSON("nokori.reflect")||{},doneToday=!!refl[todayKey()],en=curLang()==="en";
+    if(h<10)return en?"Good morning. Let's make today a good one.":"おはよう。今日も、いい1日にしよう。";
+    if(doneToday&&h>=18)return en?"You carved today. See you tomorrow.":"今日を刻めたね。また明日。";
+    if(!doneToday&&h>=21)return en?"Nice work today. Want to reflect?":"今日もおつかれさま。振り返ってみる？";
+    var seed=Math.floor((now-new Date(now.getFullYear(),0,0))/86400000),pool=en?MSG_POOL_EN:MSG_POOL;
+    return pool[seed%pool.length];
   }
   function seededRand(seed){var s=(seed>>>0)||1;return function(){s=(s*1664525+1013904223)>>>0;return s/4294967296;};}
   function stageFromDays(d){return d>=365?4:d>=90?3:d>=30?2:d>=7?1:0;}
@@ -841,7 +858,7 @@
   function initConfirm(){
     var p=birthParts(),now=new Date();
     $("#cf-birth").textContent=p[0]+"."+pad(p[1])+"."+pad(p[2]);
-    $("#cf-end").textContent=(p[0]+lifespan())+"年ごろ";
+    $("#cf-end").textContent=T((p[0]+lifespan())+"年ごろ","around "+(p[0]+lifespan()));
     $("#cf-now").textContent=now.getFullYear()+"."+pad(now.getMonth()+1)+"."+pad(now.getDate())+"  "+pad(now.getHours())+":"+pad(now.getMinutes());
     $("#cf-days").textContent=fmt(Math.max(0,Math.floor((deathDate()-now)/86400000)));
   }
@@ -850,21 +867,21 @@
   /* ---------- HOME ---------- */
   var homeSparkBuilt=false;
   function initHome(){
-    var now=new Date(),wd=["日","月","火","水","木","金","土"][now.getDay()];
-    $("#hm-date").innerHTML=now.getFullYear()+"."+pad(now.getMonth()+1)+"."+pad(now.getDate())+"<small>（"+wd+"）</small>";
+    var now=new Date(),en0=curLang()==="en",wd=(en0?["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]:["日","月","火","水","木","金","土"])[now.getDay()];
+    $("#hm-date").innerHTML=now.getFullYear()+"."+pad(now.getMonth()+1)+"."+pad(now.getDate())+"<small>"+(en0?" ("+wd+")":"（"+wd+"）")+"</small>";
     $("#hm-msg").textContent=dailyMessage();
     // goal (from storage, else empty 0)
     var goal=readJSON("nokori.goal"),gRem=document.querySelector("#s-home .goal .rem");
     if(goal&&goal.date){
       var gp=goal.date.split("-").map(Number),gd0=new Date(gp[0],gp[1]-1,gp[2]),tEnd=new Date(gp[0],gp[1]-1,gp[2],23,59,59),cr=goal.created?new Date(goal.created):now;
       var gdays=daysBetween(now,gd0);
-      $("#hm-gname").innerHTML='<span class="gn-t">'+esc(goal.name||"目標")+'</span><small>期限 '+goal.date.replace(/-/g,".")+'</small>';
+      $("#hm-gname").innerHTML='<span class="gn-t">'+esc(goal.name||T("目標","Goal"))+'</span><small>'+T("期限 ","Due ")+goal.date.replace(/-/g,".")+'</small>';
       gRem.style.display="";
-      if(gdays>0){gRem.innerHTML='<b>'+fmt(gdays)+'</b><span>日</span>';gRem.classList.toggle("near",gdays<=30);}
-      else{gRem.innerHTML='<span class="g-flag">'+(gdays===0?"本番は今日":"本番は過ぎました")+'</span>';gRem.classList.add("near");}
+      if(gdays>0){gRem.innerHTML='<b>'+fmt(gdays)+'</b><span>'+T("日","days")+'</span>';gRem.classList.toggle("near",gdays<=30);}
+      else{gRem.innerHTML='<span class="g-flag">'+(gdays===0?T("本番は今日","The day is today"):T("本番は過ぎました","The day has passed"))+'</span>';gRem.classList.add("near");}
       var pg=Math.max(0,Math.min(100,(tEnd-cr)>0?(now-cr)/(tEnd-cr)*100:100));$("#hm-gfill").style.width=pg.toFixed(1)+"%";$("#hm-gmk").style.left=pg.toFixed(1)+"%";
     }else{
-      $("#hm-gname").innerHTML='目標を追加<span class="hint">期限を決めて、残り時間を刻む</span>';
+      $("#hm-gname").innerHTML=T('目標を追加','Add a goal')+'<span class="hint">'+T('期限を決めて、残り時間を刻む','Set a deadline and carve the time left')+'</span>';
       if(gRem)gRem.style.display="none";$("#hm-gfill").style.width="0%";$("#hm-gmk").style.left="0%";
     }
     // streak (from storage, else empty 0)
@@ -874,22 +891,22 @@
       var cur=failedS?0:Math.max(0,daysBetween(new Date(streak.start),now));
       var shown=failedS?Math.max(0,daysBetween(new Date(streak.start),streak.failedAt?new Date(streak.failedAt):now)):cur;
       var cum=(streak.cumulative||0)+cur;
-      $("#hm-sname").textContent=streak.name||"継続";$("#hm-snum").style.display="";$("#hm-scnt").textContent=fmt(shown);$("#hm-sst").textContent=failedS?"継続終了":"継続中";
-      $("#hm-scum").textContent="累計 "+fmt(cum)+"日";
+      $("#hm-sname").textContent=streak.name||T("継続","Streak");$("#hm-snum").style.display="";$("#hm-scnt").textContent=fmt(shown);$("#hm-sst").textContent=failedS?T("継続終了","Ended"):T("継続中","Ongoing");
+      $("#hm-scum").textContent=T("累計 "+fmt(cum)+"日","Total "+fmt(cum)+" days");
       drawTally(st,shown);
     }else{
-      $("#hm-sname").innerHTML='継続を追加<span class="hint">守り続けた日数を、刻む</span>';$("#hm-snum").style.display="none";$("#hm-scum").textContent="";st.innerHTML="";
+      $("#hm-sname").innerHTML=T('継続を追加','Add a streak')+'<span class="hint">'+T('守り続けた日数を、刻む','Carve the days you keep it up')+'</span>';$("#hm-snum").style.display="none";$("#hm-scum").textContent="";st.innerHTML="";
     }
     // today: 振り返り状態＋充実度スパークライン（記録データから）
     var refl=readJSON("nokori.reflect")||{},done=refl[todayKey()];
-    $("#hm-review").innerHTML=done?('今日は振り返り済み　<b style="color:var(--num);font-family:\'Roboto Mono\',monospace;font-weight:400">'+done.pct+'%</b>　見る<span class="a">→</span>'):'今日を振り返る<span class="a">→</span>';
+    $("#hm-review").innerHTML=done?(T('今日は振り返り済み　','Reflected today　')+'<b style="color:var(--num);font-family:\'Roboto Mono\',monospace;font-weight:400">'+done.pct+'%</b>'+T('　見る','　View')+'<span class="a">→</span>'):T('今日を振り返る','Reflect on today')+'<span class="a">→</span>';
     homeSpark(refl);
     // life（残り日数を主役に、秒は脇へ）＋ 今日の残り分
     function tick(){
       var secs=Math.max(0,Math.floor((deathDate()-Date.now())/1000));
-      $("#hm-life").textContent=fmt(Math.floor(secs/86400));$("#hm-side").textContent="約 "+fmt(secs)+" 秒";
+      $("#hm-life").textContent=fmt(Math.floor(secs/86400));$("#hm-side").textContent=T("約 "+fmt(secs)+" 秒","≈ "+fmt(secs)+" sec");
       var now=new Date(),end=new Date(now.getFullYear(),now.getMonth(),now.getDate()+1,0,0,0),mins=Math.max(0,Math.floor((end-now)/60000)),hh=Math.floor(mins/60),mm=mins%60;
-      $("#hm-hm").innerHTML=hh+'<span class="u">時間</span> '+mm+'<span class="u">分</span>';
+      $("#hm-hm").innerHTML=hh+'<span class="u">'+T("時間","h")+'</span> '+mm+'<span class="u">'+T("分","m")+'</span>';
     }
     tick();timers.push(setInterval(tick,1000));
   }
@@ -908,26 +925,30 @@
   /* ---------- REFLECT (今日を振り返る) ---------- */
   function initReflect(){
     var refl=readJSON("nokori.reflect")||{},done=refl[todayKey()];
+    $("#rf-memo").setAttribute("placeholder",T("印象に残ったこと（任意）","Anything memorable (optional)"));
     if(done){$("#rf-form").classList.add("hidden");$("#rf-done").classList.remove("hidden");$("#rf-lead").classList.add("hidden");$("#rf-donev").textContent=done.pct;$("#rf-donememo").textContent=done.memo||"";
       var daysN=0;for(var k in refl){if(refl[k]&&typeof refl[k].pct==="number")daysN++;}
       var stage=stageFromDays(daysN),prevStage=stage;try{var ps=parseInt(localStorage.getItem("nokori.treeStage"),10);if(!isNaN(ps))prevStage=ps;}catch(e){}
       showTree(stage,prevStage,true);
       try{localStorage.setItem("nokori.treeStage",String(stage));}catch(e){}
-      var ms=([7,30,50,100,200,365].indexOf(daysN)>=0)?"　<b>"+daysN+"日達成</b>":"";
-      $("#rf-grow").innerHTML=daysN+"日ぶんの記録で、"+(stage>=4?"育ちました":"育っています")+ms;}
+      var milestone=[7,30,50,100,200,365].indexOf(daysN)>=0;
+      if(curLang()==="en"){var msE=milestone?"　<b>"+daysN+"-day milestone</b>":"";$("#rf-grow").innerHTML=daysN+" days recorded — "+(stage>=4?"fully grown":"still growing")+msE;}
+      else{var ms=milestone?"　<b>"+daysN+"日達成</b>":"";$("#rf-grow").innerHTML=daysN+"日ぶんの記録で、"+(stage>=4?"育ちました":"育っています")+ms;}}
     else{$("#rf-form").classList.remove("hidden");$("#rf-done").classList.add("hidden");$("#rf-lead").classList.remove("hidden");$("#rf-slider").value=50;$("#rf-val").textContent="50";$("#rf-memo").value="";}
   }
   $("#rf-slider").addEventListener("input",function(){$("#rf-val").textContent=this.value;});
   $("#rf-save").addEventListener("click",function(){
     var refl=readJSON("nokori.reflect")||{};
     refl[todayKey()]={pct:parseInt($("#rf-slider").value,10),memo:($("#rf-memo").value||"").trim(),at:new Date().toISOString()};
-    try{localStorage.setItem("nokori.reflect",JSON.stringify(refl));}catch(e){alert("記録を保存できませんでした。ブラウザの設定（プライベートモード等）をご確認ください。");return;}
+    try{localStorage.setItem("nokori.reflect",JSON.stringify(refl));}catch(e){alert(T("記録を保存できませんでした。ブラウザの設定（プライベートモード等）をご確認ください。","Could not save your record. Please check your browser settings (e.g. private mode)."));return;}
     initReflect();
   });
 
   /* ---------- GOAL / STREAK set ---------- */
   var GOAL_SUGG=["大学受験","資格試験","就職","ダイエット","貯金","筋トレ","旅行","起業","恋愛"];
+  var GOAL_SUGG_EN=["Exam","Certification","Job hunt","Diet","Savings","Workout","Travel","Startup","Love"];
   var STREAK_SUGG=["禁酒","禁タバコ","禁ギャンブル","禁SNS","禁ゲーム","禁課金"];
+  var STREAK_SUGG_EN=["No alcohol","No smoking","No gambling","No social media","No gaming","No spending"];
   function renderSugg(hostId,inputId,arr){
     var host=$("#"+hostId);if(!host)return;var cur=($("#"+inputId).value||"").trim();
     host.innerHTML=arr.map(function(v){return '<button type="button" aria-pressed="'+(v===cur?"true":"false")+'" data-v="'+esc(v)+'">'+esc(v)+'</button>';}).join('');
@@ -937,46 +958,47 @@
       b.setAttribute("aria-pressed","true");
     });});
   }
-  function initGoalset(){var t=new Date(),td=t.getFullYear()+"-"+pad(t.getMonth()+1)+"-"+pad(t.getDate());var el=$("#gs-date");el.min=td;el.style.borderColor="";var g=readJSON("nokori.goal");$("#gs-name").value=(g&&g.name)?g.name:"";if(g&&g.date)el.value=g.date;renderSugg("gs-sugg","gs-name",GOAL_SUGG);}
+  function initGoalset(){var t=new Date(),td=t.getFullYear()+"-"+pad(t.getMonth()+1)+"-"+pad(t.getDate());var el=$("#gs-date");el.min=td;el.style.borderColor="";var g=readJSON("nokori.goal");$("#gs-name").value=(g&&g.name)?g.name:"";$("#gs-name").setAttribute("placeholder",T("例：大学受験","e.g. University exam"));if(g&&g.date)el.value=g.date;renderSugg("gs-sugg","gs-name",curLang()==="en"?GOAL_SUGG_EN:GOAL_SUGG);}
   var ssState={locs:[],radius:100,dwell:3,auto:false};
   function renderSsLocs(){
-    $("#ss-locs").innerHTML=ssState.locs.length?ssState.locs.map(function(l,i){return '<div class="ss-loc"><span>'+esc(l.name||"現在地")+' <span style="color:var(--faint);font-size:11px">±'+Math.round(l.accuracy||0)+'m</span></span><button class="del" data-i="'+i+'" aria-label="削除">✕</button></div>';}).join(''):'<div class="set-note" style="margin-top:0">まだ登録されていません。</div>';
+    $("#ss-locs").innerHTML=ssState.locs.length?ssState.locs.map(function(l,i){return '<div class="ss-loc"><span>'+esc(l.name||T("現在地","Current location"))+' <span style="color:var(--faint);font-size:11px">±'+Math.round(l.accuracy||0)+'m</span></span><button class="del" data-i="'+i+'" aria-label="削除">✕</button></div>';}).join(''):'<div class="set-note" style="margin-top:0">'+T("まだ登録されていません。","No places registered yet.")+'</div>';
     $("#ss-locs").querySelectorAll("[data-i]").forEach(function(b){b.addEventListener("click",function(){ssState.locs.splice(+b.getAttribute("data-i"),1);renderSsLocs();});});
   }
   function renderSsSegs(){document.querySelectorAll("#ss-radius button").forEach(function(b){b.setAttribute("aria-pressed",String(+b.getAttribute("data-v")===ssState.radius));});document.querySelectorAll("#ss-dwell button").forEach(function(b){b.setAttribute("aria-pressed",String(+b.getAttribute("data-v")===ssState.dwell));});}
   function initStreakset(){
     var t=new Date(),td=t.getFullYear()+"-"+pad(t.getMonth()+1)+"-"+pad(t.getDate());var el=$("#ss-date");el.max=td;el.style.borderColor="";
     var s=readJSON("nokori.streak");
-    $("#ss-name").value=(s&&s.name)?s.name:"";el.value=(s&&s.start)?ymd(new Date(s.start)):td;
+    $("#ss-name").value=(s&&s.name)?s.name:"";$("#ss-name").setAttribute("placeholder",T("例：禁パチンコ","e.g. No gambling"));el.value=(s&&s.start)?ymd(new Date(s.start)):td;
     ssState={locs:(s&&s.locations)?s.locations.slice():[],radius:(s&&s.radius)||100,dwell:(s&&s.dwell)||3,auto:!!(s&&s.auto)};
     $("#ss-auto").checked=ssState.auto;$("#ss-auto-opts").classList.toggle("hidden",!ssState.auto);
-    renderSsLocs();renderSsSegs();renderSugg("ss-sugg","ss-name",STREAK_SUGG);
+    document.querySelectorAll("#ss-dwell button").forEach(function(b){b.textContent=b.getAttribute("data-v")+T("分"," min");});
+    renderSsLocs();renderSsSegs();renderSugg("ss-sugg","ss-name",curLang()==="en"?STREAK_SUGG_EN:STREAK_SUGG);
   }
   $("#ss-auto").addEventListener("change",function(){ssState.auto=this.checked;$("#ss-auto-opts").classList.toggle("hidden",!this.checked);});
   document.querySelectorAll("#ss-radius button").forEach(function(b){b.addEventListener("click",function(){ssState.radius=+b.getAttribute("data-v");renderSsSegs();});});
   document.querySelectorAll("#ss-dwell button").forEach(function(b){b.addEventListener("click",function(){ssState.dwell=+b.getAttribute("data-v");renderSsSegs();});});
   $("#ss-addloc").addEventListener("click",function(){
-    var btn=this;if(!navigator.geolocation){alert("この端末では位置情報が使えません。");return;}
-    btn.textContent="取得中…";btn.disabled=true;
+    var btn=this;if(!navigator.geolocation){alert(T("この端末では位置情報が使えません。","Location is not available on this device."));return;}
+    btn.textContent=T("取得中…","Getting…");btn.disabled=true;
     navigator.geolocation.getCurrentPosition(function(p){
-      var acc=p.coords.accuracy||0;btn.textContent="現在地を登録";btn.disabled=false;
-      if(acc>Math.max(ssState.radius*1.5,100)){alert("位置情報の精度が低いため（±"+Math.round(acc)+"m）、登録を見送りました。\nもう一度取得してください。屋外や窓際だと精度が上がります。");return;}
-      ssState.locs.push({name:"現在地",lat:p.coords.latitude,lng:p.coords.longitude,accuracy:acc});
+      var acc=p.coords.accuracy||0;btn.textContent=T("現在地を登録","Register current location");btn.disabled=false;
+      if(acc>Math.max(ssState.radius*1.5,100)){alert(T("位置情報の精度が低いため（±"+Math.round(acc)+"m）、登録を見送りました。\nもう一度取得してください。屋外や窓際だと精度が上がります。","Location accuracy is too low (±"+Math.round(acc)+"m), so it was not registered.\nPlease try again — accuracy improves outdoors or near a window."));return;}
+      ssState.locs.push({name:T("現在地","Current location"),lat:p.coords.latitude,lng:p.coords.longitude,accuracy:acc});
       renderSsLocs();
-    },function(){btn.textContent="現在地を登録";btn.disabled=false;alert("位置情報を取得できませんでした。\n端末とブラウザの位置情報を許可してください。");},{enableHighAccuracy:true,timeout:10000,maximumAge:0});
+    },function(){btn.textContent=T("現在地を登録","Register current location");btn.disabled=false;alert(T("位置情報を取得できませんでした。\n端末とブラウザの位置情報を許可してください。","Could not get your location.\nPlease allow location access for your device and browser."));},{enableHighAccuracy:true,timeout:10000,maximumAge:0});
   });
   $("#gs-save").addEventListener("click",function(){var name=($("#gs-name").value||"").trim(),date=$("#gs-date").value;
     if(!date){$("#gs-date").focus();$("#gs-date").style.borderColor="var(--paper-dim)";return;}
     var prevG=readJSON("nokori.goal"),created=(prevG&&prevG.created)?prevG.created:new Date().toISOString();
-    try{localStorage.setItem("nokori.goal",JSON.stringify({name:name||"目標",date:date,created:created}));}catch(e){alert("目標を保存できませんでした。ブラウザの設定をご確認ください。");return;}go("home");});
-  function saveStreak(o){try{localStorage.setItem("nokori.streak",JSON.stringify(o));return true;}catch(e){alert("継続を保存できませんでした。ブラウザの設定をご確認ください。");return false;}}
+    try{localStorage.setItem("nokori.goal",JSON.stringify({name:name||T("目標","Goal"),date:date,created:created}));}catch(e){alert(T("目標を保存できませんでした。ブラウザの設定をご確認ください。","Could not save the goal. Please check your browser settings."));return;}go("home");});
+  function saveStreak(o){try{localStorage.setItem("nokori.streak",JSON.stringify(o));return true;}catch(e){alert(T("継続を保存できませんでした。ブラウザの設定をご確認ください。","Could not save the streak. Please check your browser settings."));return false;}}
   $("#ss-save").addEventListener("click",function(){
     var name=($("#ss-name").value||"").trim(),date=$("#ss-date").value;
     if(!name){$("#ss-name").focus();$("#ss-name").style.borderColor="var(--paper-dim)";return;}
-    if(ssState.auto&&ssState.locs.length===0){alert("自動判定には対象場所の登録が必要です。\n「現在地を登録」を押すか、自動判定をオフにしてください。");return;}
+    if(ssState.auto&&ssState.locs.length===0){alert(T("自動判定には対象場所の登録が必要です。\n「現在地を登録」を押すか、自動判定をオフにしてください。","Auto-detection needs at least one target place.\nTap “Register current location” or turn auto-detection off."));return;}
     var start=date?new Date(date+"T00:00:00").toISOString():new Date().toISOString();
     var prev=readJSON("nokori.streak");
-    if(prev&&prev.start){var chosenStr=date||ymd(new Date());if(ymd(new Date(prev.start))!==chosenStr){if(!confirm("開始日を変更すると、継続日数が変わります。\nよろしいですか?"))return;}}
+    if(prev&&prev.start){var chosenStr=date||ymd(new Date());if(ymd(new Date(prev.start))!==chosenStr){if(!confirm(T("開始日を変更すると、継続日数が変わります。\nよろしいですか?","Changing the start date will change the streak count.\nAre you sure?")))return;}}
     if(!saveStreak({name:name,start:start,auto:ssState.auto,radius:ssState.radius,dwell:ssState.dwell,locations:ssState.locs,status:"active",cumulative:(prev&&prev.cumulative)||0}))return;
     go("streak");
   });
@@ -991,33 +1013,33 @@
   function initStreak(){
     stopGeo();sm=null;
     var s=readJSON("nokori.streak"),host=$("#st-body");
-    if(!s){host.innerHTML='<div style="text-align:center;padding:70px 0"><div class="st-name">継続はまだありません</div><div style="margin-top:34px"><button class="linebtn" data-goto="streakset" style="max-width:300px;margin:0 auto">継続を追加</button></div></div>';return;}
+    if(!s){host.innerHTML='<div style="text-align:center;padding:70px 0"><div class="st-name">'+T("継続はまだありません","No streak yet")+'</div><div style="margin-top:34px"><button class="linebtn" data-goto="streakset" style="max-width:300px;margin:0 auto">'+T("継続を追加","Add a streak")+'</button></div></div>';return;}
     var now=new Date(),failed=s.status==="failed";
     var days=Math.max(0,daysBetween(new Date(s.start),(failed&&s.failedAt?new Date(s.failedAt):now)));
-    var h='<div class="st-name">'+esc(s.name)+'</div><div class="st-days"><b>'+fmt(days)+'</b><span>日</span></div>';
-    h+='<div class="st-status'+(failed?' fail':'')+'">'+(failed?'継続終了':'継続中')+'</div>';
+    var h='<div class="st-name">'+esc(s.name)+'</div><div class="st-days"><b>'+fmt(days)+'</b><span>'+T("日","days")+'</span></div>';
+    h+='<div class="st-status'+(failed?' fail':'')+'">'+(failed?T('継続終了','Ended'):T('継続中','Ongoing'))+'</div>';
     if(failed){
-      h+='<div class="st-fail"><div class="t">継続終了</div><div class="r">'+esc(s.name)+'<br>'+esc(s.failReason||'')+'<br>'+fmtDateTime(new Date(s.failedAt))+'</div></div>';
-      h+='<div style="margin-top:36px"><button class="linebtn" id="st-restart" style="max-width:300px;margin:0 auto">もう一度はじめる</button></div>';
+      h+='<div class="st-fail"><div class="t">'+T('継続終了','Streak ended')+'</div><div class="r">'+esc(s.name)+'<br>'+esc(s.failReason||'')+'<br>'+fmtDateTime(new Date(s.failedAt))+'</div></div>';
+      h+='<div style="margin-top:36px"><button class="linebtn" id="st-restart" style="max-width:300px;margin:0 auto">'+T("もう一度はじめる","Start again")+'</button></div>';
       host.innerHTML=h;
       $("#st-restart").addEventListener("click",function(){s.start=new Date().toISOString();s.status="active";delete s.failedAt;delete s.failReason;saveStreak(s);initStreak();});
       return;
     }
-    h+='<div class="st-info"><div class="row"><span class="k">自動判定</span><span class="v">'+(s.auto?"ON":"OFF")+'</span></div>';
-    if(s.auto){h+='<div class="row"><span class="k">対象場所</span><span class="v">'+((s.locations||[]).length)+' 件</span></div><div class="row"><span class="k">対象範囲</span><span class="v">'+s.radius+' m</span></div><div class="row"><span class="k">滞在時間</span><span class="v">'+s.dwell+' 分</span></div>';}
+    h+='<div class="st-info"><div class="row"><span class="k">'+T("自動判定","Auto-detect")+'</span><span class="v">'+(s.auto?"ON":"OFF")+'</span></div>';
+    if(s.auto){h+='<div class="row"><span class="k">'+T("対象場所","Target places")+'</span><span class="v">'+((s.locations||[]).length)+T(' 件','')+'</span></div><div class="row"><span class="k">'+T("対象範囲","Range")+'</span><span class="v">'+s.radius+' m</span></div><div class="row"><span class="k">'+T("滞在時間","Dwell time")+'</span><span class="v">'+s.dwell+T(' 分',' min')+'</span></div>';}
     h+='</div>';
     if(s.auto){
-      h+='<div class="st-mon"><div class="timer" id="st-timer">--:--</div><div class="phase" id="st-phase">停止中</div></div>';
-      h+='<div style="margin-top:20px"><button class="paperbtn" id="st-toggle">自動判定を開始</button></div>';
-      h+='<div class="set-note">Web版では、この画面を開いている間だけ判定します。位置情報の許可が必要です。近くを通っただけでは終了しません。</div>';
+      h+='<div class="st-mon"><div class="timer" id="st-timer">--:--</div><div class="phase" id="st-phase">'+T("停止中","Stopped")+'</div></div>';
+      h+='<div style="margin-top:20px"><button class="paperbtn" id="st-toggle">'+T("自動判定を開始","Start auto-detection")+'</button></div>';
+      h+='<div class="set-note">'+T("Web版では、この画面を開いている間だけ判定します。位置情報の許可が必要です。近くを通っただけでは終了しません。","On the web version, detection runs only while this screen is open. Location permission is required. Simply passing by will not end it.")+'</div>';
       if(isDev())h+='<div class="dev"><div class="lab">テストモード（開発用）</div><div class="btns"><button data-sim="in">エリア内</button><button data-sim="out">エリア外</button><button data-sim="lowacc">精度低下</button><button data-sim="nogps">取得失敗</button><button data-sim="expire">満了→失敗</button></div></div>';
     }else{
-      h+='<div class="set-note" style="text-align:center">この継続は手動記録です。続けている日数を数えます。</div>';
+      h+='<div class="set-note" style="text-align:center">'+T("この継続は手動記録です。続けている日数を数えます。","This streak is tracked manually. It counts the days you keep going.")+'</div>';
     }
-    h+='<div style="margin-top:30px;text-align:center"><button class="ghostbtn" id="st-edit">編集</button>　<button class="ghostbtn" id="st-give" style="color:var(--rust)">継続をやめる</button></div>';
+    h+='<div style="margin-top:30px;text-align:center"><button class="ghostbtn" id="st-edit">'+T("編集","Edit")+'</button>　<button class="ghostbtn" id="st-give" style="color:var(--rust)">'+T("継続をやめる","End streak")+'</button></div>';
     host.innerHTML=h;
     $("#st-edit").addEventListener("click",function(){go("streakset");});
-    $("#st-give").addEventListener("click",function(){if(confirm("この継続をやめますか?\n記録は削除されます。")){localStorage.removeItem("nokori.streak");go("home");}});
+    $("#st-give").addEventListener("click",function(){if(confirm(T("この継続をやめますか?\n記録は削除されます。","End this streak?\nThe record will be deleted."))){localStorage.removeItem("nokori.streak");go("home");}});
     if(s.auto)setupMonitor(s);
   }
 
@@ -1029,7 +1051,8 @@
       var te=$("#st-timer"),pe=$("#st-phase");if(!te)return;
       var acc=sm.dwellAccum+((sm.inside&&sm.lastInsideTs)?(Date.now()-sm.lastInsideTs):0);
       te.textContent=(sm.phase==="OUTSIDE"||sm.phase==="STOP")?"--:--":fmtT(acc);
-      pe.textContent={OUTSIDE:"対象エリア外",DWELLING:"判定中",VERIFYING:"精度を確認中",UNKNOWN:"位置情報を確認できません",STOP:"停止中"}[sm.phase]||sm.phase;
+      var phJa={OUTSIDE:"対象エリア外",DWELLING:"判定中",VERIFYING:"精度を確認中",UNKNOWN:"位置情報を確認できません",STOP:"停止中"},phEn={OUTSIDE:"Outside area",DWELLING:"Detecting",VERIFYING:"Checking accuracy",UNKNOWN:"Location unavailable",STOP:"Stopped"};
+      pe.textContent=(curLang()==="en"?phEn:phJa)[sm.phase]||sm.phase;
     }
     function nearest(p){var best=Infinity;(s.locations||[]).forEach(function(l){var d=distM({lat:p.lat,lng:p.lng},l);if(d<best)best=d;});return best;}
     function handle(pos){
@@ -1049,7 +1072,7 @@
       var s2=readJSON("nokori.streak");if(!s2||s2.status==="failed")return; // 二重失敗しない
       var failDays=Math.max(0,daysBetween(new Date(s2.start),new Date()));
       s2.cumulative=(s2.cumulative||0)+failDays; // 累計に加算（リセットされても通算は残す）
-      s2.status="failed";s2.failedAt=new Date().toISOString();s2.failReason="対象エリアに"+s.dwell+"分以上滞在";
+      s2.status="failed";s2.failedAt=new Date().toISOString();s2.failReason=T("対象エリアに"+s.dwell+"分以上滞在","Stayed in the target area for "+s.dwell+" min or more");
       if(typeof playSound==="function")playSound("failure");
       var ev=readJSON("nokori.streak_events")||[];ev.push({ruleId:"streak",type:"failed",occurredAt:s2.failedAt,reason:s2.failReason});
       try{localStorage.setItem("nokori.streak_events",JSON.stringify(ev.slice(-50)));}catch(e){}
@@ -1057,16 +1080,16 @@
     }
     var toggle=$("#st-toggle");
     toggle.addEventListener("click",function(){
-      if(sm.running){stopGeo();sm.running=false;sm.phase="STOP";toggle.textContent="自動判定を開始";paint();return;}
-      if(!navigator.geolocation){alert("この端末では位置情報が使えません。");return;}
-      sm.running=true;toggle.textContent="停止";sm.phase="OUTSIDE";paint();
+      if(sm.running){stopGeo();sm.running=false;sm.phase="STOP";toggle.textContent=T("自動判定を開始","Start auto-detection");paint();return;}
+      if(!navigator.geolocation){alert(T("この端末では位置情報が使えません。","Location is not available on this device."));return;}
+      sm.running=true;toggle.textContent=T("停止","Stop");sm.phase="OUTSIDE";paint();
       sm.uiTimer=setInterval(paint,1000);
       geoWatchId=navigator.geolocation.watchPosition(function(p){handle({lat:p.coords.latitude,lng:p.coords.longitude,accuracy:p.coords.accuracy});},function(){handle(null);},{enableHighAccuracy:true,timeout:15000,maximumAge:0});
     });
     if(isDev()){
       document.querySelectorAll("#s-streak .dev button").forEach(function(b){b.addEventListener("click",function(){
         var loc=(s.locations&&s.locations[0])||{lat:35,lng:139},k=b.getAttribute("data-sim");
-        if(!sm.running){sm.running=true;$("#st-toggle").textContent="停止";if(!sm.uiTimer)sm.uiTimer=setInterval(paint,1000);}
+        if(!sm.running){sm.running=true;$("#st-toggle").textContent=T("停止","Stop");if(!sm.uiTimer)sm.uiTimer=setInterval(paint,1000);}
         if(k==="in")handle({lat:loc.lat,lng:loc.lng,accuracy:10});
         else if(k==="out")handle({lat:loc.lat+0.01,lng:loc.lng,accuracy:10});
         else if(k==="lowacc")handle({lat:loc.lat,lng:loc.lng,accuracy:500});
@@ -1107,7 +1130,7 @@
   document.querySelectorAll("#s-result .demo button").forEach(function(b){b.addEventListener("click",function(){var d=b.getAttribute("data-rs");if(d==="zero")rsZero();else if(d==="ended")rsEnded();else rsLive();});});
   if($("#rs-share"))$("#rs-share").addEventListener("click",function(){
     var pct=($("#rs-num").textContent||"").trim();
-    var text="私の体感の残り時間は、あと"+pct+"%でした。\n\n何を刻む？ | 残 - Nokori\n\nhttps://kgym06-max.github.io/nokori/\n\n#Nokori #人生の残り時間";
+    var text=T("私の体感の残り時間は、あと"+pct+"%でした。\n\n何を刻む？ | 残 - Nokori\n\nhttps://kgym06-max.github.io/nokori/\n\n#Nokori #人生の残り時間","My perceived time left is about "+pct+"%.\n\nWhat will you carve? | 残 - Nokori\n\nhttps://kgym06-max.github.io/nokori/\n\n#Nokori #TimeLeft");
     window.open("https://twitter.com/intent/tweet?text="+encodeURIComponent(text),"_blank","noopener");
   });
 
@@ -1141,8 +1164,8 @@
     document.querySelectorAll("#set-font button").forEach(function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-v")===s.fontSize));});
     document.querySelectorAll("#set-anim button").forEach(function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-v")===s.anim));});
     var ge=$("#set-geo");
-    if(ge){ge.textContent=navigator.geolocation?"未設定":"利用不可";
-      if(navigator.permissions&&navigator.permissions.query){try{navigator.permissions.query({name:"geolocation"}).then(function(p){var m={granted:"許可",denied:"拒否",prompt:"未設定"};ge.textContent=m[p.state]||"未設定";}).catch(function(){});}catch(e){}}}
+    if(ge){ge.textContent=navigator.geolocation?T("未設定","Not set"):T("利用不可","Unavailable");
+      if(navigator.permissions&&navigator.permissions.query){try{navigator.permissions.query({name:"geolocation"}).then(function(p){var m={granted:T("許可","Allowed"),denied:T("拒否","Denied"),prompt:T("未設定","Not set")};ge.textContent=m[p.state]||T("未設定","Not set");}).catch(function(){});}catch(e){}}}
   }
   function bindSet(id,key,kind){var el=$("#"+id);if(!el)return;el.addEventListener("change",function(){var s=getSettings();s[key]=kind==="check"?el.checked:(kind==="num"?parseInt(el.value,10):el.value);saveSettings(s);applySettings(s);});}
   bindSet("set-sound","sound","check");bindSet("set-vib","vibrate","check");bindSet("set-vol","volume","num");
@@ -1155,14 +1178,14 @@
   document.querySelectorAll("#set-anim button").forEach(function(b){b.addEventListener("click",function(){var s=getSettings();s.anim=b.getAttribute("data-v");saveSettings(s);applySettings(s);initSettings();});});
   $("#set-export").addEventListener("click",function(){
     var data={};for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf("nokori.")===0)data[k]=localStorage.getItem(k);}
-    try{var blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="nokori-data.json";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url);},1000);}catch(e){alert("エクスポートできませんでした。");}
+    try{var blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="nokori-data.json";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url);},1000);}catch(e){alert(T("エクスポートできませんでした。","Could not export."));}
   });
   $("#set-import").addEventListener("click",function(){$("#set-import-file").click();});
   $("#set-import-file").addEventListener("change",function(){
     var f=this.files&&this.files[0];if(!f)return;var self=this;var r=new FileReader();
     r.onload=function(){
       try{var d=JSON.parse(r.result);var keys=Object.keys(d).filter(function(k){return k.indexOf("nokori.")===0;});
-        if(!keys.length){alert("NOKORIのデータが見つかりませんでした。");self.value="";return;}
+        if(!keys.length){alert(T("NOKORIのデータが見つかりませんでした。","No NOKORI data was found."));self.value="";return;}
         var bad=null;
         for(var vi=0;vi<keys.length;vi++){var vk=keys[vi],vv=d[vk];
           if(typeof vv!=="string"){bad=vk;break;}
@@ -1171,15 +1194,15 @@
           if(vk==="nokori.goal"||vk==="nokori.streak"||vk==="nokori.reflect"||vk==="nokori.settings"||vk==="nokori.streak_events"){
             try{JSON.parse(vv);}catch(pe){bad=vk;break;}}
         }
-        if(bad){alert("データが壊れているため読み込めませんでした。\n（"+bad+"）");self.value="";return;}
-        if(!confirm("この端末の記録を、読み込むデータで置き換えます。\nよろしいですか?")){self.value="";return;}
+        if(bad){alert(T("データが壊れているため読み込めませんでした。\n（"+bad+"）","The data is corrupted and could not be imported.\n("+bad+")"));self.value="";return;}
+        if(!confirm(T("この端末の記録を、読み込むデータで置き換えます。\nよろしいですか?","This will replace this device's records with the imported data.\nAre you sure?"))){self.value="";return;}
         keys.forEach(function(k){localStorage.setItem(k,d[k]);});location.reload();
-      }catch(e){alert("読み込めませんでした。ファイルを確認してください。");self.value="";}
+      }catch(e){alert(T("読み込めませんでした。ファイルを確認してください。","Could not import. Please check the file."));self.value="";}
     };
     r.readAsText(f);
   });
   $("#set-delete").addEventListener("click",function(){
-    if(!confirm("すべてのデータを削除しますか?\n\n削除される情報：\n・生年月日\n・目標\n・継続\n・今日の記録\n・各種設定\n\nこの操作は取り消せません。"))return;
+    if(!confirm(T("すべてのデータを削除しますか?\n\n削除される情報：\n・生年月日\n・目標\n・継続\n・今日の記録\n・各種設定\n\nこの操作は取り消せません。","Delete all data?\n\nWhat will be deleted:\n· Date of birth\n· Goals\n· Streaks\n· Today's records\n· Settings\n\nThis cannot be undone.")))return;
     var keys=[];for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf("nokori.")===0)keys.push(k);}
     keys.forEach(function(k){localStorage.removeItem(k);});location.reload();
   });
@@ -1188,21 +1211,21 @@
   /* ---------- 目標 detail ---------- */
   function initGoal(){
     var g=readJSON("nokori.goal"),host=$("#goal-body");
-    if(!g||!g.date){host.innerHTML='<div style="text-align:center;padding:70px 0"><div class="g-name">目標はまだありません</div><div style="margin-top:34px"><button class="linebtn" data-goto="goalset" style="max-width:300px;margin:0 auto">目標を追加</button></div></div>';return;}
+    if(!g||!g.date){host.innerHTML='<div style="text-align:center;padding:70px 0"><div class="g-name">'+T("目標はまだありません","No goal yet")+'</div><div style="margin-top:34px"><button class="linebtn" data-goto="goalset" style="max-width:300px;margin:0 auto">'+T("目標を追加","Add a goal")+'</button></div></div>';return;}
     var now=new Date(),gp=g.date.split("-").map(Number),gd0=new Date(gp[0],gp[1]-1,gp[2]),target=new Date(gp[0],gp[1]-1,gp[2],23,59,59),created=g.created?new Date(g.created):now;
     var days=daysBetween(now,gd0);
     var totalMs=target-created,elapsed=now-created,pg=Math.max(0,Math.min(100,totalMs>0?elapsed/totalMs*100:100));
-    var h='<div class="g-eyebrow">目標</div><div class="g-name">'+esc(g.name||"目標")+'</div>';
-    if(days>0)h+='<div class="g-hero"><span class="lab">あと</span><b>'+fmt(days)+'</b><span class="unit">日</span></div>';
-    else if(days===0)h+='<div class="g-passed">本番は今日</div>';
-    else h+='<div class="g-passed">本番は過ぎました</div>';
+    var h='<div class="g-eyebrow">'+T("目標","Goal")+'</div><div class="g-name">'+esc(g.name||T("目標","Goal"))+'</div>';
+    if(days>0)h+=(curLang()==="en"?'<div class="g-hero"><b>'+fmt(days)+'</b><span class="unit">days left</span></div>':'<div class="g-hero"><span class="lab">あと</span><b>'+fmt(days)+'</b><span class="unit">日</span></div>');
+    else if(days===0)h+='<div class="g-passed">'+T("本番は今日","The day is today")+'</div>';
+    else h+='<div class="g-passed">'+T("本番は過ぎました","The day has passed")+'</div>';
     h+='<svg class="g-cal" id="g-cal" viewBox="0 0 332 176" aria-hidden="true"></svg>';
     h+='<div class="g-track"><i style="width:'+pg.toFixed(1)+'%"></i><span class="mk" style="left:'+pg.toFixed(1)+'%"></span></div>';
     h+='<div class="g-meta">'+g.date.replace(/-/g,".")+'</div>';
-    h+='<div class="g-actions"><button class="ghostbtn" data-goto="goalset">編集</button>　<button class="ghostbtn" id="g-del" style="color:var(--rust)">目標を削除</button></div>';
+    h+='<div class="g-actions"><button class="ghostbtn" data-goto="goalset">'+T("編集","Edit")+'</button>　<button class="ghostbtn" id="g-del" style="color:var(--rust)">'+T("目標を削除","Delete goal")+'</button></div>';
     host.innerHTML=h;
     drawGoalCal($("#g-cal"),pg);
-    $("#g-del").addEventListener("click",function(){if(confirm("この目標を削除しますか?")){localStorage.removeItem("nokori.goal");go("home");}});
+    $("#g-del").addEventListener("click",function(){if(confirm(T("この目標を削除しますか?","Delete this goal?"))){localStorage.removeItem("nokori.goal");go("home");}});
   }
   function drawGoalCal(s,progress){
     if(!s)return;s.innerHTML="";var mk=mark(),gl=cssVar("--glow")||"#e7d7b1",cols=7,rows=5,cw=40,ch=27,gx=6,gy=7,ox=8,oy=6,total=cols*rows;
@@ -1224,7 +1247,7 @@
   var init={pick:buildPickArt,input:initInput,confirm:initConfirm,home:initHome,result:initResult,goalset:initGoalset,goal:initGoal,streakset:initStreakset,streak:initStreak,reflect:initReflect,settings:initSettings,soon:function(){}};
 
   applySettings(getSettings());
-  applyI18n("ja"); /* Web版は日本語のみ表示（英語トグルは非表示。i18n枠組みはアプリ版用に保持） */
+  applyI18n(getSettings().lang);
   buildPickArt();
 })();
 </script>
