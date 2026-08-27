@@ -305,7 +305,8 @@
   #s-settings .set-slider{-webkit-appearance:none;appearance:none;width:150px;height:2px;background:var(--faintest);outline:none;cursor:pointer;}
   #s-settings .set-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;border-radius:50%;background:var(--paper-dim);border:none;box-shadow:0 0 0 4px var(--ink);cursor:pointer;}
   #s-settings .set-slider::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--paper-dim);border:none;cursor:pointer;}
-  #s-settings .set-time{background:var(--fill);border:1px solid var(--rule);color:var(--paper);font-family:"Roboto Mono",monospace;font-size:14px;padding:6px 10px;border-radius:2px;}
+  #s-settings .set-time{background:var(--fill);border:1px solid var(--rule);color:var(--paper);font-family:"Roboto Mono",monospace;font-size:14px;padding:9px 12px;border-radius:3px;}
+  .set-num{width:66px;background:var(--fill);border:1px solid var(--rule);color:var(--paper);font-family:"Roboto Mono",monospace;font-size:15px;padding:9px 8px;border-radius:3px;text-align:center;}
 
   /* ============ 継続（自動判定・監視） ============ */
   #s-streak .st-name{font-family:"Shippori Mincho B1",serif;font-size:24px;color:var(--paper);letter-spacing:.04em;text-align:center;margin-top:26px;}
@@ -357,17 +358,17 @@
   <section id="s-pick" class="screen on"><div class="col">
     <div class="head">
       <div class="word"><span class="k">残</span><span class="r">Nokori</span></div>
-      <p class="tagline">残り時間を、数字で見る。</p>
-      <p class="lead2">人生・目標・習慣の「残り」を記録する。</p>
+      <p class="tagline" data-i18n="pick.tagline">残り時間を、数字で見る。</p>
+      <p class="lead2" data-i18n="pick.lead">人生・目標・習慣の「残り」を記録する。</p>
     </div>
-    <div class="prompt"><h1>何を刻む?</h1></div>
+    <div class="prompt"><h1 data-i18n="pick.prompt">何を刻む?</h1></div>
     <div class="mode"><svg class="art" id="art-life" viewBox="0 0 340 172" aria-hidden="true"></svg>
-      <h2 class="mname">死ぬまで</h2><p class="mdesc">寿命までの、残りの時間。</p></div>
+      <h2 class="mname" data-i18n="mode.death">死ぬまで</h2><p class="mdesc" data-i18n="mode.death.d">寿命までの、残りの時間。</p></div>
     <div class="mode"><svg class="art" id="art-target" viewBox="0 0 340 176" aria-hidden="true"></svg>
-      <h2 class="mname">目標カウントダウン</h2><p class="mdesc">目標の日までの、残り日数。</p></div>
+      <h2 class="mname" data-i18n="mode.goal">目標カウントダウン</h2><p class="mdesc" data-i18n="mode.goal.d">目標の日までの、残り日数。</p></div>
     <div class="mode"><svg class="art" id="art-streak" viewBox="0 0 340 128" aria-hidden="true"></svg>
-      <h2 class="mname">継続</h2><p class="mdesc">続けている日数を、数える。</p></div>
-    <button class="paperbtn" data-goto="input" style="margin-top:34px">刻みはじめる</button>
+      <h2 class="mname" data-i18n="mode.streak">継続</h2><p class="mdesc" data-i18n="mode.streak.d">続けている日数を、数える。</p></div>
+    <button class="paperbtn" data-goto="input" style="margin-top:34px" data-i18n="pick.begin">刻みはじめる</button>
   </div></section>
 
   <!-- ===== INPUT ===== -->
@@ -445,11 +446,11 @@
   <section id="s-result" class="screen"><div class="col">
     <div class="chrome"><button class="backbtn" data-back aria-label="戻る">←</button><button class="brand" data-goto="home"><span class="k">残</span><span class="rest">・NOKORI</span></button><button class="menu" aria-label="メニュー"><i></i><i></i><i></i></button></div>
     <div id="rs-main">
-      <div class="mode-head"><div class="m">死ぬまで</div><div class="s">体感の残り時間</div></div>
-      <div class="hero"><div class="lab">残り</div><div class="num" id="rs-num">—</div><div class="unit">%</div><div class="divider"></div></div>
+      <div class="mode-head"><div class="m" data-i18n="death.title">死ぬまで</div><div class="s" data-i18n="death.sub">体感の残り時間</div></div>
+      <div class="hero"><div class="lab" data-i18n="death.left">残り</div><div class="num" id="rs-num">—</div><div class="unit">%</div><div class="divider"></div></div>
       <div class="below-live" id="rs-live">
-        <button class="rs-note" id="rs-note-btn" aria-expanded="false">ジャネーの法則にもとづく試算　<span class="rs-q">?</span></button>
-        <div class="rs-explain hidden" id="rs-explain">生涯の体感時間は、20歳までに約半分を消費するといわれます（ジャネーの法則）。<br>この数値は、年齢に応じた体感上の残り時間を示しています。</div>
+        <button class="rs-note" id="rs-note-btn" aria-expanded="false"><span data-i18n="janet.note">ジャネーの法則にもとづく試算</span>　<span class="rs-q">?</span></button>
+        <div class="rs-explain hidden" id="rs-explain" data-i18n="janet.explain">生涯の体感時間は、20歳までに約半分を消費するといわれます（ジャネーの法則）。<br>この数値は、年齢に応じた体感上の残り時間を示しています。</div>
       </div>
       <div class="below-zero hidden" id="rs-zero">
         <div class="msg" id="rs-msg"><div class="done">刻み終えました。</div>
@@ -559,6 +560,12 @@
     <h1 class="set-h1">設定</h1>
 
     <div class="set-group">
+      <div class="set-label">残り時間</div>
+      <div class="set-row"><span class="set-k">想定寿命（終点の年齢）</span><span class="set-v"><input type="number" class="set-num" id="set-lifespan" min="20" max="120" inputmode="numeric"> 歳</span></div>
+      <div class="set-note">「死ぬまで」の終点に使います。※死亡日を予測するものではありません。</div>
+    </div>
+
+    <div class="set-group">
       <div class="set-label">アカウント</div>
       <div class="set-row"><span class="set-k">アカウント連携</span><span class="set-v" id="set-acc">未連携</span></div>
       <div class="set-acc-actions">
@@ -590,6 +597,7 @@
       <div class="set-row col2"><span class="set-k">テーマ</span><div class="set-seg" id="set-theme"><button type="button" data-v="dark">ダーク</button><button type="button" data-v="light">ライト</button></div></div>
       <div class="set-row col2"><span class="set-k">文字サイズ</span><div class="set-seg" id="set-font"><button data-v="小">小</button><button data-v="標準">標準</button><button data-v="大">大</button><button data-v="特大">特大</button></div></div>
       <div class="set-row col2"><span class="set-k">アニメーション</span><div class="set-seg" id="set-anim"><button data-v="標準">標準</button><button data-v="OFF">OFF</button></div></div>
+      <div class="set-row col2"><span class="set-k">言語 / Language</span><div class="set-seg" id="set-lang"><button data-v="ja">日本語</button><button data-v="en">English</button></div></div>
     </div>
 
     <div class="set-group">
@@ -649,6 +657,25 @@
   function mark(){return cssVar("--mark")||"#e9e4d8";}
   function dim(){return cssVar("--paper-dim")||"#9a9488";}
   function esc(s){return String(s).replace(/[&<>"]/g,function(x){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[x];});}
+  var I18N={en:{
+    "pick.tagline":"See your time, as numbers.","pick.lead":"Track what's left of your life, goals and habits.","pick.prompt":"What will you track?",
+    "mode.death":"Until death","mode.death.d":"The time left until your lifespan.","mode.goal":"Goal countdown","mode.goal.d":"Days left until your goal.","mode.streak":"Streak","mode.streak.d":"Count the days you keep going.","pick.begin":"Begin",
+    "death.title":"Until death","death.sub":"Perceived time left","death.left":"Left","janet.note":"Estimated with Janet's law","janet.explain":"By age 20, we are said to have already felt about half of our lifetime (Janet's law).<br>This shows the perceived time left for your age.",
+    "in.title":"Enter your date of birth","in.lead":"Used to calculate your remaining time.","in.why":"Why we need your date of birth","in.whyBody":"We use it to calculate the time that has passed and the time you have left.","in.privacy":"Your date of birth is <b>stored only on this device</b> and <b>never sent anywhere</b>.","in.next":"Continue",
+    "cf.title":"Please review","cf.birth":"Date of birth","cf.end":"End point","cf.endNote":"※ Not a date of death — a point you set.","cf.now":"Now","cf.left":"Days left","cf.begin":"Begin","cf.back":"← Back",
+    "home.review":"Reflect on today","today.left":"Left today",
+    "rf.title":"Reflect on today","rf.lead":"Record how fulfilling today was.","rf.q":"Today's fulfillment","rf.memo":"A note (optional)","rf.save":"Save","rf.done":"Saved.","rf.again":"See you tomorrow.","rf.back":"← Back",
+    "set.title":"Settings","set.g.time":"Remaining time","set.g.account":"Account","set.g.sound":"Sound","set.g.notif":"Notifications","set.g.display":"Display","set.g.location":"Location","set.g.data":"Data","set.g.privacy":"Privacy","set.g.other":"Other",
+    "set.acc":"Account link","set.acc.none":"Not linked","set.lifespan":"Life expectancy (end age)","set.theme":"Theme","set.font":"Text size","set.anim":"Animation","set.sound":"Sound effects","set.vib":"Vibration","set.vol":"Volume","set.nallow":"Allow notifications","set.nreview":"Daily reflection","set.ntime":"Time","set.ngoal":"Goal","set.nstreak":"Streak","set.geo":"Used for streak auto-detection","set.export":"Export data","set.import":"Import data","set.delete":"Delete data","set.terms":"Terms","set.policy":"Privacy Policy","set.contact":"Contact","set.about":"About"
+  }};
+  function applyI18n(lang){
+    document.querySelectorAll("[data-i18n]").forEach(function(el){
+      if(el.getAttribute("data-i18n-orig")===null)el.setAttribute("data-i18n-orig",el.innerHTML);
+      var key=el.getAttribute("data-i18n"),en=I18N.en[key];
+      el.innerHTML=(lang==="en"&&en)?en:el.getAttribute("data-i18n-orig");
+    });
+    try{document.documentElement.setAttribute("lang",lang==="en"?"en":"ja");}catch(e){}
+  }
   function drawTally(s,total){s.innerHTML="";var mk=mark(),per=5,gw=44,mg=7,ox=4,oy=8,cap=Math.min(total,15),groups=Math.ceil(cap/per);
     for(var g=0;g<groups;g++){var count=Math.min(per,cap-g*per),gx=ox+g*gw;
       for(var i=0;i<Math.min(count,4);i++)s.appendChild(eln("line",{x1:gx+i*mg,y1:oy,x2:gx+i*mg,y2:oy+30,stroke:mk,"stroke-width":"2","stroke-linecap":"round","stroke-opacity":"0.82"}));
@@ -692,12 +719,12 @@
     requestAnimationFrame(function(){requestAnimationFrame(function(){A.style.opacity="0";B.style.opacity="1";});});
   }
   var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches;
-  var LIFESPAN=84;
+  function lifespan(){var v=getSettings().lifespan;return (v>=20&&v<=120)?v:84;}
 
   /* ---------- state ---------- */
   function birthISO(){try{return localStorage.getItem("nokori.birth")||"2005-07-15";}catch(e){return "2005-07-15";}}
   function birthParts(){return birthISO().split("-").map(Number);}
-  function deathDate(){var p=birthParts();return new Date(p[0]+LIFESPAN,p[1]-1,p[2]);}
+  function deathDate(){var p=birthParts();return new Date(p[0]+lifespan(),p[1]-1,p[2]);}
 
   /* ---------- router ---------- */
   var timers=[];
@@ -794,7 +821,7 @@
   function initConfirm(){
     var p=birthParts(),now=new Date();
     $("#cf-birth").textContent=p[0]+"."+pad(p[1])+"."+pad(p[2]);
-    $("#cf-end").textContent=(p[0]+LIFESPAN)+"年ごろ";
+    $("#cf-end").textContent=(p[0]+lifespan())+"年ごろ";
     $("#cf-now").textContent=now.getFullYear()+"."+pad(now.getMonth()+1)+"."+pad(now.getDate())+"  "+pad(now.getHours())+":"+pad(now.getMinutes());
     $("#cf-days").textContent=fmt(Math.max(0,Math.floor((deathDate()-now)/86400000)));
   }
@@ -1034,7 +1061,7 @@
     function tick(){var bp=birthParts(),now=Date.now(),bd=new Date(bp[0],bp[1]-1,bp[2]),dd=deathDate(),secs=Math.floor((dd-now)/1000);
       if(secs<=0){rsEnded();return;}
       // ジャネーの法則（厳しい版）：体感時間 = 生まれた瞬間(1歳)から積分（1年の体感∝1/年齢）
-      var age=(now-bd)/(365.25*86400000),T0=1,el=age<=T0?0:Math.log(age/T0)/Math.log(LIFESPAN/T0);el=Math.max(0,Math.min(1,el));
+      var age=(now-bd)/(365.25*86400000),T0=1,el=age<=T0?0:Math.log(age/T0)/Math.log(lifespan()/T0);el=Math.max(0,Math.min(1,el));
       $("#rs-num").textContent=((1-el)*100).toFixed(1);}
     tick();timers.push(setInterval(tick,1000));
     timers.push(setTimeout(function(){var p=birthParts(),bd=new Date(p[0],p[1]-1,p[2]),dd=deathDate();$("#rs-bar").style.width=Math.max(0,Math.min(100,(Date.now()-bd)/(dd-bd)*100)).toFixed(2)+"%";},250));
@@ -1054,7 +1081,7 @@
   document.querySelectorAll("#s-result .demo button").forEach(function(b){b.addEventListener("click",function(){var d=b.getAttribute("data-rs");if(d==="zero")rsZero();else if(d==="ended")rsEnded();else rsLive();});});
 
   /* ---------- SETTINGS（普通に動かす） ---------- */
-  var SET_DEF={theme:"dark",sound:true,vibrate:true,volume:60,notifyAllow:false,notifyReview:true,notifyTime:"21:00",notifyGoal:true,notifyStreak:true,fontSize:"標準",anim:"標準"};
+  var SET_DEF={theme:"dark",lang:"ja",lifespan:84,sound:true,vibrate:true,volume:60,notifyAllow:false,notifyReview:true,notifyTime:"21:00",notifyGoal:true,notifyStreak:true,fontSize:"標準",anim:"標準"};
   function getSettings(){var s=readJSON("nokori.settings")||{};for(var k in SET_DEF)if(!(k in s))s[k]=SET_DEF[k];return s;}
   function saveSettings(s){try{localStorage.setItem("nokori.settings",JSON.stringify(s));}catch(e){}}
   var FONT_ZOOM={"小":0.92,"標準":1,"大":1.1,"特大":1.2};
@@ -1077,7 +1104,9 @@
     var s=getSettings();
     $("#set-sound").checked=s.sound;$("#set-vib").checked=s.vibrate;$("#set-vol").value=s.volume;
     $("#set-nallow").checked=s.notifyAllow;$("#set-nreview").checked=s.notifyReview;$("#set-ntime").value=s.notifyTime;$("#set-ngoal").checked=s.notifyGoal;$("#set-nstreak").checked=s.notifyStreak;
+    $("#set-lifespan").value=s.lifespan;
     document.querySelectorAll("#set-theme button").forEach(function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-v")===s.theme));});
+    document.querySelectorAll("#set-lang button").forEach(function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-v")===s.lang));});
     document.querySelectorAll("#set-font button").forEach(function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-v")===s.fontSize));});
     document.querySelectorAll("#set-anim button").forEach(function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-v")===s.anim));});
     var ge=$("#set-geo");
@@ -1085,7 +1114,8 @@
       if(navigator.permissions&&navigator.permissions.query){try{navigator.permissions.query({name:"geolocation"}).then(function(p){var m={granted:"許可",denied:"拒否",prompt:"未設定"};ge.textContent=m[p.state]||"未設定";}).catch(function(){});}catch(e){}}}
   }
   function bindSet(id,key,kind){var el=$("#"+id);if(!el)return;el.addEventListener("change",function(){var s=getSettings();s[key]=kind==="check"?el.checked:(kind==="num"?parseInt(el.value,10):el.value);saveSettings(s);applySettings(s);});}
-  bindSet("set-sound","sound","check");bindSet("set-vib","vibrate","check");bindSet("set-vol","volume","num");
+  bindSet("set-sound","sound","check");bindSet("set-vib","vibrate","check");bindSet("set-vol","volume","num");bindSet("set-lifespan","lifespan","num");
+  document.querySelectorAll("#set-lang button").forEach(function(b){b.addEventListener("click",function(){var s=getSettings();s.lang=b.getAttribute("data-v");saveSettings(s);applyI18n(s.lang);initSettings();});});
   bindSet("set-nreview","notifyReview","check");bindSet("set-ntime","notifyTime","val");bindSet("set-ngoal","notifyGoal","check");bindSet("set-nstreak","notifyStreak","check");
   $("#set-nallow").addEventListener("change",function(){var s=getSettings();s.notifyAllow=this.checked;saveSettings(s);if(this.checked&&"Notification"in window&&Notification.permission!=="granted")Notification.requestPermission();});
   document.querySelectorAll("#set-theme button").forEach(function(b){b.addEventListener("click",function(){var s=getSettings();s.theme=b.getAttribute("data-v");saveSettings(s);applySettings(s);initSettings();buildPickArt();});});
@@ -1153,6 +1183,7 @@
   var init={pick:buildPickArt,input:initInput,confirm:initConfirm,home:initHome,result:initResult,goalset:initGoalset,goal:initGoal,streakset:initStreakset,streak:initStreak,reflect:initReflect,settings:initSettings,soon:function(){}};
 
   applySettings(getSettings());
+  applyI18n(getSettings().lang);
   buildPickArt();
 })();
 </script>
