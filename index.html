@@ -610,7 +610,7 @@
       <div class="set-row col2"><span class="set-k">テーマ</span><div class="set-seg" id="set-theme"><button type="button" data-v="dark">ダーク</button><button type="button" data-v="light">ライト</button></div></div>
       <div class="set-row col2"><span class="set-k">文字サイズ</span><div class="set-seg" id="set-font"><button data-v="小">小</button><button data-v="標準">標準</button><button data-v="大">大</button><button data-v="特大">特大</button></div></div>
       <div class="set-row col2"><span class="set-k">アニメーション</span><div class="set-seg" id="set-anim"><button data-v="標準">標準</button><button data-v="OFF">OFF</button></div></div>
-      <div class="set-row col2"><span class="set-k">言語 / Language</span><div class="set-seg" id="set-lang"><button data-v="ja">日本語</button><button data-v="en">English</button></div></div>
+      <div class="set-row col2 hidden"><span class="set-k">言語 / Language</span><div class="set-seg" id="set-lang"><button data-v="ja">日本語</button><button data-v="en">English</button></div></div>
     </div>
 
     <div class="set-group">
@@ -666,8 +666,9 @@
   function fmt(n){return n.toLocaleString("en-US");}
   function dateOnly(d){return new Date(d.getFullYear(),d.getMonth(),d.getDate());}
   function daysBetween(a,b){return Math.round((dateOnly(b)-dateOnly(a))/86400000);}
+  function ymd(d){return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());}
   function readJSON(k){try{return JSON.parse(localStorage.getItem(k));}catch(e){return null;}}
-  function todayKey(){var d=new Date();return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());}
+  function todayKey(){return ymd(new Date());}
   function cssVar(n){try{return (getComputedStyle(document.documentElement).getPropertyValue(n)||"").trim();}catch(e){return "";}}
   function mark(){return cssVar("--mark")||"#e9e4d8";}
   function dim(){return cssVar("--paper-dim")||"#9a9488";}
@@ -871,10 +872,11 @@
     if(streak&&streak.start){
       var failedS=streak.status==="failed";
       var cur=failedS?0:Math.max(0,daysBetween(new Date(streak.start),now));
+      var shown=failedS?Math.max(0,daysBetween(new Date(streak.start),streak.failedAt?new Date(streak.failedAt):now)):cur;
       var cum=(streak.cumulative||0)+cur;
-      $("#hm-sname").textContent=streak.name||"継続";$("#hm-snum").style.display="";$("#hm-scnt").textContent=fmt(cur);$("#hm-sst").textContent=failedS?"継続終了":"継続中";
+      $("#hm-sname").textContent=streak.name||"継続";$("#hm-snum").style.display="";$("#hm-scnt").textContent=fmt(shown);$("#hm-sst").textContent=failedS?"継続終了":"継続中";
       $("#hm-scum").textContent="累計 "+fmt(cum)+"日";
-      drawTally(st,cur);
+      drawTally(st,shown);
     }else{
       $("#hm-sname").innerHTML='継続を追加<span class="hint">守り続けた日数を、刻む</span>';$("#hm-snum").style.display="none";$("#hm-scum").textContent="";st.innerHTML="";
     }
@@ -945,7 +947,7 @@
   function initStreakset(){
     var t=new Date(),td=t.getFullYear()+"-"+pad(t.getMonth()+1)+"-"+pad(t.getDate());var el=$("#ss-date");el.max=td;el.style.borderColor="";
     var s=readJSON("nokori.streak");
-    $("#ss-name").value=(s&&s.name)?s.name:"";el.value=(s&&s.start)?s.start.slice(0,10):td;
+    $("#ss-name").value=(s&&s.name)?s.name:"";el.value=(s&&s.start)?ymd(new Date(s.start)):td;
     ssState={locs:(s&&s.locations)?s.locations.slice():[],radius:(s&&s.radius)||100,dwell:(s&&s.dwell)||3,auto:!!(s&&s.auto)};
     $("#ss-auto").checked=ssState.auto;$("#ss-auto-opts").classList.toggle("hidden",!ssState.auto);
     renderSsLocs();renderSsSegs();renderSugg("ss-sugg","ss-name",STREAK_SUGG);
@@ -965,7 +967,8 @@
   });
   $("#gs-save").addEventListener("click",function(){var name=($("#gs-name").value||"").trim(),date=$("#gs-date").value;
     if(!date){$("#gs-date").focus();$("#gs-date").style.borderColor="var(--paper-dim)";return;}
-    try{localStorage.setItem("nokori.goal",JSON.stringify({name:name||"目標",date:date,created:new Date().toISOString()}));}catch(e){alert("目標を保存できませんでした。ブラウザの設定をご確認ください。");return;}go("home");});
+    var prevG=readJSON("nokori.goal"),created=(prevG&&prevG.created)?prevG.created:new Date().toISOString();
+    try{localStorage.setItem("nokori.goal",JSON.stringify({name:name||"目標",date:date,created:created}));}catch(e){alert("目標を保存できませんでした。ブラウザの設定をご確認ください。");return;}go("home");});
   function saveStreak(o){try{localStorage.setItem("nokori.streak",JSON.stringify(o));return true;}catch(e){alert("継続を保存できませんでした。ブラウザの設定をご確認ください。");return false;}}
   $("#ss-save").addEventListener("click",function(){
     var name=($("#ss-name").value||"").trim(),date=$("#ss-date").value;
@@ -973,7 +976,8 @@
     if(ssState.auto&&ssState.locs.length===0){alert("自動判定には対象場所の登録が必要です。\n「現在地を登録」を押すか、自動判定をオフにしてください。");return;}
     var start=date?new Date(date+"T00:00:00").toISOString():new Date().toISOString();
     var prev=readJSON("nokori.streak");
-    saveStreak({name:name,start:start,auto:ssState.auto,radius:ssState.radius,dwell:ssState.dwell,locations:ssState.locs,status:"active",cumulative:(prev&&prev.cumulative)||0});
+    if(prev&&prev.start){var chosenStr=date||ymd(new Date());if(ymd(new Date(prev.start))!==chosenStr){if(!confirm("開始日を変更すると、継続日数が変わります。\nよろしいですか?"))return;}}
+    if(!saveStreak({name:name,start:start,auto:ssState.auto,radius:ssState.radius,dwell:ssState.dwell,locations:ssState.locs,status:"active",cumulative:(prev&&prev.cumulative)||0}))return;
     go("streak");
   });
 
@@ -1029,8 +1033,8 @@
     }
     function nearest(p){var best=Infinity;(s.locations||[]).forEach(function(l){var d=distM({lat:p.lat,lng:p.lng},l);if(d<best)best=d;});return best;}
     function handle(pos){
-      if(!pos){sm.phase="UNKNOWN";sm.lastInsideTs=null;paint();return;}          // GPS取得失敗→滞在にしない
-      if(pos.accuracy>Math.max(s.radius,60)){sm.phase="VERIFYING";sm.lastInsideTs=null;paint();return;} // 低精度→保留
+      if(!pos){sm.phase="UNKNOWN";sm.lastInsideTs=null;sm.dwellAccum=0;paint();return;}          // GPS取得失敗→滞在をリセット（判定不能をまたいで積算しない）
+      if(pos.accuracy>Math.max(s.radius,60)){sm.phase="VERIFYING";sm.lastInsideTs=null;sm.dwellAccum=0;paint();return;} // 低精度→保留（滞在をリセット）
       var d=nearest(pos),enterR=s.radius,exitR=s.radius+20,t=Date.now();
       var nowInside=sm.inside?(d<=exitR):(d<=enterR); // ヒステリシス
       if(nowInside){
@@ -1082,12 +1086,11 @@
     $("#rs-num").classList.remove("zero");
     if(deathDate()-Date.now()<=0){rsEnded();return;}
     function tick(){var bp=birthParts(),now=Date.now(),bd=new Date(bp[0],bp[1]-1,bp[2]),dd=deathDate(),secs=Math.floor((dd-now)/1000);
-      if(secs<=0){rsEnded();return;}
+      if(secs<=0){rsZero();return;}
       // ジャネーの法則（厳しい版）：体感時間 = 生まれた瞬間(1歳)から積分（1年の体感∝1/年齢）
       var age=(now-bd)/(365.25*86400000),T0=1,el=age<=T0?0:Math.log(age/T0)/Math.log(lifespan()/T0);el=Math.max(0,Math.min(1,el));
       $("#rs-num").textContent=((1-el)*100).toFixed(1);}
     tick();timers.push(setInterval(tick,1000));
-    timers.push(setTimeout(function(){var p=birthParts(),bd=new Date(p[0],p[1]-1,p[2]),dd=deathDate();$("#rs-bar").style.width=Math.max(0,Math.min(100,(Date.now()-bd)/(dd-bd)*100)).toFixed(2)+"%";},250));
   }
   function rsZero(){
     clearTimers();
@@ -1142,7 +1145,8 @@
       if(navigator.permissions&&navigator.permissions.query){try{navigator.permissions.query({name:"geolocation"}).then(function(p){var m={granted:"許可",denied:"拒否",prompt:"未設定"};ge.textContent=m[p.state]||"未設定";}).catch(function(){});}catch(e){}}}
   }
   function bindSet(id,key,kind){var el=$("#"+id);if(!el)return;el.addEventListener("change",function(){var s=getSettings();s[key]=kind==="check"?el.checked:(kind==="num"?parseInt(el.value,10):el.value);saveSettings(s);applySettings(s);});}
-  bindSet("set-sound","sound","check");bindSet("set-vib","vibrate","check");bindSet("set-vol","volume","num");bindSet("set-lifespan","lifespan","num");
+  bindSet("set-sound","sound","check");bindSet("set-vib","vibrate","check");bindSet("set-vol","volume","num");
+  (function(){var el=$("#set-lifespan");if(!el)return;el.addEventListener("change",function(){var s=getSettings(),v=parseInt(el.value,10);if(isNaN(v))v=SET_DEF.lifespan;v=Math.max(20,Math.min(120,v));el.value=v;s.lifespan=v;saveSettings(s);applySettings(s);});})();
   document.querySelectorAll("#set-lang button").forEach(function(b){b.addEventListener("click",function(){var s=getSettings();s.lang=b.getAttribute("data-v");saveSettings(s);applyI18n(s.lang);initSettings();});});
   bindSet("set-nreview","notifyReview","check");bindSet("set-ntime","notifyTime","val");bindSet("set-ngoal","notifyGoal","check");bindSet("set-nstreak","notifyStreak","check");
   $("#set-nallow").addEventListener("change",function(){var s=getSettings();s.notifyAllow=this.checked;saveSettings(s);if(this.checked&&"Notification"in window&&Notification.permission!=="granted")Notification.requestPermission();});
@@ -1159,6 +1163,15 @@
     r.onload=function(){
       try{var d=JSON.parse(r.result);var keys=Object.keys(d).filter(function(k){return k.indexOf("nokori.")===0;});
         if(!keys.length){alert("NOKORIのデータが見つかりませんでした。");self.value="";return;}
+        var bad=null;
+        for(var vi=0;vi<keys.length;vi++){var vk=keys[vi],vv=d[vk];
+          if(typeof vv!=="string"){bad=vk;break;}
+          if(vk==="nokori.birth"){var pp=vv.split("-").map(Number);var bdt=new Date(pp[0],pp[1]-1,pp[2]);
+            if(!/^\d{4}-\d{2}-\d{2}$/.test(vv)||isNaN(bdt)||bdt.getMonth()!==pp[1]-1||bdt.getDate()!==pp[2]){bad=vk;break;}}
+          if(vk==="nokori.goal"||vk==="nokori.streak"||vk==="nokori.reflect"||vk==="nokori.settings"||vk==="nokori.streak_events"){
+            try{JSON.parse(vv);}catch(pe){bad=vk;break;}}
+        }
+        if(bad){alert("データが壊れているため読み込めませんでした。\n（"+bad+"）");self.value="";return;}
         if(!confirm("この端末の記録を、読み込むデータで置き換えます。\nよろしいですか?")){self.value="";return;}
         keys.forEach(function(k){localStorage.setItem(k,d[k]);});location.reload();
       }catch(e){alert("読み込めませんでした。ファイルを確認してください。");self.value="";}
@@ -1211,7 +1224,7 @@
   var init={pick:buildPickArt,input:initInput,confirm:initConfirm,home:initHome,result:initResult,goalset:initGoalset,goal:initGoal,streakset:initStreakset,streak:initStreak,reflect:initReflect,settings:initSettings,soon:function(){}};
 
   applySettings(getSettings());
-  applyI18n(getSettings().lang);
+  applyI18n("ja"); /* Web版は日本語のみ表示（英語トグルは非表示。i18n枠組みはアプリ版用に保持） */
   buildPickArt();
 })();
 </script>
