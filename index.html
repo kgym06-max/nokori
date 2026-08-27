@@ -261,7 +261,8 @@
   #s-reflect .rf-donepct .p{font-size:.36em;color:var(--paper-dim);font-family:"Shippori Mincho B1",serif;}
   #s-reflect .rf-donememo{color:var(--paper-dim);font-size:14px;margin-top:24px;font-family:"Shippori Mincho B1",serif;line-height:2;max-width:32ch;margin-left:auto;margin-right:auto;word-break:auto-phrase;}
   #s-reflect .rf-again{font-family:"Shippori Mincho B1",serif;color:var(--faint);letter-spacing:.22em;margin-top:36px;font-size:14px;}
-  #s-reflect .rf-plant{width:150px;height:120px;display:block;margin:30px auto 0;}
+  #s-reflect .rf-tree{position:relative;width:170px;height:150px;margin:28px auto 0;}
+  #s-reflect .rf-layer{position:absolute;inset:0;width:100%;height:100%;transition:opacity 1s ease;}
   #s-reflect .rf-grow{font-family:"Roboto Mono",monospace;font-size:11.5px;color:var(--faint);margin-top:6px;letter-spacing:.06em;}
   #s-reflect .rf-grow b{color:var(--num);}
 
@@ -544,7 +545,7 @@
         <div class="rf-doneh">記録しました。</div>
         <div class="rf-donepct"><span id="rf-donev">—</span><span class="p">%</span></div>
         <div class="rf-donememo" id="rf-donememo"></div>
-        <svg class="rf-plant" id="rf-plant" viewBox="0 0 200 160" aria-hidden="true"></svg>
+        <div class="rf-tree" id="rf-tree"><svg class="rf-layer" id="rf-plant-a" viewBox="0 0 200 176" aria-hidden="true"></svg><svg class="rf-layer" id="rf-plant-b" viewBox="0 0 200 176" aria-hidden="true"></svg></div>
         <div class="rf-grow" id="rf-grow"></div>
         <div class="rf-again">また、明日。</div>
         <button class="linebtn" data-goto="home" style="margin-top:34px">ホームへ戻る</button>
@@ -661,17 +662,34 @@
     var seed=Math.floor((now-new Date(now.getFullYear(),0,0))/86400000);
     return MSG_POOL[seed%MSG_POOL.length];
   }
-  function drawPlant(s,points){
-    if(!s)return;s.innerHTML="";var mk=mark(),p=Math.max(0,points);
-    s.appendChild(eln("line",{x1:62,y1:150,x2:138,y2:150,stroke:mk,"stroke-width":"1","stroke-opacity":"0.35","stroke-linecap":"round"}));
-    if(p<0.5){s.appendChild(eln("path",{d:"M92 150 Q100 143 108 150",fill:"none",stroke:mk,"stroke-width":"1.6","stroke-opacity":"0.6","stroke-linecap":"round"}));return;}
-    var h=Math.min(120,18+p*9),topY=150-h;
-    s.appendChild(eln("path",{d:"M100 150 C 100 "+(150-h*0.4).toFixed(1)+" 100 "+(150-h*0.7).toFixed(1)+" 100 "+topY.toFixed(1),fill:"none",stroke:mk,"stroke-width":"2","stroke-linecap":"round","stroke-opacity":"0.85"}));
-    var leaves=Math.min(10,Math.floor(p));
-    for(var i=1;i<=leaves;i++){var t=i/(leaves+1),y=(150-h*t),side=(i%2===0)?1:-1,len=10+(1-t)*6;
-      s.appendChild(eln("path",{d:"M100 "+y.toFixed(1)+" q "+(side*len).toFixed(1)+" "+(-len*0.5).toFixed(1)+" "+(side*len*1.4).toFixed(1)+" "+(-len*0.1).toFixed(1),fill:"none",stroke:mk,"stroke-width":"1.6","stroke-linecap":"round","stroke-opacity":"0.75"}));}
-    if(p>=8){s.appendChild(eln("circle",{cx:100,cy:(topY-2).toFixed(1),r:16,fill:"none",stroke:mk,"stroke-width":"1.2","stroke-opacity":"0.4"}));
-      for(var kk=0;kk<7;kk++){var a=kk/7*Math.PI*2;s.appendChild(eln("line",{x1:100,y1:topY.toFixed(1),x2:(100+Math.cos(a)*13).toFixed(1),y2:(topY+Math.sin(a)*13).toFixed(1),stroke:mk,"stroke-width":"1.3","stroke-linecap":"round","stroke-opacity":"0.55"}));}}
+  function seededRand(seed){var s=(seed>>>0)||1;return function(){s=(s*1664525+1013904223)>>>0;return s/4294967296;};}
+  function stageFromDays(d){return d>=365?4:d>=90?3:d>=30?2:d>=7?1:0;}
+  function drawTree(s,stage){
+    if(!s)return;s.innerHTML="";var mk=mark(),gl=cssVar("--glow")||"#e7d7b1",cx=100,gy=150,rnd=seededRand(stage*131+7);
+    if(stage>=4){var defs=eln("defs",{}),rg=eln("radialGradient",{id:"treeGlow",cx:"50%",cy:"50%",r:"50%"});
+      rg.appendChild(eln("stop",{offset:"0%","stop-color":gl,"stop-opacity":"0.42"}));rg.appendChild(eln("stop",{offset:"100%","stop-color":gl,"stop-opacity":"0"}));
+      defs.appendChild(rg);s.appendChild(defs);s.appendChild(eln("circle",{cx:cx,cy:80,r:62,fill:"url(#treeGlow)"}));}
+    s.appendChild(eln("line",{x1:cx-46,y1:gy,x2:cx+46,y2:gy,stroke:mk,"stroke-width":"1","stroke-opacity":"0.3","stroke-linecap":"round"}));
+    s.appendChild(eln("path",{d:"M"+(cx-20)+" "+gy+" Q"+cx+" "+(gy-5)+" "+(cx+20)+" "+gy,fill:"none",stroke:mk,"stroke-width":"1","stroke-opacity":"0.32"}));
+    if(stage===0){
+      s.appendChild(eln("path",{d:"M"+cx+" "+gy+" C"+cx+" "+(gy-9)+" "+(cx-1)+" "+(gy-16)+" "+cx+" "+(gy-23),fill:"none",stroke:mk,"stroke-width":"2","stroke-linecap":"round","stroke-opacity":"0.85"}));
+      s.appendChild(eln("path",{d:"M"+cx+" "+(gy-19)+" q-10 -2 -14 -10 q10 -1 14 5 Z",fill:mk,"fill-opacity":"0.7"}));
+      s.appendChild(eln("path",{d:"M"+cx+" "+(gy-22)+" q10 -2 14 -10 q-10 -1 -14 5 Z",fill:mk,"fill-opacity":"0.7"}));return;
+    }
+    var cfg={1:{h:46,tw:3,cy:104,cr:20,lv:18,br:3},2:{h:64,tw:4.5,cy:86,cr:28,lv:38,br:5},3:{h:78,tw:6,cy:73,cr:37,lv:66,br:7},4:{h:88,tw:7,cy:64,cr:45,lv:100,br:9}}[stage],topY=gy-cfg.h,tw=cfg.tw;
+    s.appendChild(eln("path",{d:"M"+(cx-tw)+" "+gy+" C"+(cx-tw*0.6)+" "+(gy-cfg.h*0.4)+" "+(cx-1.4)+" "+(topY+14)+" "+(cx-1)+" "+topY+" L"+(cx+1)+" "+topY+" C"+(cx+1.4)+" "+(topY+14)+" "+(cx+tw*0.6)+" "+(gy-cfg.h*0.4)+" "+(cx+tw)+" "+gy+" Z",fill:mk,"fill-opacity":"0.9"}));
+    for(var b=0;b<cfg.br;b++){var bt=0.45+(b/cfg.br)*0.5,by=gy-cfg.h*bt,side=(b%2===0)?1:-1,bl=cfg.cr*(0.5+rnd()*0.5);
+      s.appendChild(eln("path",{d:"M"+cx+" "+by.toFixed(1)+" q"+(side*bl*0.6).toFixed(1)+" "+(-bl*0.4).toFixed(1)+" "+(side*bl).toFixed(1)+" "+(-bl*0.8).toFixed(1),fill:"none",stroke:mk,"stroke-width":(tw*0.35).toFixed(1),"stroke-linecap":"round","stroke-opacity":"0.8"}));}
+    for(var i=0;i<cfg.lv;i++){var ang=rnd()*Math.PI*2,rad=Math.sqrt(rnd())*cfg.cr,lx=cx+Math.cos(ang)*rad,ly=cfg.cy+Math.sin(ang)*rad*0.82,la=rnd()*Math.PI,ll=3+rnd()*3,gold=stage>=4&&rnd()<0.22;
+      s.appendChild(eln("line",{x1:lx.toFixed(1),y1:ly.toFixed(1),x2:(lx+Math.cos(la)*ll).toFixed(1),y2:(ly+Math.sin(la)*ll).toFixed(1),stroke:gold?gl:mk,"stroke-width":"1.4","stroke-linecap":"round","stroke-opacity":(0.4+rnd()*0.4).toFixed(2)}));}
+    s.appendChild(eln("path",{d:"M"+(cx-1.4)+" "+gy+" L"+(cx-1)+" "+(gy+cfg.h*0.3)+" M"+(cx+1.4)+" "+gy+" L"+(cx+1)+" "+(gy+cfg.h*0.3),stroke:mk,"stroke-width":"1","stroke-opacity":"0.12","stroke-linecap":"round"}));
+  }
+  function showTree(stage,prev,animate){
+    var A=$("#rf-plant-a"),B=$("#rf-plant-b");if(!A||!B)return;
+    var anim=animate&&prev!==stage&&!reduce&&getSettings().anim!=="OFF";
+    if(!anim){A.style.transition="none";B.style.transition="none";drawTree(A,stage);B.innerHTML="";A.style.opacity="1";B.style.opacity="0";return;}
+    drawTree(A,prev);drawTree(B,stage);A.style.transition="";B.style.transition="";A.style.opacity="1";B.style.opacity="0";
+    requestAnimationFrame(function(){requestAnimationFrame(function(){A.style.opacity="0";B.style.opacity="1";});});
   }
   var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches;
   var LIFESPAN=84;
@@ -841,10 +859,12 @@
   function initReflect(){
     var refl=readJSON("nokori.reflect")||{},done=refl[todayKey()];
     if(done){$("#rf-form").classList.add("hidden");$("#rf-done").classList.remove("hidden");$("#rf-lead").classList.add("hidden");$("#rf-donev").textContent=done.pct;$("#rf-donememo").textContent=done.memo||"";
-      var pts=0,daysN=0;for(var k in refl){if(refl[k]&&typeof refl[k].pct==="number"){pts+=refl[k].pct/100;daysN++;}}
-      drawPlant($("#rf-plant"),pts);
+      var daysN=0;for(var k in refl){if(refl[k]&&typeof refl[k].pct==="number")daysN++;}
+      var stage=stageFromDays(daysN),prevStage=stage;try{var ps=parseInt(localStorage.getItem("nokori.treeStage"),10);if(!isNaN(ps))prevStage=ps;}catch(e){}
+      showTree(stage,prevStage,true);
+      try{localStorage.setItem("nokori.treeStage",String(stage));}catch(e){}
       var ms=([7,30,50,100,200,365].indexOf(daysN)>=0)?"　<b>"+daysN+"日達成</b>":"";
-      $("#rf-grow").innerHTML=daysN+"日ぶんの記録で、育っています"+ms;}
+      $("#rf-grow").innerHTML=daysN+"日ぶんの記録で、"+(stage>=4?"育ちました":"育っています")+ms;}
     else{$("#rf-form").classList.remove("hidden");$("#rf-done").classList.add("hidden");$("#rf-lead").classList.remove("hidden");$("#rf-slider").value=50;$("#rf-val").textContent="50";$("#rf-memo").value="";}
   }
   $("#rf-slider").addEventListener("input",function(){$("#rf-val").textContent=this.value;});
