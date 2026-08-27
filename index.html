@@ -667,6 +667,24 @@
   function dateOnly(d){return new Date(d.getFullYear(),d.getMonth(),d.getDate());}
   function daysBetween(a,b){return Math.round((dateOnly(b)-dateOnly(a))/86400000);}
   function ymd(d){return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());}
+  function isYMD(v){if(typeof v!=="string"||!/^\d{4}-\d{2}-\d{2}$/.test(v))return false;var p=v.split("-").map(Number),d=new Date(p[0],p[1]-1,p[2]);return !isNaN(d.getTime())&&d.getMonth()===p[1]-1&&d.getDate()===p[2];}
+  function isISOish(v){if(typeof v!=="string")return false;var d=new Date(v);return !isNaN(d.getTime());}
+  function zeroSeen(){try{return localStorage.getItem("nokori.zeroSeen")==="1";}catch(e){return false;}}
+  /* 位置情報の精度ポリシーを1か所に集約：判定(detect)は範囲内でしか信頼しない／登録(register)は多少緩め */
+  function geoAccuracyOK(accuracy,radius,mode){var limit=(mode==="register")?Math.max(radius*1.5,100):radius;return (accuracy||0)<=limit;}
+  /* インポートのschema検証：構造・型・値域まで見て不正データを拒否 */
+  function validImport(key,raw){
+    if(typeof raw!=="string")return false;
+    if(key==="nokori.birth")return isYMD(raw);
+    if(key==="nokori.started"||key==="nokori.zeroSeen"||key==="nokori.treeStage")return true;
+    var o;try{o=JSON.parse(raw);}catch(e){return false;}
+    if(key==="nokori.goal")return !!o&&typeof o==="object"&&isYMD(o.date)&&(o.name==null||typeof o.name==="string")&&(o.created==null||isISOish(o.created));
+    if(key==="nokori.streak")return !!o&&typeof o==="object"&&isISOish(o.start)&&(o.status==="active"||o.status==="failed")&&(o.radius==null||typeof o.radius==="number")&&(o.dwell==null||typeof o.dwell==="number")&&(o.locations==null||Array.isArray(o.locations))&&(o.cumulative==null||typeof o.cumulative==="number");
+    if(key==="nokori.reflect"){if(!o||typeof o!=="object")return false;for(var k in o){var r=o[k];if(!r||typeof r!=="object")return false;if(!(typeof r.pct==="number"&&r.pct>=0&&r.pct<=100&&Math.floor(r.pct)===r.pct))return false;if(r.memo!=null&&typeof r.memo!=="string")return false;}return true;}
+    if(key==="nokori.settings"){if(!o||typeof o!=="object")return false;if(o.lifespan!=null&&(typeof o.lifespan!=="number"||o.lifespan<20||o.lifespan>120))return false;if(o.volume!=null&&(typeof o.volume!=="number"||o.volume<0||o.volume>100))return false;if(o.lang!=null&&o.lang!=="ja"&&o.lang!=="en")return false;if(o.theme!=null&&o.theme!=="dark"&&o.theme!=="light")return false;return true;}
+    if(key==="nokori.streak_events")return Array.isArray(o);
+    return true;
+  }
   function readJSON(k){try{return JSON.parse(localStorage.getItem(k));}catch(e){return null;}}
   function todayKey(){return ymd(new Date());}
   function cssVar(n){try{return (getComputedStyle(document.documentElement).getPropertyValue(n)||"").trim();}catch(e){return "";}}
@@ -848,9 +866,9 @@
   $("#in-next").addEventListener("click",function(){
     var chosen=new Date(sel.year,sel.month-1,sel.day),t=new Date();t.setHours(0,0,0,0);
     var err=$("#in-err");
-    if(chosen>t){if(err)err.textContent="未来の日付は選べません。";return;}
+    if(chosen>t){if(err)err.textContent=T("未来の日付は選べません。","The date can't be in the future.");return;}
     if(err)err.textContent="";
-    try{localStorage.setItem("nokori.birth",sel.year+"-"+pad(sel.month)+"-"+pad(sel.day));}catch(e){}
+    try{localStorage.setItem("nokori.birth",sel.year+"-"+pad(sel.month)+"-"+pad(sel.day));localStorage.removeItem("nokori.zeroSeen");}catch(e){}
     go("confirm");
   });
 
@@ -939,7 +957,8 @@
   $("#rf-slider").addEventListener("input",function(){$("#rf-val").textContent=this.value;});
   $("#rf-save").addEventListener("click",function(){
     var refl=readJSON("nokori.reflect")||{};
-    refl[todayKey()]={pct:parseInt($("#rf-slider").value,10),memo:($("#rf-memo").value||"").trim(),at:new Date().toISOString()};
+    var pv=parseInt($("#rf-slider").value,10);if(isNaN(pv))pv=0;pv=Math.max(0,Math.min(100,pv));
+    refl[todayKey()]={pct:pv,memo:($("#rf-memo").value||"").trim(),at:new Date().toISOString()};
     try{localStorage.setItem("nokori.reflect",JSON.stringify(refl));}catch(e){alert(T("記録を保存できませんでした。ブラウザの設定（プライベートモード等）をご確認ください。","Could not save your record. Please check your browser settings (e.g. private mode)."));return;}
     initReflect();
   });
@@ -982,13 +1001,14 @@
     btn.textContent=T("取得中…","Getting…");btn.disabled=true;
     navigator.geolocation.getCurrentPosition(function(p){
       var acc=p.coords.accuracy||0;btn.textContent=T("現在地を登録","Register current location");btn.disabled=false;
-      if(acc>Math.max(ssState.radius*1.5,100)){alert(T("位置情報の精度が低いため（±"+Math.round(acc)+"m）、登録を見送りました。\nもう一度取得してください。屋外や窓際だと精度が上がります。","Location accuracy is too low (±"+Math.round(acc)+"m), so it was not registered.\nPlease try again — accuracy improves outdoors or near a window."));return;}
+      if(!geoAccuracyOK(acc,ssState.radius,"register")){alert(T("位置情報の精度が低いため（±"+Math.round(acc)+"m）、登録を見送りました。\nもう一度取得してください。屋外や窓際だと精度が上がります。","Location accuracy is too low (±"+Math.round(acc)+"m), so it was not registered.\nPlease try again — accuracy improves outdoors or near a window."));return;}
       ssState.locs.push({name:T("現在地","Current location"),lat:p.coords.latitude,lng:p.coords.longitude,accuracy:acc});
       renderSsLocs();
     },function(){btn.textContent=T("現在地を登録","Register current location");btn.disabled=false;alert(T("位置情報を取得できませんでした。\n端末とブラウザの位置情報を許可してください。","Could not get your location.\nPlease allow location access for your device and browser."));},{enableHighAccuracy:true,timeout:10000,maximumAge:0});
   });
   $("#gs-save").addEventListener("click",function(){var name=($("#gs-name").value||"").trim(),date=$("#gs-date").value;
     if(!date){$("#gs-date").focus();$("#gs-date").style.borderColor="var(--paper-dim)";return;}
+    var gt0=new Date();gt0.setHours(0,0,0,0);if(!isYMD(date)||new Date(date+"T00:00:00")<gt0){$("#gs-date").style.borderColor="var(--rust)";alert(T("期限に過去の日付は選べません。","The deadline can't be in the past."));return;}
     var prevG=readJSON("nokori.goal"),created=(prevG&&prevG.created)?prevG.created:new Date().toISOString();
     try{localStorage.setItem("nokori.goal",JSON.stringify({name:name||T("目標","Goal"),date:date,created:created}));}catch(e){alert(T("目標を保存できませんでした。ブラウザの設定をご確認ください。","Could not save the goal. Please check your browser settings."));return;}go("home");});
   function saveStreak(o){try{localStorage.setItem("nokori.streak",JSON.stringify(o));return true;}catch(e){alert(T("継続を保存できませんでした。ブラウザの設定をご確認ください。","Could not save the streak. Please check your browser settings."));return false;}}
@@ -996,6 +1016,7 @@
     var name=($("#ss-name").value||"").trim(),date=$("#ss-date").value;
     if(!name){$("#ss-name").focus();$("#ss-name").style.borderColor="var(--paper-dim)";return;}
     if(ssState.auto&&ssState.locs.length===0){alert(T("自動判定には対象場所の登録が必要です。\n「現在地を登録」を押すか、自動判定をオフにしてください。","Auto-detection needs at least one target place.\nTap “Register current location” or turn auto-detection off."));return;}
+    if(date){var st0=new Date();st0.setHours(0,0,0,0);if(!isYMD(date)||new Date(date+"T00:00:00")>st0){$("#ss-date").style.borderColor="var(--rust)";alert(T("開始日に未来の日付は選べません。","The start date can't be in the future."));return;}}
     var start=date?new Date(date+"T00:00:00").toISOString():new Date().toISOString();
     var prev=readJSON("nokori.streak");
     if(prev&&prev.start){var chosenStr=date||ymd(new Date());if(ymd(new Date(prev.start))!==chosenStr){if(!confirm(T("開始日を変更すると、継続日数が変わります。\nよろしいですか?","Changing the start date will change the streak count.\nAre you sure?")))return;}}
@@ -1022,7 +1043,7 @@
       h+='<div class="st-fail"><div class="t">'+T('継続終了','Streak ended')+'</div><div class="r">'+esc(s.name)+'<br>'+esc(s.failReason||'')+'<br>'+fmtDateTime(new Date(s.failedAt))+'</div></div>';
       h+='<div style="margin-top:36px"><button class="linebtn" id="st-restart" style="max-width:300px;margin:0 auto">'+T("もう一度はじめる","Start again")+'</button></div>';
       host.innerHTML=h;
-      $("#st-restart").addEventListener("click",function(){s.start=new Date().toISOString();s.status="active";delete s.failedAt;delete s.failReason;saveStreak(s);initStreak();});
+      $("#st-restart").addEventListener("click",function(){s.start=new Date().toISOString();s.status="active";delete s.failedAt;delete s.failReason;if(saveStreak(s))initStreak();});
       return;
     }
     h+='<div class="st-info"><div class="row"><span class="k">'+T("自動判定","Auto-detect")+'</span><span class="v">'+(s.auto?"ON":"OFF")+'</span></div>';
@@ -1057,7 +1078,7 @@
     function nearest(p){var best=Infinity;(s.locations||[]).forEach(function(l){var d=distM({lat:p.lat,lng:p.lng},l);if(d<best)best=d;});return best;}
     function handle(pos){
       if(!pos){sm.phase="UNKNOWN";sm.lastInsideTs=null;sm.dwellAccum=0;paint();return;}          // GPS取得失敗→滞在をリセット（判定不能をまたいで積算しない）
-      if(pos.accuracy>Math.max(s.radius,60)){sm.phase="VERIFYING";sm.lastInsideTs=null;sm.dwellAccum=0;paint();return;} // 低精度→保留（滞在をリセット）
+      if(!geoAccuracyOK(pos.accuracy,s.radius,"detect")){sm.phase="VERIFYING";sm.lastInsideTs=null;sm.dwellAccum=0;paint();return;} // 精度が対象範囲より粗い→保留（滞在をリセット）
       var d=nearest(pos),enterR=s.radius,exitR=s.radius+20,t=Date.now();
       var nowInside=sm.inside?(d<=exitR):(d<=enterR); // ヒステリシス
       if(nowInside){
@@ -1107,7 +1128,7 @@
     $("#rs-ended").classList.add("hidden");$("#rs-main").classList.remove("hidden");
     $("#rs-zero").classList.add("hidden");$("#rs-live").classList.remove("hidden");
     $("#rs-num").classList.remove("zero");
-    if(deathDate()-Date.now()<=0){rsEnded();return;}
+    if(deathDate()-Date.now()<=0){if(zeroSeen())rsEnded();else rsZero();return;}
     function tick(){var bp=birthParts(),now=Date.now(),bd=new Date(bp[0],bp[1]-1,bp[2]),dd=deathDate(),secs=Math.floor((dd-now)/1000);
       if(secs<=0){rsZero();return;}
       // ジャネーの法則（厳しい版）：体感時間 = 生まれた瞬間(1歳)から積分（1年の体感∝1/年齢）
@@ -1117,6 +1138,7 @@
   }
   function rsZero(){
     clearTimers();
+    try{localStorage.setItem("nokori.zeroSeen","1");}catch(e){} // 0到達は一度きりの演出：以降はENDEDへ統一
     $("#rs-ended").classList.add("hidden");$("#rs-main").classList.remove("hidden");
     $("#rs-live").classList.add("hidden");$("#rs-zero").classList.remove("hidden");
     var num=$("#rs-num"),msg=$("#rs-msg"),act=$("#rs-act");msg.classList.remove("in");act.classList.remove("in");num.classList.add("zero");
@@ -1187,13 +1209,7 @@
       try{var d=JSON.parse(r.result);var keys=Object.keys(d).filter(function(k){return k.indexOf("nokori.")===0;});
         if(!keys.length){alert(T("NOKORIのデータが見つかりませんでした。","No NOKORI data was found."));self.value="";return;}
         var bad=null;
-        for(var vi=0;vi<keys.length;vi++){var vk=keys[vi],vv=d[vk];
-          if(typeof vv!=="string"){bad=vk;break;}
-          if(vk==="nokori.birth"){var pp=vv.split("-").map(Number);var bdt=new Date(pp[0],pp[1]-1,pp[2]);
-            if(!/^\d{4}-\d{2}-\d{2}$/.test(vv)||isNaN(bdt)||bdt.getMonth()!==pp[1]-1||bdt.getDate()!==pp[2]){bad=vk;break;}}
-          if(vk==="nokori.goal"||vk==="nokori.streak"||vk==="nokori.reflect"||vk==="nokori.settings"||vk==="nokori.streak_events"){
-            try{JSON.parse(vv);}catch(pe){bad=vk;break;}}
-        }
+        for(var vi=0;vi<keys.length;vi++){var vk=keys[vi],vv=d[vk];if(!validImport(vk,vv)){bad=vk;break;}}
         if(bad){alert(T("データが壊れているため読み込めませんでした。\n（"+bad+"）","The data is corrupted and could not be imported.\n("+bad+")"));self.value="";return;}
         if(!confirm(T("この端末の記録を、読み込むデータで置き換えます。\nよろしいですか?","This will replace this device's records with the imported data.\nAre you sure?"))){self.value="";return;}
         keys.forEach(function(k){localStorage.setItem(k,d[k]);});location.reload();
