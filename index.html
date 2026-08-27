@@ -10,17 +10,17 @@
 
 <style>
   :root{
-    --ink:#0c0c0b; --paper:#e9e4d8; --paper-dim:#9a9488; --faint:#575249; --faintest:#38352f;
-    --num:#e2dccc; --zero:#d7cbb0; --glow:#e7d7b1; --rust:#9c5a44;
-    --rule:rgba(233,228,216,.12); --rule-soft:rgba(233,228,216,.06);
+    --ink:#0c0c0b; --paper:#ece7dc; --paper-dim:#c0bcb1; --faint:#948e82; --faintest:#5a554c;
+    --num:#e2dccc; --zero:#d7cbb0; --glow:#e7d7b1; --rust:#b06a52;
+    --rule:rgba(233,228,216,.17); --rule-soft:rgba(233,228,216,.10);
     --btn:#ded5c2; --btn-2:#c9bfa8; --btn-text:#1a1712;
     --mark:#e9e4d8; --fill:rgba(233,228,216,.03); --fill-strong:rgba(233,228,216,.05); --band:rgba(233,228,216,.025); --sw-on:rgba(233,228,216,.32);
   }
   :root[data-theme="light"]{
     --ink:#f4f3ef; --ink-2:#eae9e4;
-    --paper:#232220; --paper-dim:#6c6a63; --faint:#928f86; --faintest:#cbc9c2;
-    --num:#1b1a17; --zero:#2a2823; --glow:#c9a86a; --rust:#9c4a30;
-    --rule:rgba(0,0,0,.14); --rule-soft:rgba(0,0,0,.06);
+    --paper:#232220; --paper-dim:#565349; --faint:#6f6c62; --faintest:#adaaa1;
+    --num:#1b1a17; --zero:#2a2823; --glow:#b58a42; --rust:#9c4a30;
+    --rule:rgba(0,0,0,.18); --rule-soft:rgba(0,0,0,.09);
     --btn:#26241f; --btn-2:#33302a; --btn-text:#f2eee4;
     --mark:#54514a; --fill:rgba(0,0,0,.04); --fill-strong:rgba(0,0,0,.06); --band:rgba(0,0,0,.035); --sw-on:rgba(0,0,0,.34);
   }
@@ -40,7 +40,7 @@
   /* shared chrome */
   .chrome{display:flex;align-items:center;gap:14px;padding:26px 0 0;}
   .chrome > *:last-child{margin-left:auto;}
-  .backbtn{background:none;border:none;color:var(--paper-dim);font-family:"Roboto Mono",monospace;font-size:19px;line-height:1;cursor:pointer;padding:4px 6px 4px 0;transition:color .2s;}
+  .backbtn{background:none;border:none;color:var(--paper-dim);font-family:"Roboto Mono",monospace;font-size:22px;line-height:1;cursor:pointer;padding:10px 14px 10px 2px;transition:color .2s;}
   .backbtn:hover{color:var(--paper);}
   .brand{display:inline-flex;align-items:baseline;background:none;border:none;cursor:pointer;}
   .brand .k{font-family:"Shippori Mincho B1",serif;font-weight:800;font-size:18px;color:var(--paper);}
@@ -49,16 +49,16 @@
   .menu i{display:block;width:22px;height:1px;background:var(--paper-dim);}
 
   /* shared buttons */
-  .paperbtn{width:100%;border:none;cursor:pointer;padding:19px;border-radius:2px;
+  .paperbtn{width:100%;border:none;cursor:pointer;padding:22px;border-radius:3px;min-height:60px;
     background:linear-gradient(180deg,var(--btn),var(--btn-2));color:var(--btn-text);
     font-family:"Shippori Mincho B1",serif;font-weight:700;font-size:18px;letter-spacing:.14em;position:relative;overflow:hidden;transition:filter .2s;}
   .paperbtn::before{content:"";position:absolute;inset:0;opacity:.5;pointer-events:none;mix-blend-mode:multiply;
     background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix type='saturate' values='0'/></filter><rect width='120' height='120' filter='url(%23p)' opacity='0.5'/></svg>");}
   .paperbtn:hover{filter:brightness(1.05)}
   .linebtn{width:100%;background:none;border:1px solid var(--rule);color:var(--paper);cursor:pointer;
-    font-family:"Shippori Mincho B1",serif;font-weight:600;font-size:15px;letter-spacing:.14em;padding:16px;border-radius:2px;transition:border-color .25s;}
-  .linebtn:hover{border-color:var(--paper-dim);}
-  .ghostbtn{background:none;border:none;color:var(--faint);font-family:"Noto Sans JP",sans-serif;font-size:12.5px;letter-spacing:.1em;cursor:pointer;transition:color .2s;}
+    font-family:"Shippori Mincho B1",serif;font-weight:600;font-size:15px;letter-spacing:.14em;padding:18px;border-radius:3px;min-height:56px;transition:border-color .25s,color .25s;}
+  .linebtn:hover{border-color:var(--paper-dim);color:var(--paper);}
+  .ghostbtn{background:none;border:none;color:var(--paper-dim);font-family:"Noto Sans JP",sans-serif;font-size:13.5px;letter-spacing:.08em;cursor:pointer;padding:11px 14px;transition:color .2s;}
   .ghostbtn:hover{color:var(--paper-dim);}
   button:focus-visible{outline:1px solid var(--paper);outline-offset:3px}
   .clockwm{position:absolute;right:-70px;top:60px;width:260px;height:260px;z-index:0;opacity:.045;pointer-events:none;}
@@ -69,8 +69,8 @@
   #s-pick .word{display:flex;align-items:baseline;gap:12px;}
   #s-pick .word .k{font-family:"Shippori Mincho B1",serif;font-weight:800;font-size:30px;color:var(--paper);}
   #s-pick .word .r{font-family:"Roboto Mono",monospace;font-size:10px;letter-spacing:.5em;color:var(--faint);text-transform:uppercase;}
-  #s-pick .creed{font-family:"Shippori Mincho B1",serif;font-weight:500;font-size:16px;color:var(--paper-dim);line-height:2.1;margin:46px 0 0;letter-spacing:.04em;}
-  #s-pick .creed b{color:var(--paper);font-weight:700}
+  #s-pick .tagline{font-family:"Shippori Mincho B1",serif;font-weight:700;font-size:clamp(21px,6vw,26px);color:var(--paper);line-height:1.5;margin:40px 0 0;letter-spacing:.04em;}
+  #s-pick .lead2{font-size:13.5px;color:var(--paper-dim);line-height:1.9;margin:14px 0 0;letter-spacing:.02em;}
   #s-pick .prompt{margin:66px 0 8px;}
   #s-pick .prompt h1{font-family:"Shippori Mincho B1",serif;font-weight:800;font-size:38px;color:var(--paper);margin:0;letter-spacing:.03em;}
   #s-pick .prompt p{color:var(--faint);font-size:13px;margin:14px 0 0;letter-spacing:.06em;}
@@ -114,11 +114,12 @@
   #s-input .wheel .pad{height:92px}
   #s-input .opt{height:46px;display:flex;align-items:center;justify-content:center;scroll-snap-align:center;font-family:"Shippori Mincho B1",serif;font-weight:500;font-size:26px;color:var(--paper);cursor:pointer;will-change:opacity,transform;}
   #s-input .band{position:absolute;left:8px;right:8px;top:50%;height:46px;transform:translateY(-50%);pointer-events:none;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--band);}
-  #s-input .info{border:1px solid var(--rule);border-radius:2px;padding:22px;margin:48px 0 0;}
+  #s-input .info{border:1px solid var(--rule);border-radius:3px;padding:24px;margin:52px 0 0;}
   #s-input .info .h{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
   #s-input .info .h b{font-family:"Shippori Mincho B1",serif;font-weight:600;font-size:16px;color:var(--paper);}
   #s-input .info p{margin:0;font-size:13px;line-height:2;color:var(--paper-dim);}
-  #s-input .privacy{text-align:center;font-size:11.5px;line-height:2;color:var(--faint);margin:30px 0 0;}
+  #s-input .privacy{text-align:center;font-size:13px;line-height:2;color:var(--paper-dim);margin:26px auto 0;max-width:34ch;border-top:1px solid var(--rule-soft);padding-top:20px;}
+  #s-input .privacy b{color:var(--paper);font-weight:500;}
   #s-input .go{margin:34px 0 0;}
   #s-input .go .sub{text-align:center;font-family:"Roboto Mono",monospace;font-size:10px;letter-spacing:.32em;color:var(--faint);margin-top:14px;text-transform:uppercase;}
 
@@ -157,7 +158,8 @@
   #s-home .life .unit{font-family:"Shippori Mincho B1",serif;font-size:15px;color:var(--paper-dim);margin-left:8px;letter-spacing:.16em;}
   #s-home .life .side{font-family:"Roboto Mono",monospace;font-size:12px;color:var(--faint);margin-top:12px;}
   #s-home .today-sec .b{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-top:16px;}
-  #s-home .today-sec .pct{font-family:"Roboto Mono",monospace;font-weight:300;font-size:clamp(40px,12vw,58px);color:var(--num);line-height:.9;font-variant-numeric:tabular-nums;}
+  #s-home .today-sec .pct{font-family:"Roboto Mono",monospace;font-weight:300;font-size:clamp(29px,8.4vw,44px);color:var(--num);line-height:1;font-variant-numeric:tabular-nums;}
+  #s-home .today-sec .pct .u{font-size:.42em;color:var(--paper-dim);font-family:"Shippori Mincho B1",serif;margin:0 1px 0 2px;}
   #s-home .today-sec .pct .p{font-size:.42em;color:var(--paper-dim);font-family:"Shippori Mincho B1",serif;}
   #s-home .today-sec .pct .cap{display:block;font-family:"Shippori Mincho B1",serif;font-size:12px;color:var(--paper-dim);letter-spacing:.1em;margin-top:8px;}
   #s-home .today-sec .review{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font-family:"Shippori Mincho B1",serif;font-size:14px;color:var(--paper);border-bottom:1px solid var(--rule);padding-bottom:5px;}
@@ -177,6 +179,9 @@
   #s-home .streak .cnt .nm{display:block;font-family:"Shippori Mincho B1",serif;font-size:14px;color:var(--paper);margin-bottom:10px;}
   #s-home .streak .cnt .st{font-family:"Shippori Mincho B1",serif;font-size:11px;color:var(--faint);margin-left:8px;}
   #s-home .streak .cnt .cum{font-family:"Roboto Mono",monospace;font-size:11px;color:var(--faint);margin-top:9px;letter-spacing:.06em;}
+  #s-home .hint{display:block;font-family:"Roboto Mono",monospace;font-size:10.5px;color:var(--faint);margin-top:7px;letter-spacing:.02em;font-weight:400;}
+  #s-home .goal .rem.near b{color:var(--paper);font-weight:500;}
+  #s-home .goal .rem.near span{color:var(--paper-dim);}
   #s-home .foot{margin-top:36px;text-align:center;font-family:"Roboto Mono",monospace;font-size:10px;color:var(--faintest);letter-spacing:.1em;}
 
   /* ============ RESULT ============ */
@@ -219,7 +224,9 @@
   #s-soon .p{font-size:13px;color:var(--paper-dim);margin-top:22px;line-height:2;}
   #s-soon .act{margin-top:44px;width:100%;max-width:300px;}
 
-  #s-result .rs-note{font-family:"Shippori Mincho B1",serif;font-size:12.5px;line-height:2.1;color:var(--faint);text-align:center;margin-top:36px;letter-spacing:.04em;}
+  #s-result .rs-note{font-family:"Shippori Mincho B1",serif;font-size:12.5px;line-height:2.1;color:var(--paper-dim);text-align:center;margin:36px auto 0;letter-spacing:.04em;background:none;border:none;cursor:pointer;display:block;padding:6px;}
+  #s-result .rs-note .rs-q{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border:1px solid var(--faint);border-radius:50%;font-size:10px;font-family:"Roboto Mono",monospace;color:var(--faint);vertical-align:middle;}
+  #s-result .rs-explain{max-width:30ch;margin:14px auto 0;font-size:12px;line-height:2;color:var(--faint);text-align:center;word-break:auto-phrase;}
 
   /* ============ SET FORMS (goal / streak) ============ */
   .setwrap{flex:1;display:flex;flex-direction:column;padding-top:10px;}
@@ -228,12 +235,12 @@
   .setform{margin:48px 0 30px;}
   .setform .field{margin-bottom:22px;}
   .setform label{display:block;font-family:"Roboto Mono",monospace;font-size:11px;letter-spacing:.16em;color:var(--faint);margin-bottom:9px;}
-  .setform input{width:100%;background:var(--fill);border:1px solid var(--rule);color:var(--paper);font-family:"Noto Sans JP",sans-serif;font-size:16px;padding:14px 15px;border-radius:2px;transition:border-color .2s;}
+  .setform input{width:100%;background:var(--fill);border:1px solid var(--rule);color:var(--paper);font-family:"Noto Sans JP",sans-serif;font-size:16px;padding:17px 16px;border-radius:3px;min-height:56px;transition:border-color .2s;}
   .setform input[type=date]{font-family:"Roboto Mono",monospace;}
   .setform input::placeholder{color:var(--faintest);}
   .setform input:focus{outline:none;border-color:var(--paper-dim);}
   .sugg{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;}
-  .sugg button{background:none;border:1px solid var(--rule);color:var(--paper-dim);font-family:"Noto Sans JP",sans-serif;font-size:12.5px;padding:8px 13px;border-radius:20px;cursor:pointer;transition:border-color .2s,color .2s;}
+  .sugg button{background:none;border:1px solid var(--rule);color:var(--paper-dim);font-family:"Noto Sans JP",sans-serif;font-size:13px;padding:11px 16px;border-radius:20px;cursor:pointer;transition:border-color .2s,color .2s;}
   .sugg button:hover{border-color:var(--paper-dim);color:var(--paper);}
   .sugg button[aria-pressed="true"]{border-color:var(--paper-dim);color:var(--paper);background:var(--fill-strong);}
 
@@ -268,7 +275,7 @@
   #s-settings .set-h1{font-family:"Shippori Mincho B1",serif;font-weight:700;font-size:26px;color:var(--paper);letter-spacing:.08em;margin:34px 0 6px;}
   #s-settings .set-group{margin-top:32px;}
   #s-settings .set-label{font-family:"Roboto Mono",monospace;font-size:10.5px;letter-spacing:.24em;color:var(--faint);text-transform:uppercase;padding-bottom:8px;border-bottom:1px solid var(--rule);}
-  #s-settings .set-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:15px 2px;border-bottom:1px solid var(--rule-soft);min-height:54px;}
+  #s-settings .set-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 2px;border-bottom:1px solid var(--rule-soft);min-height:62px;}
   #s-settings .set-row.col2{flex-wrap:wrap;row-gap:12px;}
   #s-settings .set-k{font-size:15px;color:var(--paper);}
   #s-settings .set-k.set-danger{color:var(--rust);}
@@ -276,8 +283,15 @@
   #s-settings .set-row.tap{cursor:pointer;}
   #s-settings .set-row.tap:hover .set-v{color:var(--paper-dim);}
   .set-note,.set-note2{font-size:12px;color:var(--faint);line-height:2;margin-top:12px;}
+  .set-explain{margin-top:14px;}
+  .set-explain ul{list-style:none;margin:0;padding:0;}
+  .set-explain li{position:relative;padding-left:18px;font-size:13px;line-height:1.9;color:var(--paper-dim);margin-bottom:10px;}
+  .set-explain li::before{content:"—";position:absolute;left:0;color:var(--faint);}
+  .set-explain li b{color:var(--paper);font-weight:500;}
+  .set-explain .se-note{font-size:11.5px;color:var(--faint);margin-top:6px;line-height:1.8;}
   #s-settings .set-acc-actions{margin-top:14px;display:flex;flex-direction:column;gap:10px;}
-  #s-settings .set-disabled{opacity:.38;cursor:not-allowed;}
+  #s-settings .set-disabled{opacity:.5;cursor:not-allowed;}
+  .set-soon{font-family:"Roboto Mono",monospace;font-size:9.5px;letter-spacing:.12em;color:var(--faint);border:1px solid var(--rule);border-radius:20px;padding:3px 9px;margin-left:8px;white-space:nowrap;}
   .sw{position:relative;width:44px;height:26px;flex:0 0 auto;cursor:pointer;display:inline-block;}
   .sw input{position:absolute;opacity:0;width:0;height:0;}
   .sw .track{display:block;width:44px;height:26px;border-radius:20px;background:var(--faintest);transition:background .2s;position:relative;}
@@ -285,7 +299,7 @@
   .sw input:checked ~ .track{background:var(--sw-on);}
   .sw input:checked ~ .track::after{transform:translateX(18px);background:var(--paper);}
   .set-seg{display:flex;gap:6px;}
-  .set-seg button{background:none;border:1px solid var(--rule);color:var(--paper-dim);font-family:"Noto Sans JP",sans-serif;font-size:12px;padding:8px 13px;border-radius:2px;cursor:pointer;transition:border-color .2s,color .2s;}
+  .set-seg button{background:none;border:1px solid var(--rule);color:var(--paper-dim);font-family:"Noto Sans JP",sans-serif;font-size:13px;padding:11px 15px;border-radius:3px;cursor:pointer;transition:border-color .2s,color .2s;}
   .set-seg button[aria-pressed="true"]{border-color:var(--paper-dim);color:var(--paper);background:var(--fill-strong);}
   #s-settings .set-slider{-webkit-appearance:none;appearance:none;width:150px;height:2px;background:var(--faintest);outline:none;cursor:pointer;}
   #s-settings .set-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;border-radius:50%;background:var(--paper-dim);border:none;box-shadow:0 0 0 4px var(--ink);cursor:pointer;}
@@ -342,6 +356,8 @@
   <section id="s-pick" class="screen on"><div class="col">
     <div class="head">
       <div class="word"><span class="k">残</span><span class="r">Nokori</span></div>
+      <p class="tagline">残り時間を、数字で見る。</p>
+      <p class="lead2">人生・目標・習慣の「残り」を記録する。</p>
     </div>
     <div class="prompt"><h1>何を刻む?</h1></div>
     <div class="mode"><svg class="art" id="art-life" viewBox="0 0 340 172" aria-hidden="true"></svg>
@@ -382,7 +398,7 @@
       </div>
       <p>生年月日をもとに、経過した時間と残りの時間を計算します。</p>
     </div>
-    <p class="privacy">生年月日はこの端末にのみ保存されます。外部には送信されません。</p>
+    <p class="privacy">生年月日は<b>この端末にのみ保存</b>され、<b>外部には送信されません</b>。</p>
     <div class="go"><button class="paperbtn" id="in-next"><span>確認へ進む</span></button><div class="sub">Step 1 / 3</div></div>
   </div></section>
 
@@ -415,13 +431,13 @@
     <div class="today"><div class="d" id="hm-date">—</div><div class="hm-msg" id="hm-msg"></div></div>
     <button class="sect life" data-goto="result"><div class="eye"><span class="lab">Future</span><span class="go">→</span></div><div class="jlab">人生の残り</div><div><span class="num" id="hm-life">—</span><span class="unit">日</span></div><div class="side" id="hm-side">約 — 秒</div></button>
     <button class="sect today-sec" data-goto="reflect"><div class="eye"><span class="lab">Now</span><span class="go">→</span></div><div class="jlab">今日</div>
-      <div class="b"><div class="pct"><span id="hm-min">—</span><span class="p">分</span><span class="cap">今日の残り</span></div><span id="hm-spark"></span></div>
+      <div class="b"><div class="pct"><span id="hm-hm">—</span><span class="cap">今日の残り</span></div><span id="hm-spark"></span></div>
       <div class="review" id="hm-review">今日を振り返る<span class="a">→</span></div></button>
     <button class="sect goal" data-goto="goal"><div class="eye"><span class="lab">Future</span><span class="go">→</span></div><div class="jlab">目標</div>
       <div class="l1"><div class="name" id="hm-gname">まだありません</div><div class="rem"><b id="hm-goal">0</b><span>日</span></div></div>
       <div class="track"><i id="hm-gfill" style="width:0%"></i><span class="mk" id="hm-gmk" style="left:0%"></span></div></button>
     <button class="sect streak" data-goto="streak"><div class="eye"><span class="lab">Past → Now</span><span class="go">→</span></div><div class="jlab">継続</div>
-      <div class="b"><div class="cnt"><span class="nm" id="hm-sname">まだありません</span><b id="hm-scnt">0</b><span>日</span><span class="st" id="hm-sst"></span><div class="cum" id="hm-scum"></div></div><svg id="hm-tally" width="150" height="54" aria-hidden="true"></svg></div></button>
+      <div class="b"><div class="cnt"><span class="nm" id="hm-sname">まだありません</span><span id="hm-snum"><b id="hm-scnt">0</b><span>日</span><span class="st" id="hm-sst"></span></span><div class="cum" id="hm-scum"></div></div><svg id="hm-tally" width="150" height="54" aria-hidden="true"></svg></div></button>
   </div></section>
 
   <!-- ===== RESULT ===== -->
@@ -431,7 +447,8 @@
       <div class="mode-head"><div class="m">死ぬまで</div><div class="s">体感の残り時間</div></div>
       <div class="hero"><div class="lab">残り</div><div class="num" id="rs-num">—</div><div class="unit">%</div><div class="divider"></div></div>
       <div class="below-live" id="rs-live">
-        <div class="rs-note">ジャネーの法則にもとづく試算</div>
+        <button class="rs-note" id="rs-note-btn" aria-expanded="false">ジャネーの法則にもとづく試算　<span class="rs-q">?</span></button>
+        <div class="rs-explain hidden" id="rs-explain">生涯の体感時間は、20歳までに約半分を消費するといわれます（ジャネーの法則）。<br>この数値は、年齢に応じた体感上の残り時間を示しています。</div>
       </div>
       <div class="below-zero hidden" id="rs-zero">
         <div class="msg" id="rs-msg"><div class="done">刻み終えました。</div>
@@ -491,7 +508,14 @@
             <button type="button" class="linebtn" id="ss-addloc" style="margin-top:8px">現在地を登録</button></div>
           <div class="field"><label>対象範囲</label><div class="set-seg" id="ss-radius"><button type="button" data-v="50">50m</button><button type="button" data-v="100">100m</button><button type="button" data-v="150">150m</button><button type="button" data-v="200">200m</button></div></div>
           <div class="field"><label>滞在時間</label><div class="set-seg" id="ss-dwell"><button type="button" data-v="1">1分</button><button type="button" data-v="3">3分</button><button type="button" data-v="5">5分</button><button type="button" data-v="10">10分</button><button type="button" data-v="30">30分</button></div></div>
-          <div class="set-note">設定した場所に、対象範囲内で滞在時間を超えて留まると、継続を終了します。近くを通っただけでは終了しません。<br>Web版では、判定は画面を開いている間だけ動作します。位置情報は判定にのみ使い、移動の履歴は保存しません。</div>
+          <div class="set-explain">
+            <ul>
+              <li>決めた場所に入り、その範囲に<b>一定時間いる</b>と、継続を終了します。</li>
+              <li><b>近くを通るだけ・少し立ち寄るだけでは、終了しません。</b></li>
+              <li>位置情報は判定だけに使い、<b>いた場所の履歴は残しません。</b></li>
+            </ul>
+            <div class="se-note">※ Web版では、この画面を開いている間だけ判定します。</div>
+          </div>
         </div>
       </div>
       <button class="paperbtn" id="ss-save">追加する</button>
@@ -537,9 +561,9 @@
       <div class="set-label">アカウント</div>
       <div class="set-row"><span class="set-k">アカウント連携</span><span class="set-v" id="set-acc">未連携</span></div>
       <div class="set-acc-actions">
-        <button class="linebtn set-disabled" disabled>Googleで連携（準備中）</button>
-        <button class="linebtn set-disabled" disabled>Appleで連携（準備中）</button>
-        <div class="set-note">Google・Appleでの連携（クラウド同期）は準備中です。<br>いまは「データ」から、この端末の記録を書き出し、別の端末で読み込むと移せます。</div>
+        <button class="linebtn set-disabled" disabled>Googleで連携<span class="set-soon">近日公開</span></button>
+        <button class="linebtn set-disabled" disabled>Appleで連携<span class="set-soon">近日公開</span></button>
+        <div class="set-note">クラウド同期は今後追加予定です。<br>いまは「データ」から書き出して、別の端末で読み込むと記録を移せます。</div>
       </div>
     </div>
 
@@ -589,9 +613,9 @@
 
     <div class="set-group">
       <div class="set-label">その他</div>
-      <div class="set-row"><span class="set-k">利用規約</span><span class="set-v">準備中</span></div>
-      <div class="set-row"><span class="set-k">プライバシーポリシー</span><span class="set-v">準備中</span></div>
-      <div class="set-row"><span class="set-k">お問い合わせ</span><span class="set-v">準備中</span></div>
+      <div class="set-row"><span class="set-k">利用規約</span><span class="set-v set-soon">近日公開</span></div>
+      <div class="set-row"><span class="set-k">プライバシーポリシー</span><span class="set-v set-soon">近日公開</span></div>
+      <div class="set-row"><span class="set-k">お問い合わせ</span><span class="set-v set-soon">近日公開</span></div>
       <div class="set-row"><span class="set-k">このアプリについて</span><span class="set-v">残 · NOKORI　v1.0.0</span></div>
     </div>
   </div></section>
@@ -675,6 +699,7 @@
   function back(){var prev=navStack.pop()||"home";go(prev,true);}
   document.addEventListener("click",function(e){
     var bk=e.target.closest("[data-back]");if(bk){e.preventDefault();e.stopPropagation();back();return;}
+    var nb=e.target.closest("#rs-note-btn");if(nb){var ex=document.getElementById("rs-explain");var hid=ex.classList.toggle("hidden");nb.setAttribute("aria-expanded",hid?"false":"true");return;}
     var b=e.target.closest("[data-goto]");if(!b)return;
     e.preventDefault();e.stopPropagation();go(b.getAttribute("data-goto"));
   });
@@ -766,11 +791,14 @@
     var goal=readJSON("nokori.goal");
     if(goal&&goal.date){
       var tg=new Date(goal.date+"T23:59:59"),cr=goal.created?new Date(goal.created):now;
-      $("#hm-gname").innerHTML=esc(goal.name||"目標")+'<small>'+goal.date.replace(/-/g,".")+'</small>';
-      $("#hm-goal").textContent=fmt(Math.max(0,Math.ceil((tg-now)/86400000)));
+      $("#hm-gname").innerHTML=esc(goal.name||"目標")+'<small>期限 '+goal.date.replace(/-/g,".")+'</small>';
+      var gdays=Math.max(0,Math.ceil((tg-now)/86400000));
+      $("#hm-goal").textContent=fmt(gdays);$("#hm-goal").closest(".rem").style.display="";
+      $("#hm-goal").closest(".rem").classList.toggle("near",gdays<=30);
       var pg=Math.max(0,Math.min(100,(now-cr)/(tg-cr)*100));$("#hm-gfill").style.width=pg.toFixed(1)+"%";$("#hm-gmk").style.left=pg.toFixed(1)+"%";
     }else{
-      $("#hm-gname").textContent="まだありません";$("#hm-goal").textContent="0";$("#hm-gfill").style.width="0%";$("#hm-gmk").style.left="0%";
+      $("#hm-gname").innerHTML='目標を追加<span class="hint">期限を決めて、残り時間を刻む</span>';
+      $("#hm-goal").closest(".rem").style.display="none";$("#hm-gfill").style.width="0%";$("#hm-gmk").style.left="0%";
     }
     // streak (from storage, else empty 0)
     var streak=readJSON("nokori.streak"),st=$("#hm-tally");
@@ -778,11 +806,11 @@
       var failedS=streak.status==="failed";
       var cur=failedS?0:Math.max(0,Math.floor((now-new Date(streak.start))/86400000));
       var cum=(streak.cumulative||0)+cur;
-      $("#hm-sname").textContent=streak.name||"継続";$("#hm-scnt").textContent=fmt(cur);$("#hm-sst").textContent=failedS?"継続終了":"継続中";
+      $("#hm-sname").textContent=streak.name||"継続";$("#hm-snum").style.display="";$("#hm-scnt").textContent=fmt(cur);$("#hm-sst").textContent=failedS?"継続終了":"継続中";
       $("#hm-scum").textContent="累計 "+fmt(cum)+"日";
       drawTally(st,cur);
     }else{
-      $("#hm-sname").textContent="まだありません";$("#hm-scnt").textContent="0";$("#hm-sst").textContent="";$("#hm-scum").textContent="";st.innerHTML="";
+      $("#hm-sname").innerHTML='継続を追加<span class="hint">守り続けた日数を、刻む</span>';$("#hm-snum").style.display="none";$("#hm-scum").textContent="";st.innerHTML="";
     }
     // today: 振り返り状態＋充実度スパークライン（記録データから）
     var refl=readJSON("nokori.reflect")||{},done=refl[todayKey()];
@@ -792,8 +820,8 @@
     function tick(){
       var secs=Math.max(0,Math.floor((deathDate()-Date.now())/1000));
       $("#hm-life").textContent=fmt(Math.floor(secs/86400));$("#hm-side").textContent="約 "+fmt(secs)+" 秒";
-      var now=new Date(),end=new Date(now.getFullYear(),now.getMonth(),now.getDate()+1,0,0,0);
-      $("#hm-min").textContent=fmt(Math.max(0,Math.floor((end-now)/60000)));
+      var now=new Date(),end=new Date(now.getFullYear(),now.getMonth(),now.getDate()+1,0,0,0),mins=Math.max(0,Math.floor((end-now)/60000)),hh=Math.floor(mins/60),mm=mins%60;
+      $("#hm-hm").innerHTML=hh+'<span class="u">時間</span> '+mm+'<span class="u">分</span>';
     }
     tick();timers.push(setInterval(tick,1000));
   }
@@ -1059,7 +1087,7 @@
     r.readAsText(f);
   });
   $("#set-delete").addEventListener("click",function(){
-    if(!confirm("保存されている記録が削除されます。\nこの操作は取り消せません。\n\n削除しますか?"))return;
+    if(!confirm("すべてのデータを削除しますか?\n\n削除される情報：\n・生年月日\n・目標\n・継続\n・今日の記録\n・各種設定\n\nこの操作は取り消せません。"))return;
     var keys=[];for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf("nokori.")===0)keys.push(k);}
     keys.forEach(function(k){localStorage.removeItem(k);});location.reload();
   });
