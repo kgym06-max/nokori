@@ -640,9 +640,9 @@
 
     <div class="set-group">
       <div class="set-label" data-i18n="set.g.other">その他</div>
-      <div class="set-row"><span class="set-k" data-i18n="set.terms">利用規約</span><span class="set-v set-soon" data-i18n="soon">近日公開</span></div>
-      <div class="set-row"><span class="set-k" data-i18n="set.policy">プライバシーポリシー</span><span class="set-v set-soon" data-i18n="soon">近日公開</span></div>
-      <div class="set-row"><span class="set-k" data-i18n="set.contact">お問い合わせ</span><span class="set-v set-soon" data-i18n="soon">近日公開</span></div>
+      <div class="set-row tap set-link" data-url="https://kgym06-max.github.io/nokori/terms.html"><span class="set-k" data-i18n="set.terms">利用規約</span><span class="set-v">›</span></div>
+      <div class="set-row tap set-link" data-url="https://kgym06-max.github.io/nokori/privacy.html"><span class="set-k" data-i18n="set.policy">プライバシーポリシー</span><span class="set-v">›</span></div>
+      <div class="set-row tap set-link" data-url="https://kgym06-max.github.io/nokori/contact.html"><span class="set-k" data-i18n="set.contact">お問い合わせ</span><span class="set-v">›</span></div>
       <div class="set-row"><span class="set-k" data-i18n="set.about">このアプリについて</span><span class="set-v">残 · NOKORI　v1.0.0</span></div>
     </div>
   </div></section>
@@ -1228,6 +1228,7 @@
     keys.forEach(function(k){localStorage.removeItem(k);});location.reload();
   });
   document.querySelectorAll(".menu").forEach(function(m){m.addEventListener("click",function(){go("settings");});});
+  document.querySelectorAll("#s-settings .set-link").forEach(function(el){el.addEventListener("click",function(){var u=el.getAttribute("data-url");if(u)window.open(u,"_blank","noopener");});});
 
   /* ---------- 目標 detail ---------- */
   function initGoal(){
